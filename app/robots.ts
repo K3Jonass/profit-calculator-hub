@@ -1,13 +1,11 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = "https://profithub.cloud";
-
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: "https://profithub.cloud/sitemap.xml",
   };
 }

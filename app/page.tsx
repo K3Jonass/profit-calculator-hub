@@ -3,14 +3,34 @@ import type { Metadata } from "next";
 import { calculators } from "@/lib/calculators-data";
 
 export const metadata: Metadata = {
-  title: "Free Profit Calculators for Online Businesses | ProfitHub",
+  title: "Free Profit Calculators for Online Businesses",
   description:
     "Use free online calculators to estimate ecommerce profit, SaaS MRR, freelance rates, and breakeven points.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function HomePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "ProfitHub",
+    url: "https://profithub.cloud",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://profithub.cloud/?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <section className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-16 shadow-sm md:px-12">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
         <div className="relative z-10 mx-auto max-w-4xl text-center">
@@ -89,7 +109,7 @@ export default function HomePage() {
               </div>
               <h3 className="mb-2 text-xl font-semibold text-slate-900">{item.title}</h3>
               <p className="mb-4 text-sm leading-6 text-slate-600">{item.description}</p>
-              <span className="text-sm font-semibold text-slate-900 transition group-hover:translate-x-1">
+              <span className="text-sm font-semibold text-slate-900">
                 Open calculator →
               </span>
             </Link>
@@ -135,7 +155,7 @@ export default function HomePage() {
               Are these calculators free?
             </h3>
             <p className="text-slate-600">
-              Yes. ProfitHub is built to provide free business calculators for ecommerce sellers,
+              Yes. ProfitHub provides free business calculators for ecommerce sellers,
               SaaS founders, and freelancers.
             </p>
           </div>
