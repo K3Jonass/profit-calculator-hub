@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://profithub.cloud"),
@@ -48,7 +50,16 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+      {/* 🔥 Vercel Analytics */}
+        <Analytics />
+
+        {/* 🚀 Speed Insights */}
+        <SpeedInsights />
       </body>
     </html>
-  );
+  )
 }
+
+
+
+        
