@@ -117,6 +117,22 @@ export default function HomePage() {
         </div>
       </section>
 
+      
+<section className="mt-16 max-w-4xl mx-auto text-center">
+  <h2 className="text-2xl font-bold mb-4">
+    Why Use Profit Calculators for Your Online Business?
+  </h2>
+
+  <p className="text-slate-600 mb-4">
+    Understanding your numbers is the difference between scaling a profitable business and losing money without realizing it.
+    ProfitHub helps ecommerce sellers, SaaS founders, and freelancers calculate their margins, costs, and break-even points instantly.
+  </p>
+
+  <p className="text-slate-600">
+    Whether you're running Shopify ads, building a SaaS product, or selling freelance services, these calculators give you clarity before making decisions.
+  </p>
+</section>
+
       <section className="mt-16 grid gap-8 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:grid-cols-2">
         <div>
           <h2 className="mb-3 text-2xl font-bold text-slate-900">
