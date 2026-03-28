@@ -42,4 +42,10 @@ export const calculators = [
     "Check whether a revenue share partnership is fair based on split percentage, workload, and expected earnings.",
   href: "/calculators/revenue-share",
 },
+{
+  title: "Cost of Delay Calculator",
+  description:
+    "Estimate how much money you lose by delaying a launch, project, business idea, or important decision.",
+  href: "/calculators/cost-of-delay",
+},
 ];
