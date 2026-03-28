@@ -48,4 +48,10 @@ export const calculators = [
     "Estimate how much money you lose by delaying a launch, project, business idea, or important decision.",
   href: "/calculators/cost-of-delay",
 },
+{
+  title: "Business Decision Score Calculator",
+  description:
+    "Score an idea, offer, or opportunity based on profit, time, cost, risk, and confidence.",
+  href: "/calculators/decision-score",
+},
 ];
