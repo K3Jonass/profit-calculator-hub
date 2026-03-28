@@ -17,6 +17,9 @@ export default function Navbar() {
           <Link href="/" className="transition hover:text-slate-900">
             Home
           </Link>
+          <Link href="/blog" className="transition hover:text-slate-900">
+            Blog
+          </Link>
           <Link href="/about" className="transition hover:text-slate-900">
             About
           </Link>
