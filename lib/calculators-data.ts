@@ -36,4 +36,10 @@ export const calculators = [
     "Calculate how much your subscriptions cost per month and per year, and spot where your money is leaking.",
   href: "/calculators/subscription-leak",
 },
+{
+  title: "Revenue Share Deal Calculator",
+  description:
+    "Check whether a revenue share partnership is fair based on split percentage, workload, and expected earnings.",
+  href: "/calculators/revenue-share",
+},
 ];
