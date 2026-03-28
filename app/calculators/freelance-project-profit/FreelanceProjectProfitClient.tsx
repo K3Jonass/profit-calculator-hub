@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 export default function FreelanceProjectProfitPage() {
@@ -223,6 +223,56 @@ export default function FreelanceProjectProfitPage() {
                 Check whether a client project is profitable before accepting it.
               </p>
             </div>
+
+          <div className="mt-12 grid gap-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
+  <div>
+    <h2 className="text-2xl font-semibold text-slate-900">
+      Should you accept this project?
+    </h2>
+    <p className="mt-4 text-slate-600 leading-7">
+      If your real hourly rate is low or your margin is weak, this freelance project
+      may not be worth your time. Consider increasing your price, reducing the scope,
+      or setting clearer revision limits before accepting the deal.
+    </p>
+  </div>
+
+  <div>
+    <h2 className="text-2xl font-semibold text-slate-900">
+      Common mistakes
+    </h2>
+    <ul className="mt-4 space-y-3 text-slate-600">
+      <li>• Underestimating revision time</li>
+      <li>• Ignoring platform fees</li>
+      <li>• Accepting difficult clients without pricing adjustment</li>
+      <li>• Forgetting hidden delivery or communication costs</li>
+    </ul>
+  </div>
+</div>
+
+<div className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+  <h2 className="text-2xl font-semibold text-slate-900">
+    Related calculators
+  </h2>
+  <p className="mt-3 text-slate-600">
+    Use more tools on ProfitHub to price your services better and avoid weak deals.
+  </p>
+
+  <div className="mt-5 flex flex-wrap gap-3">
+    <Link
+      href="/calculators/freelance-rate"
+      className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+    >
+      Improve your hourly rate →
+    </Link>
+
+    <Link
+      href="/calculators/breakeven"
+      className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+    >
+      Check your breakeven point →
+    </Link>
+  </div>
+</div>  
             <div className="rounded-2xl bg-slate-50 p-4">
               <h3 className="font-semibold">Agencies</h3>
               <p className="mt-2 text-sm text-slate-600">
