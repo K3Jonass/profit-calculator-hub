@@ -24,4 +24,10 @@ export const calculators = [
     href: "/calculators/breakeven",
     description: "Find out how many sales you need to cover your costs.",
   },
+  {
+  title: "Freelance Project Profit Analyzer",
+  description:
+    "Check whether a freelance project is actually worth taking after fees, revisions, and hidden costs.",
+  href: "/calculators/freelance-project-profit",
+},
 ];
