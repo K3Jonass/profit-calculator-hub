@@ -30,4 +30,10 @@ export const calculators = [
     "Check whether a freelance project is actually worth taking after fees, revisions, and hidden costs.",
   href: "/calculators/freelance-project-profit",
 },
+{
+  title: "Subscription Leak Calculator",
+  description:
+    "Calculate how much your subscriptions cost per month and per year, and spot where your money is leaking.",
+  href: "/calculators/subscription-leak",
+},
 ];
