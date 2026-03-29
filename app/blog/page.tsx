@@ -12,11 +12,67 @@ export const metadata: Metadata = {
 
 const posts = [
   {
-    title: "What Is Cost of Delay and Why It’s Destroying Your Business",
+    title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
     description:
-      "Learn what cost of delay means, how to calculate it, and why waiting can silently destroy revenue, momentum, and opportunity.",
-    href: "/blog/cost-of-delay-explained",
+      "Learn what Cost of Delay means, how to calculate it, and why slow product or business decisions quietly destroy revenue.",
+    href: "/blog/what-is-cost-of-delay",
     category: "Business Decision",
+  },
+  {
+    title: "How to Calculate Cost of Delay: A Simple Formula for Better Prioritization",
+    description:
+      "Learn how to calculate Cost of Delay using a simple formula, practical examples, and real business scenarios.",
+    href: "/blog/how-to-calculate-cost-of-delay",
+    category: "Business Decision",
+  },
+  {
+    title: "Cost of Delay Examples: How Ecommerce, SaaS, and Freelancers Lose Money by Waiting",
+    description:
+      "See real Cost of Delay examples across ecommerce, SaaS, and freelance work and learn how delayed action reduces revenue.",
+    href: "/blog/cost-of-delay-examples",
+    category: "Business Decision",
+  },
+  {
+    title: "What Is a Revenue Share Agreement? How to Structure Fair Profit Splits",
+    description:
+      "Learn what a revenue share agreement is, how revenue sharing works, and how to structure fair percentage splits.",
+    href: "/blog/what-is-a-revenue-share-agreement",
+    category: "Partnerships",
+  },
+  {
+    title: "How to Calculate Revenue Share: Formula, Examples, and Fair Split Logic",
+    description:
+      "Learn how to calculate revenue share with a simple formula, practical examples, and fair split logic for partnerships.",
+    href: "/blog/how-to-calculate-revenue-share",
+    category: "Partnerships",
+  },
+  {
+    title: "Revenue Share vs Profit Share: Which Partnership Model Makes More Sense?",
+    description:
+      "Compare revenue share vs profit share and learn which partnership model works best for creators, operators, and businesses.",
+    href: "/blog/revenue-share-vs-profit-share",
+    category: "Partnerships",
+  },
+  {
+    title: "What Is Subscription Leak? The Quiet Revenue Loss Most Businesses Ignore",
+    description:
+      "Learn what subscription leak is, how recurring revenue silently slips away, and why failed payments and weak retention hurt growth.",
+    href: "/blog/what-is-subscription-leak",
+    category: "Subscriptions",
+  },
+  {
+    title: "How to Reduce Subscription Churn and Stop Recurring Revenue Leakage",
+    description:
+      "Learn how to reduce subscription churn with better onboarding, payment recovery, cancellation flows, and retention systems.",
+    href: "/blog/how-to-reduce-subscription-churn",
+    category: "Subscriptions",
+  },
+  {
+    title: "Subscription Leak Calculator: How to Estimate Lost MRR from Churn and Retention Gaps",
+    description:
+      "Learn how a Subscription Leak Calculator helps estimate lost MRR from churn, failed payments, and retention gaps.",
+    href: "/blog/subscription-leak-calculator-guide",
+    category: "Subscriptions",
   },
 ];
 
