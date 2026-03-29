@@ -4,13 +4,34 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "ProfitHub Blog",
   description:
-    "Read practical articles about business calculators, pricing, profitability, ecommerce, SaaS, freelance work, and smarter money decisions.",
+    "Read practical articles about business calculators, pricing, profitability, ecommerce, SaaS, freelance work, subscriptions, and smarter money decisions.",
   alternates: {
     canonical: "/blog",
   },
 };
 
 const posts = [
+  {
+    title: "What Is a Breakeven Point? The Number Every Business Should Know",
+    description:
+      "Learn what a breakeven point is, how to calculate it, and why it matters for pricing, profitability, and business survival.",
+    href: "/blog/what-is-breakeven-point",
+    category: "Business Finance",
+  },
+  {
+    title: "How to Calculate Breakeven Point: Formula, Example, and Why It Matters",
+    description:
+      "Learn how to calculate your breakeven point using a simple formula and practical examples for products, services, and small businesses.",
+    href: "/blog/how-to-calculate-breakeven-point",
+    category: "Business Finance",
+  },
+  {
+    title: "Why Breakeven Analysis Matters: The Fastest Way to Test a Business Model",
+    description:
+      "Learn why breakeven analysis matters for pricing, planning, and profitability, and how it helps small businesses make smarter decisions.",
+    href: "/blog/why-breakeven-analysis-matters",
+    category: "Business Finance",
+  },
   {
     title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
     description:
@@ -158,6 +179,27 @@ const posts = [
     href: "/blog/freelance-income-goals",
     category: "Freelance",
   },
+  {
+    title: "Freelance Project Profit Explained: Why Revenue Is Not Enough",
+    description:
+      "Learn how to calculate freelance project profit, track real margins, and avoid working on projects that look good but lose money.",
+    href: "/blog/freelance-project-profit-explained",
+    category: "Freelance",
+  },
+  {
+    title: "How to Price Freelance Projects Profitably (Without Guessing)",
+    description:
+      "Learn how to price freelance projects based on profit, time, and value so you avoid underpricing and maximize income.",
+    href: "/blog/how-to-price-freelance-projects-profitably",
+    category: "Freelance",
+  },
+  {
+    title: "Freelance Project Profit Mistakes That Quietly Kill Your Income",
+    description:
+      "Avoid the most common freelance pricing and profitability mistakes that reduce your income over time.",
+    href: "/blog/freelance-project-profit-mistakes",
+    category: "Freelance",
+  },
 ];
 
 export default function BlogPage() {
@@ -174,9 +216,9 @@ export default function BlogPage() {
           </h1>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Read practical articles to help you understand margins, pricing,
-            recurring revenue, business decisions, and the real numbers behind
-            growth.
+            Read practical articles to understand pricing, margins, recurring
+            revenue, project profitability, partnerships, and the numbers behind
+            better business decisions.
           </p>
         </div>
       </section>

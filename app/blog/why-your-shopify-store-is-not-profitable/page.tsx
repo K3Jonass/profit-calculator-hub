@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="text-4xl font-bold mb-6">
-        Why Your Shopify Store Is Not Profitable (Even If You're Making Sales)
+        Why Your Shopify Store Is Not Profitable (Even If You&apos;re Making Sales)
       </h1>
 
       <p className="mb-6 text-lg text-gray-700">
