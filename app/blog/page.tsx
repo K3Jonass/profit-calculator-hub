@@ -74,6 +74,90 @@ const posts = [
     href: "/blog/subscription-leak-calculator-guide",
     category: "Subscriptions",
   },
+  {
+    title: "Shopify Profit Margin Explained: How to Know If Your Store Is Actually Making Money",
+    description:
+      "Learn how Shopify profit margins really work, how to calculate them, and how to know if your store is truly profitable.",
+    href: "/blog/shopify-profit-margin-explained",
+    category: "Ecommerce",
+  },
+  {
+    title: "How to Calculate Shopify Profit: A Simple Formula That Actually Works",
+    description:
+      "Learn how to calculate Shopify profit using a simple formula and understand your real business performance.",
+    href: "/blog/how-to-calculate-shopify-profit",
+    category: "Ecommerce",
+  },
+  {
+    title: "Why Your Shopify Store Is Not Profitable (Even If You're Making Sales)",
+    description:
+      "Discover why many Shopify stores generate revenue but fail to be profitable, and how to fix it.",
+    href: "/blog/why-your-shopify-store-is-not-profitable",
+    category: "Ecommerce",
+  },
+  {
+    title: "Dropshipping Profit Margin: What You Actually Keep Per Sale",
+    description:
+      "Learn how dropshipping profit margins work, what costs to include, and how to know if your store is actually profitable.",
+    href: "/blog/dropshipping-profit-margin",
+    category: "Ecommerce",
+  },
+  {
+    title: "Is Dropshipping Still Profitable in 2026?",
+    description:
+      "Discover if dropshipping is still profitable and what determines success in modern ecommerce.",
+    href: "/blog/is-dropshipping-profitable",
+    category: "Ecommerce",
+  },
+  {
+    title: "Dropshipping Profit Per Product: How to Price for Real Margins",
+    description:
+      "Learn how to calculate profit per product in dropshipping and avoid underpricing your offers.",
+    href: "/blog/dropshipping-profit-per-product",
+    category: "Ecommerce",
+  },
+  {
+    title: "What Is MRR? The Core Metric of Every SaaS Business",
+    description:
+      "Learn what MRR means, how it works, and why it’s the most important metric for SaaS growth.",
+    href: "/blog/what-is-mrr",
+    category: "SaaS",
+  },
+  {
+    title: "How to Calculate MRR: Simple SaaS Formula Explained",
+    description:
+      "Learn how to calculate Monthly Recurring Revenue (MRR) with simple formulas and examples.",
+    href: "/blog/how-to-calculate-mrr",
+    category: "SaaS",
+  },
+  {
+    title: "Why MRR Matters More Than Revenue in SaaS",
+    description:
+      "Understand why Monthly Recurring Revenue (MRR) is more important than total revenue for SaaS businesses.",
+    href: "/blog/why-mrr-matters",
+    category: "SaaS",
+  },
+  {
+    title: "How to Price Freelance Work: Stop Underselling Yourself",
+    description:
+      "Learn how to price freelance work based on value, time, and income targets instead of guesswork.",
+    href: "/blog/how-to-price-freelance-work",
+    category: "Freelance",
+  },
+  {
+    title: "Hourly vs Project Pricing: Which One Makes More Money?",
+    description:
+      "Compare hourly and project pricing to understand which model helps freelancers earn more.",
+    href: "/blog/freelance-hourly-vs-project",
+    category: "Freelance",
+  },
+  {
+    title: "How Much Should You Charge to Hit Your Income Goals?",
+    description:
+      "Learn how to reverse-engineer your freelance rate based on your target monthly or yearly income.",
+    href: "/blog/freelance-income-goals",
+    category: "Freelance",
+  },
 ];
 
 export default function BlogPage() {
@@ -91,7 +175,8 @@ export default function BlogPage() {
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Read practical articles to help you understand margins, pricing,
-            business decisions, and the real numbers behind growth.
+            recurring revenue, business decisions, and the real numbers behind
+            growth.
           </p>
         </div>
       </section>
@@ -106,7 +191,7 @@ export default function BlogPage() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {posts.map((post) => (
             <Link
               key={post.href}
@@ -117,7 +202,7 @@ export default function BlogPage() {
                 {post.category}
               </div>
 
-              <h3 className="mb-3 text-2xl font-semibold text-slate-900">
+              <h3 className="mb-3 text-2xl font-semibold leading-snug text-slate-900">
                 {post.title}
               </h3>
 
