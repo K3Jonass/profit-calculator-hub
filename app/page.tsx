@@ -3,13 +3,37 @@ import type { Metadata } from "next";
 import { calculators } from "@/lib/calculators-data";
 
 export const metadata: Metadata = {
-  title: "Free Profit Calculators for Online Businesses",
+  title: "Free Profit Calculators for Online Businesses | ProfitHub",
   description:
-    "ProfitHub.cloud offers free online profit calculators for ecommerce, SaaS, freelancers, subscriptions, revenue share deals, and cost of delay analysis.",
+    "ProfitHub.cloud offers free online calculators for ecommerce, SaaS, freelance work, subscriptions, revenue sharing, breakeven analysis, and smarter business decisions.",
   alternates: {
     canonical: "/",
   },
 };
+
+const featuredPosts = [
+  {
+    title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
+    description:
+      "Learn how delayed launches and slow decisions quietly destroy revenue and momentum.",
+    href: "/blog/what-is-cost-of-delay",
+    category: "Business Decision",
+  },
+  {
+    title: "What Is Subscription Leak? The Quiet Revenue Loss Most Businesses Ignore",
+    description:
+      "See how failed payments, weak retention, and churn silently drain recurring revenue.",
+    href: "/blog/what-is-subscription-leak",
+    category: "Subscriptions",
+  },
+  {
+    title: "What Is a Breakeven Point? The Number Every Business Should Know",
+    description:
+      "Understand the number that defines when your business stops losing money.",
+    href: "/blog/what-is-breakeven-point",
+    category: "Business Finance",
+  },
+];
 
 export default function HomePage() {
   const jsonLd = {
@@ -24,165 +48,225 @@ export default function HomePage() {
     },
   };
 
-  const articleJsonLd = {
+  const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "ProfitHub Featured Insights",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        url: "https://profithub.cloud/blog/cost-of-delay-explained",
-        name: "What Is Cost of Delay and Why It’s Destroying Your Business",
-      },
-    ],
+    name: "ProfitHub Calculators",
+    itemListElement: calculators.slice(0, 10).map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.title,
+      url: `https://profithub.cloud${item.href}`,
+    })),
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-14">
+    <main className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
-      <section className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-16 shadow-sm md:px-12 md:py-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
-        <div className="absolute -left-16 top-10 h-40 w-40 rounded-full bg-slate-100 blur-3xl" />
-        <div className="absolute -right-16 bottom-0 h-48 w-48 rounded-full bg-slate-100 blur-3xl" />
+      <section className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 px-6 py-14 text-white shadow-sm md:px-10 md:py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(148,163,184,0.18),transparent_28%)]" />
+        <div className="absolute -left-10 top-10 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-slate-400/10 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl" />
 
-        <div className="relative z-10 mx-auto max-w-5xl">
-          <div className="mb-6 flex flex-col items-center text-center">
-            <div className="mb-4 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-sm backdrop-blur">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-lg font-bold text-white shadow-sm">
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div>
+            <div className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm font-medium text-slate-200 backdrop-blur">
+              Free tools for operators, founders, freelancers, and ecommerce sellers
+            </div>
+
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-bold text-slate-950 shadow-sm">
                 PH
               </div>
-              <div className="text-left">
-                <p className="text-lg font-bold tracking-tight text-slate-900">
-                  ProfitHub
-                </p>
-                <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+              <div>
+                <p className="text-lg font-bold tracking-tight">ProfitHub</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
                   profithub.cloud
                 </p>
               </div>
             </div>
 
-            <div className="mb-4 inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-sm font-medium text-slate-600">
-              Free tools for founders, freelancers, ecommerce sellers, and operators
-            </div>
-
-            <h1 className="mb-5 max-w-4xl text-4xl font-bold tracking-tight text-slate-900 md:text-6xl md:leading-[1.05]">
+            <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl md:leading-[1.02]">
               Free Profit Calculators for Smarter Business Decisions
             </h1>
 
-            <p className="mx-auto mb-8 max-w-3xl text-lg leading-8 text-slate-600">
-              ProfitHub.cloud helps you calculate margins, profit, MRR, subscription waste,
-              freelance project value, revenue share fairness, and cost of delay with simple
-              free tools built for real decision making.
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+              ProfitHub helps you calculate margins, MRR, breakeven points,
+              subscription leakage, project profitability, revenue splits, and
+              cost of delay with fast tools built for real business decisions.
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/calculators/shopify-profit"
-                className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
               >
                 Start with a Calculator
               </Link>
+
               <a
                 href="#calculators"
-                className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
                 Explore All Tools
               </a>
+
               <Link
                 href="/blog"
-                className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
                 Read the Blog
               </Link>
             </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <p className="text-sm text-slate-400">Focus</p>
+                <p className="mt-2 text-xl font-semibold">Profitability</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <p className="text-sm text-slate-400">Built for</p>
+                <p className="mt-2 text-xl font-semibold">Ecommerce, SaaS, Freelance</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <p className="text-sm text-slate-400">Cost</p>
+                <p className="mt-2 text-xl font-semibold">Free to use</p>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-4">
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
-              <p className="text-sm text-slate-500">Built for</p>
-              <p className="mt-2 text-xl font-semibold text-slate-900">
-                Ecommerce
-              </p>
+          <div className="grid gap-4">
+            <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-sm font-medium text-slate-300">
+                  Operator Snapshot
+                </p>
+                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+                  Live Thinking
+                </span>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+                  <p className="text-sm text-slate-400">Margin Pressure</p>
+                  <p className="mt-2 text-2xl font-bold text-white">Visible</p>
+                  <p className="mt-2 text-sm text-slate-400">
+                    Understand if revenue is translating into real profit.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+                  <p className="text-sm text-slate-400">Revenue Leakage</p>
+                  <p className="mt-2 text-2xl font-bold text-white">Traceable</p>
+                  <p className="mt-2 text-sm text-slate-400">
+                    Spot churn, pricing gaps, and delayed decisions faster.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+                  <p className="text-sm text-slate-400">Breakeven Clarity</p>
+                  <p className="mt-2 text-2xl font-bold text-white">Actionable</p>
+                  <p className="mt-2 text-sm text-slate-400">
+                    Know the minimum sales volume your model needs.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+                  <p className="text-sm text-slate-400">Pricing Logic</p>
+                  <p className="mt-2 text-2xl font-bold text-white">Sharper</p>
+                  <p className="mt-2 text-sm text-slate-400">
+                    Make decisions with numbers instead of assumptions.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
-              <p className="text-sm text-slate-500">Built for</p>
-              <p className="mt-2 text-xl font-semibold text-slate-900">
-                SaaS
+            <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
+              <p className="text-sm font-medium text-slate-300">
+                Built for decisions that affect money
               </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
-              <p className="text-sm text-slate-500">Built for</p>
-              <p className="mt-2 text-xl font-semibold text-slate-900">
-                Freelance
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm">
-              <p className="text-sm text-slate-500">Cost</p>
-              <p className="mt-2 text-xl font-semibold text-slate-900">
-                Free to use
-              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {[
+                  "Profit Margins",
+                  "MRR",
+                  "Breakeven",
+                  "Revenue Share",
+                  "Subscription Leak",
+                  "Cost of Delay",
+                  "Freelance Pricing",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section className="mt-16 grid gap-6 md:grid-cols-3">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm text-slate-500">What ProfitHub does</p>
           <h2 className="mt-2 text-xl font-semibold text-slate-900">
             Turn numbers into decisions
           </h2>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            ProfitHub is not just a calculator website. It is a decision engine for pricing,
-            margins, launch timing, subscriptions, and business tradeoffs.
+            ProfitHub is not just a calculator site. It is a practical decision
+            layer for pricing, margins, retention, launch timing, and business
+            tradeoffs.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm text-slate-500">Why it matters</p>
           <h2 className="mt-2 text-xl font-semibold text-slate-900">
-            Stop guessing with money
+            Revenue can hide weak economics
           </h2>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            Many founders and freelancers lose money because they do not measure hidden costs,
-            wasted subscriptions, weak deals, or the price of delaying action.
+            Founders often scale traffic or sales before understanding margin
+            quality, revenue leakage, or breakeven pressure. That creates fake
+            momentum.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-sm text-slate-500">What you get</p>
+        <div className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm text-slate-500">How to use it</p>
           <h2 className="mt-2 text-xl font-semibold text-slate-900">
-            Fast free business clarity
+            Pick a calculator. Stress-test a decision.
           </h2>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            Use free calculators and practical guides to make better decisions before you spend,
-            launch, split revenue, or accept a project.
+            Whether you run a Shopify store, a SaaS product, or freelance
+            projects, start with the calculator tied to your most important
+            financial question.
           </p>
         </div>
       </section>
 
       <section id="calculators" className="mt-16">
-        <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-              Popular Calculators
+              Explore ProfitHub Calculators
             </h2>
-            <p className="mt-2 text-slate-600">
-              Choose a calculator based on the business metric or decision you want to understand.
+            <p className="mt-2 max-w-2xl text-slate-600">
+              Free calculators built for ecommerce profitability, SaaS metrics,
+              freelance pricing, partnership math, and smarter business calls.
             </p>
           </div>
+
           <Link
             href="/blog"
             className="text-sm font-semibold text-slate-900 transition hover:text-slate-700"
@@ -196,17 +280,20 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
               <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
                 Free Tool
               </div>
+
               <h3 className="mb-2 text-xl font-semibold text-slate-900">
                 {item.title}
               </h3>
-              <p className="mb-4 text-sm leading-6 text-slate-600">
+
+              <p className="mb-5 text-sm leading-6 text-slate-600">
                 {item.description}
               </p>
+
               <span className="text-sm font-semibold text-slate-900">
                 Open calculator →
               </span>
@@ -215,156 +302,110 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mt-16 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+      <section className="mt-16 rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 p-8 shadow-sm md:p-10">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-            Why Use Profit Calculators for Your Online Business?
+          <div className="inline-flex rounded-full border border-slate-200 bg-white px-4 py-1 text-sm font-medium text-slate-600">
+            Built for real-world business use
+          </div>
+
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+            Why use ProfitHub for your online business?
           </h2>
 
-          <p className="mt-4 text-slate-600">
-            Understanding your numbers is the difference between scaling a profitable business
-            and losing money without realizing it. ProfitHub helps ecommerce sellers, SaaS founders,
-            and freelancers calculate margins, costs, pricing, and break-even points instantly.
+          <p className="mt-4 text-slate-600 leading-8">
+            Understanding your numbers is the difference between scaling a
+            profitable business and growing a machine that leaks money.
+            ProfitHub helps ecommerce sellers, SaaS founders, and freelancers
+            calculate margins, costs, pricing, recurring revenue, and breakeven
+            pressure faster.
           </p>
 
-          <p className="mt-4 text-slate-600">
-            Whether you are running Shopify ads, building a SaaS product, launching a side project,
-            or selling freelance services, these calculators help you make faster and smarter decisions.
+          <p className="mt-4 text-slate-600 leading-8">
+            Whether you are launching products, buying traffic, setting prices,
+            or evaluating partnership terms, these calculators help you move
+            with more clarity and less financial blind spot.
           </p>
         </div>
       </section>
 
       <section className="mt-16">
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-            Latest Insights
-          </h2>
-          <p className="mt-2 text-slate-600">
-            Read practical articles connected to ProfitHub calculators and real business decisions.
-          </p>
+        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
+              Featured Insights
+            </h2>
+            <p className="mt-2 text-slate-600">
+              Read practical articles connected to ProfitHub calculators and
+              real business decisions.
+            </p>
+          </div>
+
+          <Link
+            href="/blog"
+            className="text-sm font-semibold text-slate-900 transition hover:text-slate-700"
+          >
+            Visit the full blog →
+          </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <Link
-            href="/blog/cost-of-delay-explained"
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-          >
-            <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-              Business Decision
-            </div>
-            <h3 className="text-2xl font-semibold text-slate-900">
-              What Is Cost of Delay and Why It’s Destroying Your Business
-            </h3>
-            <p className="mt-3 text-sm leading-6 text-slate-600">
-              Learn how delaying a launch, decision, or project can silently destroy revenue,
-              momentum, and growth.
-            </p>
-            <span className="mt-4 inline-block text-sm font-semibold text-slate-900">
-              Read article →
-            </span>
-          </Link>
-
-          <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 p-6 text-white shadow-sm">
-            <div className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-slate-200">
-              ProfitHub Blog
-            </div>
-            <h3 className="mt-4 text-2xl font-semibold">
-              More articles are coming
-            </h3>
-            <p className="mt-3 text-sm leading-6 text-slate-300">
-              We are building practical content around pricing, subscriptions, freelance profitability,
-              revenue share deals, and business opportunity cost.
-            </p>
+        <div className="grid gap-6 md:grid-cols-3">
+          {featuredPosts.map((post) => (
             <Link
-              href="/blog"
-              className="mt-5 inline-block rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+              key={post.href}
+              href={post.href}
+              className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
-              Visit the blog
+              <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                {post.category}
+              </div>
+
+              <h3 className="text-2xl font-semibold leading-snug text-slate-900">
+                {post.title}
+              </h3>
+
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                {post.description}
+              </p>
+
+              <span className="mt-5 inline-flex text-sm font-semibold text-slate-900">
+                Read article →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-16 rounded-[2rem] border border-slate-200 bg-slate-900 px-6 py-12 text-white shadow-sm md:px-10">
+        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">
+              Final CTA
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
+              Start with one decision that affects money
+            </h2>
+            <p className="mt-4 leading-8 text-slate-300">
+              Open a calculator, run the numbers, and turn a vague business
+              question into something measurable.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/calculators/breakeven"
+              className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+            >
+              Calculate Breakeven
+            </Link>
+            <Link
+              href="/calculators/saas-mrr"
+              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Calculate MRR
             </Link>
           </div>
         </div>
       </section>
-
-      <section className="mt-16 grid gap-8 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm md:grid-cols-2">
-        <div>
-          <h2 className="mb-3 text-2xl font-bold text-slate-900">
-            Why use ProfitHub?
-          </h2>
-          <p className="text-slate-600">
-            ProfitHub helps you stop guessing. Whether you are running ads, pricing services,
-            reviewing subscriptions, analyzing a revenue split, or measuring the cost of waiting,
-            these tools help you understand the numbers clearly.
-          </p>
-        </div>
-
-        <div>
-          <h3 className="mb-3 text-lg font-semibold text-slate-900">
-            Common use cases
-          </h3>
-          <ul className="space-y-2 text-slate-600">
-            <li>• Check Shopify margins before scaling ads</li>
-            <li>• Validate a dropshipping product before launch</li>
-            <li>• Estimate SaaS MRR and ARR quickly</li>
-            <li>• Price freelance work with more confidence</li>
-            <li>• Analyze whether a project is worth taking</li>
-            <li>• Find hidden subscription waste</li>
-            <li>• Measure the cost of delaying a launch</li>
-            <li>• Judge if a revenue share deal is fair</li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="mt-16">
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-            Frequently Asked Questions
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="mb-2 text-lg font-semibold text-slate-900">
-              Are these calculators free?
-            </h3>
-            <p className="text-slate-600">
-              Yes. ProfitHub.cloud provides free business calculators for ecommerce sellers,
-              SaaS founders, freelancers, and anyone who wants clearer financial decisions.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="mb-2 text-lg font-semibold text-slate-900">
-              Are the results exact?
-            </h3>
-            <p className="text-slate-600">
-              The results are estimates based on the numbers you enter. They are useful for
-              decision making, but they should not replace professional accounting, legal,
-              or tax advice.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="mb-2 text-lg font-semibold text-slate-900">
-              What makes ProfitHub different?
-            </h3>
-            <p className="text-slate-600">
-              ProfitHub focuses on calculators that support real business decisions, not just
-              raw math. The goal is to help you understand profitability, tradeoffs, hidden costs,
-              and opportunity loss faster.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="mb-2 text-lg font-semibold text-slate-900">
-              Will more calculators and articles be added?
-            </h3>
-            <p className="text-slate-600">
-              Yes. ProfitHub can grow into a larger business calculator and insights platform
-              with more tools, templates, articles, and educational content.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }
