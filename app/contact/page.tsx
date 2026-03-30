@@ -12,7 +12,7 @@ export default function ContactPage() {
       <p className="mb-6 text-slate-600">
         For questions, feedback, or partnership inquiries, contact us at:
       </p>
-      <p className="text-lg font-medium text-slate-900">contact@profithub.com</p>
+      <p className="text-lg font-medium text-slate-900">contact@profithub.cloud</p>
     </div>
   );
 }
