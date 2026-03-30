@@ -7,6 +7,11 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
+  icons: {
+  icon: "/favicon.ico",
+  shortcut: "/favicon.ico",
+  apple: "/icon.png",
+},
   metadataBase: new URL("https://profithub.cloud"),
   title: {
     default: "ProfitHub",
@@ -67,7 +72,12 @@ export default function RootLayout({
     "@type": "Organization",
     name: "ProfitHub",
     url: "https://profithub.cloud",
-    logo: "https://profithub.cloud/icon.png",
+    logo: {
+  "@type": "ImageObject",
+  url: "https://profithub.cloud/icon.png",
+  width: 512,
+  height: 512,
+},
   };
 
   const websiteJsonLd = {
