@@ -111,10 +111,11 @@ export default function RevenueShareContractPage() {
             />
 
             <ContractPaywall
-              hasContract={Boolean(contractText)}
-              isUnlocked={isUnlocked}
-              onUnlock={handleSimulateUnlock}
-            />
+  hasContract={Boolean(contractText)}
+  contractText={contractText}
+  isUnlocked={isUnlocked}
+  onUnlock={handleSimulateUnlock}
+/>
           </div>
         </div>
       </section>
