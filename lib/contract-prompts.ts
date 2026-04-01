@@ -1,12 +1,13 @@
 import type {
   RevenueShareFormValues,
   FreelancerFormValues,
+  InvoiceFormValues,
 } from "@/lib/contract-types";
 
 export const CONTRACT_SYSTEM_PROMPT = `
 You are a professional contract drafting assistant for small businesses, founders, freelancers, and ecommerce operators.
 
-Your job is to generate a clean, professional, plain-English revenue share agreement template.
+Your job is to generate a clean, professional, plain-English business document template based on the requested type.
 
 Important rules:
 - Do not provide legal advice.
@@ -86,6 +87,33 @@ Instructions:
 - Clarify that the freelancer is an independent contractor.
 - Include liability language suitable for a freelancer-client relationship.
 - Add signature lines for both parties.
+- End with this exact sentence:
+"This document is a template and not legal advice."
+`;
+}
+
+export function buildInvoicePrompt(values: InvoiceFormValues) {
+  return `
+Generate a professional invoice template using the following details.
+
+Business Name: ${values.businessName}
+Client Name: ${values.clientName}
+Invoice Number: ${values.invoiceNumber}
+Issue Date: ${values.issueDate}
+Due Date: ${values.dueDate}
+Services / Items Description: ${values.serviceDescription}
+Amount Due: ${values.amountDue}
+Currency: ${values.currency}
+Country / Jurisdiction: ${values.country}
+
+Instructions:
+- Format this as a clean invoice template with clear sections.
+- Include sender (business) and recipient (client) details.
+- Include invoice metadata (invoice number, issue date, due date).
+- Include a line item section based on the services/items description.
+- Include subtotal and total amount due in the specified currency.
+- Include simple payment terms and a late payment note.
+- Keep the structure practical for a freelancer or small business.
 - End with this exact sentence:
 "This document is a template and not legal advice."
 `;

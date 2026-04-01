@@ -35,6 +35,19 @@ export type FreelancerFormValues = {
   currency: SupportedCurrency;
 };
 
+
+export type InvoiceFormValues = {
+  businessName: string;
+  clientName: string;
+  invoiceNumber: string;
+  issueDate: string;
+  dueDate: string;
+  serviceDescription: string;
+  amountDue: string;
+  country: string;
+  currency: SupportedCurrency;
+};
+
 export type GenerateContractResponse = {
   contract: string;
   error?: string;
