@@ -9,14 +9,21 @@ import type {
   FreelancerFormValues,
 } from "@/lib/contract-types";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("OPENAI_API_KEY missing");
+  }
+
+  return new OpenAI({ apiKey });
+}
 
 export async function generateRevenueShareContract(
   values: RevenueShareFormValues
 ): Promise<string> {
   const userPrompt = buildRevenueSharePrompt(values);
+  const openai = getOpenAIClient();
 
   const response = await openai.responses.create({
     model: "gpt-5-mini",
@@ -55,6 +62,7 @@ export async function generateFreelancerContract(
   values: FreelancerFormValues
 ): Promise<string> {
   const userPrompt = buildFreelancerPrompt(values);
+  const openai = getOpenAIClient();
 
   const response = await openai.responses.create({
     model: "gpt-5-mini",
