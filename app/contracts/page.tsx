@@ -30,6 +30,13 @@ const contractGenerators = [
     badge: "Available",
   },
   {
+    title: "Client Access Request Generator",
+    description:
+      "Generate a structured client access request document with requested tools, purpose, urgency, and approval fields.",
+    href: "/contracts/client-access-request",
+    badge: "Available",
+  },
+  {
     title: "More contract generators coming soon",
     description:
       "NDA, service agreement, partnership agreement, supplier agreement, and more will be added to the Deal Engine.",

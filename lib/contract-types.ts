@@ -47,6 +47,16 @@ export type WelcomeDocFormValues = {
   country: string;
 };
 
+export type ClientAccessRequestValues = {
+  companyName: string;
+  clientName: string;
+  requestedAccess: string;
+  purposeOfAccess: string;
+  deadlineOrUrgency: string;
+  notesOrInstructions: string;
+  country: string;
+};
+
 export type InvoiceFormValues = {
   businessName: string;
   clientName: string;

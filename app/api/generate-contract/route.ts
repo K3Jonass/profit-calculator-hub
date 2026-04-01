@@ -4,18 +4,21 @@ import {
   generateFreelancerContract,
   generateInvoiceContract,
   generateWelcomeDoc,
+  generateClientAccessRequest,
 } from "@/lib/ai";
 import {
   generateLocalRevenueShareContract,
   generateLocalFreelancerContract,
   generateLocalInvoiceContract,
   generateLocalWelcomeDoc,
+  generateLocalClientAccessRequest,
 } from "@/lib/local-contract-template";
 import type {
   RevenueShareFormValues,
   FreelancerFormValues,
   InvoiceFormValues,
   WelcomeDocFormValues,
+  ClientAccessRequestValues,
 } from "@/lib/contract-types";
 
 function isNonEmptyString(value: unknown): value is string {
@@ -342,6 +345,68 @@ function validateWelcomeDocPayload(body: unknown): {
   };
 }
 
+function validateClientAccessRequestPayload(body: unknown): {
+  isValid: boolean;
+  error?: string;
+  values?: ClientAccessRequestValues;
+} {
+  if (!body || typeof body !== "object") {
+    return {
+      isValid: false,
+      error: "Invalid request body.",
+    };
+  }
+
+  const data = body as Record<string, unknown>;
+
+  const companyName = data.companyName;
+  const clientName = data.clientName;
+  const requestedAccess = data.requestedAccess;
+  const purposeOfAccess = data.purposeOfAccess;
+  const deadlineOrUrgency = data.deadlineOrUrgency;
+  const notesOrInstructions = data.notesOrInstructions;
+  const country = data.country;
+
+  if (!isNonEmptyString(companyName)) {
+    return { isValid: false, error: "Company name is required." };
+  }
+
+  if (!isNonEmptyString(clientName)) {
+    return { isValid: false, error: "Client name is required." };
+  }
+
+  if (!isNonEmptyString(requestedAccess)) {
+    return { isValid: false, error: "Requested access is required." };
+  }
+
+  if (!isNonEmptyString(purposeOfAccess)) {
+    return { isValid: false, error: "Purpose of access is required." };
+  }
+
+  if (!isNonEmptyString(deadlineOrUrgency)) {
+    return { isValid: false, error: "Deadline or urgency is required." };
+  }
+
+  if (!isNonEmptyString(country)) {
+    return { isValid: false, error: "Country is required." };
+  }
+
+  return {
+    isValid: true,
+    values: {
+      companyName: companyName.trim(),
+      clientName: clientName.trim(),
+      requestedAccess: requestedAccess.trim(),
+      purposeOfAccess: purposeOfAccess.trim(),
+      deadlineOrUrgency: deadlineOrUrgency.trim(),
+      notesOrInstructions: isNonEmptyString(notesOrInstructions)
+        ? notesOrInstructions.trim()
+        : "",
+      country: country.trim(),
+    },
+  };
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -443,6 +508,44 @@ export async function POST(request: Request) {
         console.error("AI welcome-doc generation failed, using local fallback:", error);
 
         const fallbackContract = generateLocalWelcomeDoc(values);
+
+        return NextResponse.json(
+          {
+            contract: fallbackContract,
+            fallback: true,
+          },
+          { status: 200 }
+        );
+      }
+    }
+
+    if (contractType === "client-access-request") {
+      const validation = validateClientAccessRequestPayload(body);
+
+      if (!validation.isValid || !validation.values) {
+        return NextResponse.json(
+          { error: validation.error || "Invalid request." },
+          { status: 400 }
+        );
+      }
+
+      const values = validation.values;
+
+      try {
+        if (!process.env.OPENAI_API_KEY) {
+          throw new Error("OPENAI_API_KEY missing");
+        }
+
+        const contract = await generateClientAccessRequest(values);
+
+        return NextResponse.json({ contract }, { status: 200 });
+      } catch (error) {
+        console.error(
+          "AI client-access-request generation failed, using local fallback:",
+          error
+        );
+
+        const fallbackContract = generateLocalClientAccessRequest(values);
 
         return NextResponse.json(
           {
