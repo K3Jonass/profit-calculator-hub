@@ -5,6 +5,7 @@ import {
   generateInvoiceContract,
   generateWelcomeDoc,
   generateClientAccessRequest,
+  generateFeedbackRequest,
 } from "@/lib/ai";
 import {
   generateLocalRevenueShareContract,
@@ -12,6 +13,7 @@ import {
   generateLocalInvoiceContract,
   generateLocalWelcomeDoc,
   generateLocalClientAccessRequest,
+  generateLocalFeedbackRequest,
 } from "@/lib/local-contract-template";
 import type {
   RevenueShareFormValues,
@@ -19,6 +21,7 @@ import type {
   InvoiceFormValues,
   WelcomeDocFormValues,
   ClientAccessRequestValues,
+  FeedbackRequestValues,
 } from "@/lib/contract-types";
 
 function isNonEmptyString(value: unknown): value is string {
@@ -407,6 +410,70 @@ function validateClientAccessRequestPayload(body: unknown): {
   };
 }
 
+function validateFeedbackRequestPayload(body: unknown): {
+  isValid: boolean;
+  error?: string;
+  values?: FeedbackRequestValues;
+} {
+  if (!body || typeof body !== "object") {
+    return {
+      isValid: false,
+      error: "Invalid request body.",
+    };
+  }
+
+  const data = body as Record<string, unknown>;
+
+  const businessName = data.businessName;
+  const clientName = data.clientName;
+  const projectDescription = data.projectDescription;
+  const resultsAchieved = data.resultsAchieved;
+  const platform = data.platform;
+  const tone = data.tone;
+  const country = data.country;
+
+  if (!isNonEmptyString(businessName)) {
+    return { isValid: false, error: "Your name or business name is required." };
+  }
+
+  if (!isNonEmptyString(clientName)) {
+    return { isValid: false, error: "Client name is required." };
+  }
+
+  if (!isNonEmptyString(projectDescription)) {
+    return { isValid: false, error: "Project description is required." };
+  }
+
+  if (!isNonEmptyString(resultsAchieved)) {
+    return { isValid: false, error: "Results achieved is required." };
+  }
+
+  if (!isNonEmptyString(platform)) {
+    return { isValid: false, error: "Platform is required." };
+  }
+
+  if (tone !== "formal" && tone !== "friendly") {
+    return { isValid: false, error: "Tone must be formal or friendly." };
+  }
+
+  if (!isNonEmptyString(country)) {
+    return { isValid: false, error: "Country is required." };
+  }
+
+  return {
+    isValid: true,
+    values: {
+      businessName: businessName.trim(),
+      clientName: clientName.trim(),
+      projectDescription: projectDescription.trim(),
+      resultsAchieved: resultsAchieved.trim(),
+      platform: platform.trim(),
+      tone,
+      country: country.trim(),
+    },
+  };
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -546,6 +613,44 @@ export async function POST(request: Request) {
         );
 
         const fallbackContract = generateLocalClientAccessRequest(values);
+
+        return NextResponse.json(
+          {
+            contract: fallbackContract,
+            fallback: true,
+          },
+          { status: 200 }
+        );
+      }
+    }
+
+    if (contractType === "feedback-request") {
+      const validation = validateFeedbackRequestPayload(body);
+
+      if (!validation.isValid || !validation.values) {
+        return NextResponse.json(
+          { error: validation.error || "Invalid request." },
+          { status: 400 }
+        );
+      }
+
+      const values = validation.values;
+
+      try {
+        if (!process.env.OPENAI_API_KEY) {
+          throw new Error("OPENAI_API_KEY missing");
+        }
+
+        const contract = await generateFeedbackRequest(values);
+
+        return NextResponse.json({ contract }, { status: 200 });
+      } catch (error) {
+        console.error(
+          "AI feedback-request generation failed, using local fallback:",
+          error
+        );
+
+        const fallbackContract = generateLocalFeedbackRequest(values);
 
         return NextResponse.json(
           {

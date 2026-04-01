@@ -4,6 +4,7 @@ import type {
   InvoiceFormValues,
   WelcomeDocFormValues,
   ClientAccessRequestValues,
+  FeedbackRequestValues,
 } from "@/lib/contract-types";
 
 export const CONTRACT_SYSTEM_PROMPT = `
@@ -170,6 +171,32 @@ Instructions:
 - Include timeline expectations based on the deadline/urgency provided.
 - Include a short security and confidentiality acknowledgment section.
 - Include a simple approval/sign-off section.
+- Include a governing law line using the country provided.
+- End with this exact sentence:
+"This document is a template and not legal advice."
+`;
+}
+
+export function buildFeedbackRequestPrompt(values: FeedbackRequestValues) {
+  return `
+Generate a professional feedback/testimonial request template using the following details.
+
+Your Name / Business Name: ${values.businessName}
+Client Name: ${values.clientName}
+Project Description: ${values.projectDescription}
+Results Achieved: ${values.resultsAchieved}
+Preferred Platform: ${values.platform}
+Tone: ${values.tone}
+Country / Jurisdiction: ${values.country}
+
+Instructions:
+- Format this as a concise request message that can be sent by email or direct message.
+- Include a clear greeting and personalized context.
+- Reference the project and key results in practical language.
+- Ask politely for feedback and a testimonial suitable for the requested platform.
+- Include a short optional prompt the client can use to make replying easier.
+- Match the requested tone (${values.tone}) while staying professional.
+- Include a brief thank-you and close with sender details.
 - Include a governing law line using the country provided.
 - End with this exact sentence:
 "This document is a template and not legal advice."
