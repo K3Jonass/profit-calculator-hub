@@ -16,6 +16,13 @@ const contractGenerators = [
     badge: "Available",
   },
   {
+    title: "Invoice Generator",
+    description:
+      "Generate a simple, professional invoice template with billing details, due dates, and payment terms.",
+    href: "/contracts/invoice",
+    badge: "Available",
+  },
+  {
     title: "More contract generators coming soon",
     description:
       "NDA, service agreement, partnership agreement, supplier agreement, and more will be added to the Deal Engine.",

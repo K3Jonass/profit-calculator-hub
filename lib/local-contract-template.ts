@@ -1,5 +1,6 @@
 import type { RevenueShareFormValues } from "@/lib/contract-types";
 import type { FreelancerFormValues } from "@/lib/contract-types";
+import type { InvoiceFormValues } from "@/lib/contract-types";
 
 export function generateLocalRevenueShareContract(
   values: RevenueShareFormValues
@@ -101,6 +102,35 @@ Date: __________________________
 Freelancer: ${values.freelancerName}
 Signature: ______________________
 Date: __________________________
+
+This document is a template and not legal advice.`;
+}
+
+export function generateLocalInvoiceContract(values: InvoiceFormValues) {
+  return `INVOICE
+
+From: ${values.businessName}
+To: ${values.clientName}
+
+Invoice Number: ${values.invoiceNumber}
+Issue Date: ${values.issueDate}
+Due Date: ${values.dueDate}
+Country: ${values.country}
+
+1. SERVICES / ITEMS
+${values.serviceDescription}
+
+2. BILLING SUMMARY
+Subtotal: ${values.amountDue} ${values.currency}
+Total Amount Due: ${values.amountDue} ${values.currency}
+
+3. PAYMENT TERMS
+Payment is due by ${values.dueDate}.
+Please include the invoice number (${values.invoiceNumber}) with the payment reference.
+A late payment fee may apply if payment is delayed beyond the due date, where permitted by applicable law.
+
+4. NOTES
+Thank you for your business.
 
 This document is a template and not legal advice.`;
 }

@@ -1,16 +1,27 @@
 import { NextResponse } from "next/server";
-import { generateRevenueShareContract, generateFreelancerContract } from "@/lib/ai";
-import { generateLocalRevenueShareContract, generateLocalFreelancerContract } from "@/lib/local-contract-template";
+import {
+  generateRevenueShareContract,
+  generateFreelancerContract,
+  generateInvoiceContract,
+} from "@/lib/ai";
+import {
+  generateLocalRevenueShareContract,
+  generateLocalFreelancerContract,
+  generateLocalInvoiceContract,
+} from "@/lib/local-contract-template";
 import type {
   RevenueShareFormValues,
   FreelancerFormValues,
+  InvoiceFormValues,
 } from "@/lib/contract-types";
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
-function isSupportedCurrency(value: unknown): value is RevenueShareFormValues["currency"] {
+function isSupportedCurrency(
+  value: unknown
+): value is RevenueShareFormValues["currency"] {
   return (
     value === "USD" ||
     value === "EUR" ||
@@ -181,6 +192,82 @@ function validateFreelancerPayload(body: unknown): {
   };
 }
 
+function validateInvoicePayload(body: unknown): {
+  isValid: boolean;
+  error?: string;
+  values?: InvoiceFormValues;
+} {
+  if (!body || typeof body !== "object") {
+    return {
+      isValid: false,
+      error: "Invalid request body.",
+    };
+  }
+
+  const data = body as Record<string, unknown>;
+
+  const businessName = data.businessName;
+  const clientName = data.clientName;
+  const invoiceNumber = data.invoiceNumber;
+  const issueDate = data.issueDate;
+  const dueDate = data.dueDate;
+  const serviceDescription = data.serviceDescription;
+  const amountDue = data.amountDue;
+  const country = data.country;
+  const currency = data.currency;
+
+  if (!isNonEmptyString(businessName)) {
+    return { isValid: false, error: "Business name is required." };
+  }
+
+  if (!isNonEmptyString(clientName)) {
+    return { isValid: false, error: "Client name is required." };
+  }
+
+  if (!isNonEmptyString(invoiceNumber)) {
+    return { isValid: false, error: "Invoice number is required." };
+  }
+
+  if (!isNonEmptyString(issueDate)) {
+    return { isValid: false, error: "Issue date is required." };
+  }
+
+  if (!isNonEmptyString(dueDate)) {
+    return { isValid: false, error: "Due date is required." };
+  }
+
+  if (!isNonEmptyString(serviceDescription)) {
+    return { isValid: false, error: "Services or items description is required." };
+  }
+
+  if (!isNonEmptyString(amountDue)) {
+    return { isValid: false, error: "Amount due is required." };
+  }
+
+  if (!isNonEmptyString(country)) {
+    return { isValid: false, error: "Country is required." };
+  }
+
+  if (!isSupportedCurrency(currency)) {
+    return { isValid: false, error: "Invalid currency." };
+  }
+
+  return {
+    isValid: true,
+    values: {
+      businessName: businessName.trim(),
+      clientName: clientName.trim(),
+      invoiceNumber: invoiceNumber.trim(),
+      issueDate: issueDate.trim(),
+      dueDate: dueDate.trim(),
+      serviceDescription: serviceDescription.trim(),
+      amountDue: amountDue.trim(),
+      country: country.trim(),
+      currency,
+    },
+  };
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -211,6 +298,41 @@ export async function POST(request: Request) {
         console.error("AI freelancer generation failed, using local fallback:", error);
 
         const fallbackContract = generateLocalFreelancerContract(values);
+
+        return NextResponse.json(
+          {
+            contract: fallbackContract,
+            fallback: true,
+          },
+          { status: 200 }
+        );
+      }
+    }
+
+    if (contractType === "invoice") {
+      const validation = validateInvoicePayload(body);
+
+      if (!validation.isValid || !validation.values) {
+        return NextResponse.json(
+          { error: validation.error || "Invalid request." },
+          { status: 400 }
+        );
+      }
+
+      const values = validation.values;
+
+      try {
+        if (!process.env.OPENAI_API_KEY) {
+          throw new Error("OPENAI_API_KEY missing");
+        }
+
+        const contract = await generateInvoiceContract(values);
+
+        return NextResponse.json({ contract }, { status: 200 });
+      } catch (error) {
+        console.error("AI invoice generation failed, using local fallback:", error);
+
+        const fallbackContract = generateLocalInvoiceContract(values);
 
         return NextResponse.json(
           {
