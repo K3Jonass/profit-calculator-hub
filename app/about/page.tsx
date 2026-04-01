@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
       
-      <section className="rounded-[2rem] border border-slate-200 bg-white p-10 shadow-sm">
+      <section className="rounded-4xl border border-slate-200 bg-white p-10 shadow-sm">
         <div className="max-w-3xl">
           <div className="mb-4 inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-sm font-medium text-slate-600">
             About ProfitHub
