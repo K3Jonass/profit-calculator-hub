@@ -8,9 +8,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   icons: {
-  icon: "/favicon.ico",
-  shortcut: "/favicon.ico",
-  apple: "/icon.png",
+  icon: "/icon",
+  shortcut: "/icon",
+  apple: "/icon",
 },
   metadataBase: new URL("https://profithub.cloud"),
   title: {
