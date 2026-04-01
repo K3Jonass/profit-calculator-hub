@@ -30,6 +30,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/contracts`,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/contracts/revenue-share`,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/contracts/freelancer`,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/contracts/invoice`,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/contracts/welcome-doc`,
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/calculators/shopify-profit`,
       priority: 0.9,
     },

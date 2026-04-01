@@ -1,3 +1,4 @@
+
 export const blogPosts = [
   {
     title: "What Is a Breakeven Point? The Number Every Business Should Know",
