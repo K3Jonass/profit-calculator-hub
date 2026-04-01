@@ -45,7 +45,7 @@ export default function AboutPage() {
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-semibold text-slate-900 mb-3">
-            Who it's for
+            Who it&apos;s for
           </h2>
           <p className="text-slate-600 leading-7">
             Freelancers, SaaS founders, ecommerce sellers, and small business
