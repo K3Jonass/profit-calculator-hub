@@ -1,6 +1,7 @@
 import type { RevenueShareFormValues } from "@/lib/contract-types";
 import type { FreelancerFormValues } from "@/lib/contract-types";
 import type { InvoiceFormValues } from "@/lib/contract-types";
+import type { WelcomeDocFormValues } from "@/lib/contract-types";
 
 export function generateLocalRevenueShareContract(
   values: RevenueShareFormValues
@@ -131,6 +132,41 @@ A late payment fee may apply if payment is delayed beyond the due date, where pe
 
 4. NOTES
 Thank you for your business.
+
+This document is a template and not legal advice.`;
+}
+
+
+export function generateLocalWelcomeDoc(values: WelcomeDocFormValues) {
+  return `CLIENT WELCOME DOCUMENT
+
+Welcome to ${values.companyName}!
+
+Client: ${values.clientName}
+Project: ${values.projectName}
+Country / Jurisdiction: ${values.country}
+
+1. WELCOME
+We are excited to support ${values.clientName} on ${values.projectName}.
+This document outlines how we will collaborate and what to expect throughout the engagement.
+
+2. SERVICES OVERVIEW
+${values.servicesOverview}
+
+3. COMMUNICATION CHANNELS
+${values.communicationChannels}
+
+4. TIMELINE OVERVIEW
+${values.timelineOverview}
+
+5. KEY DELIVERABLES
+${values.keyDeliverables}
+
+6. COLLABORATION EXPECTATIONS
+Both parties will communicate proactively, provide feedback in a timely manner, and keep project details organized through the agreed communication channels.
+
+7. GOVERNING LAW
+This document shall be governed by the laws of ${values.country}.
 
 This document is a template and not legal advice.`;
 }

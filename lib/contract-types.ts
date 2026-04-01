@@ -36,6 +36,17 @@ export type FreelancerFormValues = {
 };
 
 
+export type WelcomeDocFormValues = {
+  companyName: string;
+  clientName: string;
+  projectName: string;
+  servicesOverview: string;
+  communicationChannels: string;
+  timelineOverview: string;
+  keyDeliverables: string;
+  country: string;
+};
+
 export type InvoiceFormValues = {
   businessName: string;
   clientName: string;
