@@ -3,6 +3,7 @@ import type {
   FreelancerFormValues,
   InvoiceFormValues,
   WelcomeDocFormValues,
+  ClientAccessRequestValues,
 } from "@/lib/contract-types";
 
 export const CONTRACT_SYSTEM_PROMPT = `
@@ -142,6 +143,33 @@ Instructions:
 - Present timeline overview and key milestones clearly.
 - List the key deliverables in a clean section.
 - Include a simple collaboration expectations section.
+- Include a governing law line using the country provided.
+- End with this exact sentence:
+"This document is a template and not legal advice."
+`;
+}
+
+export function buildClientAccessRequestPrompt(
+  values: ClientAccessRequestValues
+) {
+  return `
+Generate a professional client access request document template using the following details.
+
+Company Name: ${values.companyName}
+Client Name: ${values.clientName}
+Requested Access (accounts/tools): ${values.requestedAccess}
+Purpose of Access: ${values.purposeOfAccess}
+Deadline / Urgency: ${values.deadlineOrUrgency}
+Notes / Instructions: ${values.notesOrInstructions || "None provided"}
+Country / Jurisdiction: ${values.country}
+
+Instructions:
+- Format this as a practical request document that can be sent to a client or internal approver.
+- Clearly list requested accounts/tools and the expected access scope.
+- Explain the purpose and business context in plain language.
+- Include timeline expectations based on the deadline/urgency provided.
+- Include a short security and confidentiality acknowledgment section.
+- Include a simple approval/sign-off section.
 - Include a governing law line using the country provided.
 - End with this exact sentence:
 "This document is a template and not legal advice."

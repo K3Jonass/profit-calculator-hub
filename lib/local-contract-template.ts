@@ -2,6 +2,7 @@ import type { RevenueShareFormValues } from "@/lib/contract-types";
 import type { FreelancerFormValues } from "@/lib/contract-types";
 import type { InvoiceFormValues } from "@/lib/contract-types";
 import type { WelcomeDocFormValues } from "@/lib/contract-types";
+import type { ClientAccessRequestValues } from "@/lib/contract-types";
 
 export function generateLocalRevenueShareContract(
   values: RevenueShareFormValues
@@ -167,6 +168,43 @@ Both parties will communicate proactively, provide feedback in a timely manner, 
 
 7. GOVERNING LAW
 This document shall be governed by the laws of ${values.country}.
+
+This document is a template and not legal advice.`;
+}
+
+export function generateLocalClientAccessRequest(
+  values: ClientAccessRequestValues
+) {
+  return `CLIENT ACCESS REQUEST
+
+Company: ${values.companyName}
+Client: ${values.clientName}
+Country / Jurisdiction: ${values.country}
+
+1. REQUESTED ACCESS
+${values.requestedAccess}
+
+2. PURPOSE OF ACCESS
+${values.purposeOfAccess}
+
+3. DEADLINE / URGENCY
+${values.deadlineOrUrgency}
+
+4. NOTES / INSTRUCTIONS
+${values.notesOrInstructions || "None provided."}
+
+5. SECURITY AND CONFIDENTIALITY
+Requested access should be granted using least-privilege principles where possible and only for the intended business purpose.
+Any credentials or sensitive data shared during this process must be handled securely and in accordance with agreed policies.
+
+6. APPROVAL
+Requested By (${values.companyName}): ______________________
+Date: ______________________
+
+Approved By (${values.clientName}): ______________________
+Date: ______________________
+
+Governing Law: ${values.country}
 
 This document is a template and not legal advice.`;
 }
