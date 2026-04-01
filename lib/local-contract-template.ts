@@ -1,4 +1,5 @@
 import type { RevenueShareFormValues } from "@/lib/contract-types";
+import type { FreelancerFormValues } from "@/lib/contract-types";
 
 export function generateLocalRevenueShareContract(
   values: RevenueShareFormValues
@@ -47,6 +48,57 @@ Signature: ______________________
 Date: __________________________
 
 Party B: ${values.partyBName}
+Signature: ______________________
+Date: __________________________
+
+This document is a template and not legal advice.`;
+}
+
+export function generateLocalFreelancerContract(
+  values: FreelancerFormValues
+) {
+  return `FREELANCER AGREEMENT
+
+This Freelancer Agreement ("Agreement") is entered into by and between ${values.clientName} ("Client") and ${values.freelancerName} ("Freelancer").
+
+1. PARTIES
+Client: ${values.clientName}
+Freelancer: ${values.freelancerName}
+
+2. SERVICES / SCOPE
+The Freelancer agrees to perform the following services:
+${values.projectDescription}
+
+3. PAYMENT TERMS
+The Client agrees to pay ${values.paymentAmount} ${values.currency} as a ${values.paymentType} payment.
+
+4. DEADLINE
+The expected completion date for the services is:
+${values.deadline || "Not specified"}
+
+5. RELATIONSHIP OF PARTIES
+The Freelancer is an independent contractor and not an employee of the Client.
+
+6. CONFIDENTIALITY
+Both parties agree to keep all confidential information related to the project private.
+
+7. TERMINATION
+Either party may terminate this Agreement with reasonable written notice.
+Any work completed before termination must be compensated accordingly.
+
+8. LIABILITY
+Each party is responsible for its own actions and obligations under this Agreement.
+
+9. GOVERNING LAW
+This Agreement shall be governed by the laws of ${values.country}.
+
+10. SIGNATURE BLOCKS
+
+Client: ${values.clientName}
+Signature: ______________________
+Date: __________________________
+
+Freelancer: ${values.freelancerName}
 Signature: ______________________
 Date: __________________________
 

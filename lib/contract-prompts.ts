@@ -1,4 +1,7 @@
-import type { RevenueShareFormValues } from "@/lib/contract-types";
+import type {
+  RevenueShareFormValues,
+  FreelancerFormValues,
+} from "@/lib/contract-types";
 
 export const CONTRACT_SYSTEM_PROMPT = `
 You are a professional contract drafting assistant for small businesses, founders, freelancers, and ecommerce operators.
@@ -54,6 +57,34 @@ Instructions:
 - Include a reasonable duration clause.
 - Include a reasonable termination clause.
 - Include liability language suitable for a business template.
+- Add signature lines for both parties.
+- End with this exact sentence:
+"This document is a template and not legal advice."
+`;
+}
+
+export function buildFreelancerPrompt(values: FreelancerFormValues) {
+  return `
+Generate a professional freelancer agreement template using the following details.
+
+Client Name: ${values.clientName}
+Freelancer Name: ${values.freelancerName}
+Project Description: ${values.projectDescription}
+Payment Amount: ${values.paymentAmount}
+Payment Type: ${values.paymentType}
+Deadline: ${values.deadline || "Not specified"}
+Country / Jurisdiction: ${values.country}
+Currency: ${values.currency}
+
+Instructions:
+- Use the country as the governing law jurisdiction.
+- Clearly define the scope of work based on the project description.
+- Specify whether payment is fixed or hourly and how it will be paid.
+- Include a reasonable deadline clause.
+- Include a confidentiality clause.
+- Include a termination clause that protects both parties.
+- Clarify that the freelancer is an independent contractor.
+- Include liability language suitable for a freelancer-client relationship.
 - Add signature lines for both parties.
 - End with this exact sentence:
 "This document is a template and not legal advice."

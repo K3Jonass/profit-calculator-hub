@@ -22,6 +22,19 @@ export type RevenueShareFormValues = {
   currency: SupportedCurrency;
 };
 
+export type FreelancerPaymentType = "fixed" | "hourly";
+
+export type FreelancerFormValues = {
+  clientName: string;
+  freelancerName: string;
+  projectDescription: string;
+  paymentAmount: string;
+  paymentType: FreelancerPaymentType;
+  deadline: string;
+  country: string;
+  currency: SupportedCurrency;
+};
+
 export type GenerateContractResponse = {
   contract: string;
   error?: string;
