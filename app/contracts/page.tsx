@@ -23,6 +23,13 @@ const contractGenerators = [
     badge: "Available",
   },
   {
+    title: "Welcome Document Generator",
+    description:
+      "Generate a polished client welcome document covering services, timelines, communication channels, and deliverables.",
+    href: "/contracts/welcome-doc",
+    badge: "Available",
+  },
+  {
     title: "More contract generators coming soon",
     description:
       "NDA, service agreement, partnership agreement, supplier agreement, and more will be added to the Deal Engine.",

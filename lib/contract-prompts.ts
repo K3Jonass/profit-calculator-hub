@@ -2,6 +2,7 @@ import type {
   RevenueShareFormValues,
   FreelancerFormValues,
   InvoiceFormValues,
+  WelcomeDocFormValues,
 } from "@/lib/contract-types";
 
 export const CONTRACT_SYSTEM_PROMPT = `
@@ -114,6 +115,34 @@ Instructions:
 - Include subtotal and total amount due in the specified currency.
 - Include simple payment terms and a late payment note.
 - Keep the structure practical for a freelancer or small business.
+- End with this exact sentence:
+"This document is a template and not legal advice."
+`;
+}
+
+
+export function buildWelcomeDocPrompt(values: WelcomeDocFormValues) {
+  return `
+Generate a professional client welcome document template using the following details.
+
+Company / Brand Name: ${values.companyName}
+Client Name: ${values.clientName}
+Project Name: ${values.projectName}
+Services Overview: ${values.servicesOverview}
+Communication Channels: ${values.communicationChannels}
+Timeline Overview: ${values.timelineOverview}
+Key Deliverables: ${values.keyDeliverables}
+Country / Jurisdiction: ${values.country}
+
+Instructions:
+- Format this as a practical onboarding welcome document for a new client.
+- Include a clear introduction and document purpose section.
+- Summarize services in straightforward language.
+- Clarify communication channels and response expectations.
+- Present timeline overview and key milestones clearly.
+- List the key deliverables in a clean section.
+- Include a simple collaboration expectations section.
+- Include a governing law line using the country provided.
 - End with this exact sentence:
 "This document is a template and not legal advice."
 `;
