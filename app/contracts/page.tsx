@@ -37,6 +37,13 @@ const contractGenerators = [
     badge: "Available",
   },
   {
+    title: "Feedback/Testimonial Request Generator",
+    description:
+      "Generate a polished feedback or testimonial request message tailored to project outcomes, tone, and platform.",
+    href: "/contracts/feedback-request",
+    badge: "Available",
+  },
+  {
     title: "More contract generators coming soon",
     description:
       "NDA, service agreement, partnership agreement, supplier agreement, and more will be added to the Deal Engine.",

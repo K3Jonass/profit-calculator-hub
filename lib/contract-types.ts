@@ -69,6 +69,18 @@ export type InvoiceFormValues = {
   currency: SupportedCurrency;
 };
 
+export type FeedbackRequestTone = "formal" | "friendly";
+
+export type FeedbackRequestValues = {
+  businessName: string;
+  clientName: string;
+  projectDescription: string;
+  resultsAchieved: string;
+  platform: string;
+  tone: FeedbackRequestTone;
+  country: string;
+};
+
 export type GenerateContractResponse = {
   contract: string;
   error?: string;

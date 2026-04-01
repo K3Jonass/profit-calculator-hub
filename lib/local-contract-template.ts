@@ -3,6 +3,7 @@ import type { FreelancerFormValues } from "@/lib/contract-types";
 import type { InvoiceFormValues } from "@/lib/contract-types";
 import type { WelcomeDocFormValues } from "@/lib/contract-types";
 import type { ClientAccessRequestValues } from "@/lib/contract-types";
+import type { FeedbackRequestValues } from "@/lib/contract-types";
 
 export function generateLocalRevenueShareContract(
   values: RevenueShareFormValues
@@ -205,6 +206,41 @@ Approved By (${values.clientName}): ______________________
 Date: ______________________
 
 Governing Law: ${values.country}
+
+This document is a template and not legal advice.`;
+}
+
+export function generateLocalFeedbackRequest(values: FeedbackRequestValues) {
+  const subjectLine =
+    values.tone === "formal"
+      ? `Testimonial Request - ${values.businessName}`
+      : `Quick favor? Feedback on our project`;
+
+  return `FEEDBACK / TESTIMONIAL REQUEST
+
+Subject: ${subjectLine}
+
+Hello ${values.clientName},
+
+I hope you're doing well. This is ${values.businessName}.
+
+I wanted to thank you again for the opportunity to collaborate on:
+${values.projectDescription}
+
+We were glad to help deliver:
+${values.resultsAchieved}
+
+If you're open to it, I'd really appreciate a short feedback note or testimonial that we can use on ${values.platform}.
+
+Optional prompt you can use:
+"What was the challenge before we started, what changed after the project, and what result mattered most to you?"
+
+Thank you for your time and support.
+
+Best regards,
+${values.businessName}
+
+Country / Jurisdiction: ${values.country}
 
 This document is a template and not legal advice.`;
 }
