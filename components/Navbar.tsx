@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,8 +13,35 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+type AuthUser = { id: string; email?: string } | null;
+
 export default function Navbar() {
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<AuthUser>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadUser() {
+      try {
+        const response = await fetch("/api/auth/me", { cache: "no-store" });
+        const data = (await response.json()) as { user: AuthUser };
+        if (mounted) {
+          setUser(data.user);
+        }
+      } catch {
+        if (mounted) {
+          setUser(null);
+        }
+      }
+    }
+
+    loadUser();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   function closeMobileMenu() {
     setIsMobileMenuOpen(false);
@@ -21,6 +49,14 @@ export default function Navbar() {
 
   function toggleMobileMenu() {
     setIsMobileMenuOpen((prev) => !prev);
+  }
+
+  async function handleLogout() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setUser(null);
+    closeMobileMenu();
+    router.refresh();
+    router.push("/");
   }
 
   return (
@@ -74,19 +110,38 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/contracts"
-            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:scale-[1.05] hover:shadow-lg"
-          >
-            Generate Contract
-          </Link>
-
-          <Link
-            href="/calculators"
-            className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800"
-          >
-            Calculators
-          </Link>
+          {user ? (
+            <>
+              <Link
+                href="/workspace"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800"
+              >
+                My Workspace
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm"
+              >
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:scale-[1.05] hover:shadow-lg"
+              >
+                Sign up free
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -123,21 +178,41 @@ export default function Navbar() {
             })}
 
             <div className="mt-3 grid grid-cols-1 gap-2">
-              <Link
-                href="/contracts"
-                onClick={closeMobileMenu}
-                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-md"
-              >
-                Generate Contract
-              </Link>
-
-              <Link
-                href="/calculators"
-                onClick={closeMobileMenu}
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800"
-              >
-                Calculators
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    href="/workspace"
+                    onClick={closeMobileMenu}
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900"
+                  >
+                    My Workspace
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white"
+                  >
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={closeMobileMenu}
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-800"
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={closeMobileMenu}
+                    className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-md"
+                  >
+                    Sign up free
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>

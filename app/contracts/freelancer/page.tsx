@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
 import FreelancerContractForm from "@/components/contracts/FreelancerContractForm";
 import ContractPreview from "@/components/contracts/ContractPreview";
 import ContractPaywall from "@/components/contracts/ContractPaywall";
@@ -9,11 +10,17 @@ import type {
   GenerateContractResponse,
 } from "@/lib/contract-types";
 
+function parseBudget(raw: string) {
+  const numeric = Number(raw.replace(/[^\d.]/g, ""));
+  return Number.isFinite(numeric) && numeric > 0 ? String(numeric) : "";
+}
+
 export default function FreelancerContractPage() {
   const [contractText, setContractText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [error, setError] = useState("");
+  const [lastValues, setLastValues] = useState<FreelancerFormValues | null>(null);
 
   async function handleGenerate(values: FreelancerFormValues) {
     try {
@@ -21,6 +28,7 @@ export default function FreelancerContractPage() {
       setError("");
       setContractText("");
       setIsUnlocked(false);
+      setLastValues(values);
 
       const response = await fetch("/api/generate-contract", {
         method: "POST",
@@ -52,6 +60,22 @@ export default function FreelancerContractPage() {
   function handleSimulateUnlock() {
     setIsUnlocked(true);
   }
+
+  const createProjectHref = useMemo(() => {
+    if (!lastValues) {
+      return "/workspace/projects";
+    }
+
+    const prefill = {
+      source_contract_type: "freelancer",
+      client_name: lastValues.clientName,
+      project_name: lastValues.projectDescription.slice(0, 80),
+      budget: parseBudget(lastValues.paymentAmount),
+      notes: `Contract source: Freelancer Contract\nFreelancer: ${lastValues.freelancerName}\nPayment type: ${lastValues.paymentType}\nDeadline: ${lastValues.deadline || "Not specified"}\nCountry: ${lastValues.country}`,
+    };
+
+    return `/workspace/projects?${new URLSearchParams(prefill).toString()}`;
+  }, [lastValues]);
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -112,6 +136,23 @@ export default function FreelancerContractPage() {
               contractText={contractText}
               isLoading={isLoading}
             />
+
+            {contractText ? (
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <h3 className="text-base font-semibold text-slate-900">Next step</h3>
+                <p className="mt-1 text-sm text-slate-600">
+                  Convert this contract into a workspace project with prefilled client and scope details.
+                </p>
+                <div className="mt-3">
+                  <Link
+                    href={createProjectHref}
+                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+                  >
+                    Create Project from this Contract
+                  </Link>
+                </div>
+              </div>
+            ) : null}
 
             <ContractPaywall
               hasContract={Boolean(contractText)}
