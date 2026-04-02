@@ -189,4 +189,130 @@ export const blogPosts = [
     href: "/blog/freelance-project-profit-mistakes",
     category: "Freelance",
   },
+  {
+    title: "Invoice Generator for Freelancers: Build a Payment System That Gets You Paid on Time",
+    description:
+      "Learn how freelancers can use an invoice generator to standardize billing, protect cash flow, and reduce late payments with practical operating systems.",
+    href: "/blog/invoice-generator-for-freelancers",
+    category: "Contracts",
+  },
+  {
+    title: "How to Write an Invoice That Gets Paid Fast (Without Chasing Clients)",
+    description:
+      "A practical guide to writing invoices that are clear, defensible, and optimized for faster client payments.",
+    href: "/blog/how-to-write-invoice-that-gets-paid-fast",
+    category: "Contracts",
+  },
+  {
+    title: "Invoice Workflow for Small Business Cash Flow: From Delivery to Collection",
+    description:
+      "Design an invoice workflow that protects small business cash flow with clear approvals, due dates, and escalation rules.",
+    href: "/blog/invoice-workflow-for-small-business-cash-flow",
+    category: "Contracts",
+  },
+  {
+    title: "Client Welcome Doc That Prevents Scope Creep Before It Starts",
+    description:
+      "Use a client welcome document to lock expectations, communication rules, and delivery boundaries before project execution begins.",
+    href: "/blog/client-welcome-doc-that-prevents-scope-creep",
+    category: "Contracts",
+  },
+  {
+    title: "Onboarding Welcome Document Checklist for Agencies and Freelancers",
+    description:
+      "A complete onboarding welcome document checklist to reduce confusion, speed execution, and improve client retention.",
+    href: "/blog/onboarding-welcome-document-checklist",
+    category: "Contracts",
+  },
+  {
+    title: "How to Automate Client Onboarding with Welcome Docs and Light SOPs",
+    description:
+      "Turn client onboarding into a repeatable system using welcome docs, approvals, and lightweight operating procedures.",
+    href: "/blog/automate-client-onboarding-with-welcome-docs",
+    category: "Contracts",
+  },
+  {
+    title: "Client Access Request Template: Get Logins Fast Without Creating Security Risk",
+    description:
+      "A practical client access request process for agencies and operators who need speed without compromising security.",
+    href: "/blog/client-access-request-template-security",
+    category: "Contracts",
+  },
+  {
+    title: "How to Request Client Access Without Delays, Rework, or Awkward Follow-Ups",
+    description:
+      "Learn a repeatable framework for requesting client access to ad accounts, analytics, and CMS tools without bottlenecks.",
+    href: "/blog/how-to-request-client-access-without-delays",
+    category: "Contracts",
+  },
+  {
+    title: "Client Access Handoff Process for Agencies: Start Fast and Exit Clean",
+    description:
+      "Build a client access handoff process that accelerates onboarding and protects both sides when the engagement ends.",
+    href: "/blog/client-access-handoff-process-for-agencies",
+    category: "Contracts",
+  },
+  {
+    title: "How to Ask for Testimonials That Convert into Qualified Leads",
+    description:
+      "A proven testimonial request workflow for freelancers and agencies that want social proof that actually sells.",
+    href: "/blog/how-to-ask-for-testimonials-that-convert",
+    category: "Contracts",
+  },
+  {
+    title: "Testimonial Request System After Project Delivery: Timing, Friction, and Follow-Through",
+    description:
+      "Design a post-delivery testimonial request system that increases response rates and captures credible proof.",
+    href: "/blog/testimonial-request-system-after-project-delivery",
+    category: "Contracts",
+  },
+  {
+    title: "Automate Feedback Requests for a Service Business Without Sounding Robotic",
+    description:
+      "Set up automated feedback and testimonial requests that keep a human tone while scaling client proof collection.",
+    href: "/blog/automate-feedback-requests-for-service-business",
+    category: "Contracts",
+  },
+  {
+    title: "Revenue Share Contract Terms That Protect Both Sides in Real Deals",
+    description:
+      "The essential revenue share contract terms to define economics, reporting, payment timing, and exit conditions.",
+    href: "/blog/revenue-share-contract-terms-that-protect-both-sides",
+    category: "Contracts",
+  },
+  {
+    title: "How to Negotiate Revenue Share Deals Without Killing the Partnership",
+    description:
+      "A negotiation playbook for revenue share deals that balances upside, risk, and operational ownership.",
+    href: "/blog/how-to-negotiate-revenue-share-deals",
+    category: "Contracts",
+  },
+  {
+    title: "Revenue Share Contract Red Flags: Clauses That Quietly Destroy Good Partnerships",
+    description:
+      "Spot the most dangerous red flags in revenue share contracts before signing and protect long-term upside.",
+    href: "/blog/revenue-share-contract-red-flags",
+    category: "Contracts",
+  },
+  {
+    title: "Freelancer Contract Clauses You Should Never Skip If You Want Predictable Profit",
+    description:
+      "The core freelancer contract clauses that protect scope, payment timing, intellectual property, and margins.",
+    href: "/blog/freelancer-contract-clauses-you-should-never-skip",
+    category: "Contracts",
+  },
+  {
+    title: "Freelance Contract Template for Project-Based Work: A Practical Operating Version",
+    description:
+      "Use a project-based freelance contract template that keeps delivery clear, revisions controlled, and payments enforceable.",
+    href: "/blog/freelance-contract-template-for-project-based-work",
+    category: "Contracts",
+  },
+  {
+    title: "Freelancer Contract Negotiation Guide: Protect Margin Without Losing Great Clients",
+    description:
+      "A negotiation framework freelancers can use to improve contract terms while preserving trust and deal velocity.",
+    href: "/blog/freelancer-contract-negotiation-guide",
+    category: "Contracts",
+  },
 ];
