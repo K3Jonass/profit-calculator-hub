@@ -49,3 +49,32 @@ Trigger submissions through `POST /api/indexnow`.
 - `{ "urls": ["/calculators/new-tool"], "includeAllPublic": false }` submits only specific URLs.
 
 Public URL coverage is managed in `lib/public-urls.ts` and reused by sitemap + IndexNow.
+
+## Phase 2: Mini Client Workspace (Supabase)
+
+New routes:
+
+- `/workspace`
+- `/workspace/clients`
+- `/workspace/projects`
+- `/workspace/projects/[id]`
+- `/portal/[slug]`
+
+### Environment variables
+
+Copy `.env.example` into `.env.local` and set:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+### Database schema
+
+Run SQL in `supabase/migrations/20260402_workspace_phase2.sql` to create:
+
+- `clients`
+- `projects`
+- `deliverables`
+
+If env values are missing, workspace pages still render and show setup guidance, so UI progress is not blocked.
