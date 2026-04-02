@@ -4,7 +4,28 @@ import { createProject, listClients, listProjects } from "@/lib/workspace-data";
 
 const statuses = ["planning", "active", "waiting", "completed"];
 
-export default async function WorkspaceProjectsPage() {
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+
+function readParam(params: Record<string, string | string[] | undefined>, key: string) {
+  const value = params[key];
+  return Array.isArray(value) ? value[0] || "" : value || "";
+}
+
+export default async function WorkspaceProjectsPage({ searchParams }: { searchParams: SearchParams }) {
+  const params = await searchParams;
+  const prefillClientName = decodeURIComponent(readParam(params, "client_name"));
+  const prefillProjectName = decodeURIComponent(readParam(params, "project_name"));
+  const prefillBudget = decodeURIComponent(readParam(params, "budget"));
+  const prefillNotes = decodeURIComponent(readParam(params, "notes"));
+  const sourceContractType = readParam(params, "source_contract_type");
+
+  const sourcePayload = {
+    clientName: prefillClientName || undefined,
+    projectName: prefillProjectName || undefined,
+    budget: prefillBudget || undefined,
+    notes: prefillNotes || undefined,
+  };
+
   const [{ configured: projectConfigured, data: projects }, { data: clients }] = await Promise.all([
     listProjects(),
     listClients(),
@@ -19,16 +40,31 @@ export default async function WorkspaceProjectsPage() {
     <div className="grid gap-6 lg:grid-cols-[360px,1fr]">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <h2 className="text-lg font-semibold text-slate-900">Create project</h2>
+        {sourceContractType === "freelancer" ? (
+          <p className="mt-2 rounded-xl bg-blue-50 px-3 py-2 text-sm text-blue-700">
+            Prefilled from freelancer contract.
+          </p>
+        ) : null}
         <form action={handleCreateProject} className="mt-4 space-y-3">
-          <select name="client_id" required className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm">
-            <option value="">Select client</option>
+          <input type="hidden" name="prefill_client_name" value={prefillClientName} />
+          <input type="hidden" name="source_contract_type" value={sourceContractType} />
+          <input type="hidden" name="source_contract_payload" value={JSON.stringify(sourcePayload)} />
+
+          <select name="client_id" defaultValue="" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm">
+            <option value="">{prefillClientName ? `Use or auto-create: ${prefillClientName}` : "Select client"}</option>
             {clients.map((client) => (
               <option key={client.id} value={client.id}>
                 {client.full_name}
               </option>
             ))}
           </select>
-          <input name="project_name" required placeholder="Project name" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
+          <input
+            name="project_name"
+            required
+            defaultValue={prefillProjectName}
+            placeholder="Project name"
+            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          />
           <select name="status" defaultValue="planning" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm">
             {statuses.map((status) => (
               <option key={status} value={status}>{status}</option>
@@ -38,9 +74,22 @@ export default async function WorkspaceProjectsPage() {
             <input name="start_date" type="date" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
             <input name="due_date" type="date" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
           </div>
-          <input name="budget" type="number" min="0" step="0.01" placeholder="Budget" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
-          <textarea name="notes" placeholder="Notes" className="min-h-24 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
-          <button type="submit" disabled={!projectConfigured || clients.length === 0} className="w-full rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">Add project</button>
+          <input
+            name="budget"
+            type="number"
+            min="0"
+            step="0.01"
+            defaultValue={prefillBudget}
+            placeholder="Budget"
+            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          />
+          <textarea
+            name="notes"
+            defaultValue={prefillNotes}
+            placeholder="Notes"
+            className="min-h-24 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          />
+          <button type="submit" disabled={!projectConfigured} className="w-full rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">Add project</button>
         </form>
       </section>
 

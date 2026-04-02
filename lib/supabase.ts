@@ -1,3 +1,5 @@
+import { createClient } from "@supabase/supabase-js";
+
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -7,10 +9,39 @@ interface SupabaseRequestOptions {
   query?: Record<string, string>;
   body?: unknown;
   preferReturnRepresentation?: boolean;
+  accessToken?: string;
 }
 
 export function isSupabaseConfigured() {
   return Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
+}
+
+export function getSupabaseBrowserClient() {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    throw new Error(
+      "Supabase credentials are missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+  }
+
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+export function getSupabaseServerClient(accessToken?: string) {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    throw new Error(
+      "Supabase credentials are missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+  }
+
+  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    global: {
+      headers: accessToken
+        ? {
+            Authorization: `Bearer ${accessToken}`,
+          }
+        : undefined,
+    },
+  });
 }
 
 export async function supabaseRestRequest<T>({
@@ -19,6 +50,7 @@ export async function supabaseRestRequest<T>({
   query,
   body,
   preferReturnRepresentation = false,
+  accessToken,
 }: SupabaseRequestOptions): Promise<T> {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     throw new Error(
@@ -38,7 +70,7 @@ export async function supabaseRestRequest<T>({
     headers: {
       "Content-Type": "application/json",
       apikey: SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      Authorization: `Bearer ${accessToken || SUPABASE_ANON_KEY}`,
       ...(preferReturnRepresentation ? { Prefer: "return=representation" } : {}),
     },
     body: body ? JSON.stringify(body) : undefined,
