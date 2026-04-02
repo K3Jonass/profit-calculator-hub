@@ -1,109 +1,22 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/lib/blog-posts";
+import { APP_BASE_URL, getAllPublicPaths } from "@/lib/public-urls";
+
+const PRIORITY_BY_PATH: Record<string, number> = {
+  "/": 1,
+  "/contracts": 0.9,
+  "/blog": 0.8,
+  "/about": 0.7,
+  "/contact": 0.6,
+  "/privacy-policy": 0.4,
+  "/terms": 0.4,
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://profithub.cloud";
-
-  const staticPages = [
-    {
-      url: `${baseUrl}`,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/privacy-policy`,
-      priority: 0.4,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      priority: 0.4,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contracts`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contracts/revenue-share`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contracts/freelancer`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contracts/invoice`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contracts/welcome-doc`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/shopify-profit`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/dropshipping-profit`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/saas-mrr`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/freelance-rate`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/breakeven`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/subscription-leak`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/revenue-share`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/cost-of-delay`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/freelance-project-profit`,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculators/business-decision-score`,
-      priority: 0.9,
-    },
-  ];
-
-  const staticUrls = staticPages.map((page) => ({
-    url: page.url,
+  // NOTE: New public pages/tools should be registered in lib/public-urls.ts.
+  return getAllPublicPaths().map((path) => ({
+    url: `${APP_BASE_URL}${path}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: page.priority,
+    priority: PRIORITY_BY_PATH[path] ?? 0.9,
   }));
-
-  const blogUrls = blogPosts.map((post) => ({
-    url: `${baseUrl}${post.href}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
-
-  return [...staticUrls, ...blogUrls];
 }

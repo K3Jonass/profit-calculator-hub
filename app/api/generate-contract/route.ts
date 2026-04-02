@@ -477,6 +477,10 @@ function validateFeedbackRequestPayload(body: unknown): {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    // NOTE: When adding a new generator type, also update:
+    // 1) app/sitemap.ts via lib/public-urls.ts
+    // 2) app/contracts/page.tsx via lib/contracts-generators.ts (if user-facing)
+    // 3) IndexNow submissions (lib/public-urls.ts + /api/indexnow)
     const contractType =
       typeof body?.contractType === "string" ? body.contractType : "revenue-share";
 
