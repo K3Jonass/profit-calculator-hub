@@ -1,25 +1,54 @@
 import { NextResponse } from "next/server";
+import {
+  canSubmitToIndexNow,
+  submitUrlsToIndexNow,
+} from "@/lib/indexnow";
+import { getAllPublicUrls, toAbsoluteUrl } from "@/lib/public-urls";
 
-export async function POST(req: Request) {
+type IndexNowRequest = {
+  urls?: string[];
+  includeAllPublic?: boolean;
+};
+
+export async function POST(request: Request) {
+  if (!canSubmitToIndexNow()) {
+    return NextResponse.json(
+      { error: "INDEXNOW_KEY is not configured." },
+      { status: 500 }
+    );
+  }
+
+  let payload: IndexNowRequest = {};
+
   try {
-    const { url } = await req.json();
+    payload = (await request.json()) as IndexNowRequest;
+  } catch {
+    // Allow empty body to submit all public URLs
+  }
 
-    const key = "YOUR_INDEXNOW_KEY";
+  const requestedUrls = Array.isArray(payload.urls)
+    ? payload.urls.filter((url): url is string => typeof url === "string")
+    : [];
 
-    await fetch("https://api.indexnow.org/indexnow", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        host: "profithub.cloud",
-        key,
-        urlList: [url],
-      }),
+  const combined = [
+    ...(payload.includeAllPublic === false ? [] : getAllPublicUrls()),
+    ...requestedUrls.map(toAbsoluteUrl),
+  ];
+
+  try {
+    const result = await submitUrlsToIndexNow(combined);
+
+    return NextResponse.json({
+      success: true,
+      submitted: result.submitted,
     });
-
-    return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ success: false });
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error ? error.message : "IndexNow submission failed.",
+      },
+      { status: 500 }
+    );
   }
 }
