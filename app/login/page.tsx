@@ -1,26 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { isSupabaseConfigured } from "@/lib/supabase";
-import { createSupabaseRouteHandlerClient } from "@/lib/supabase-server";
+import { Suspense } from "react";
+import { redirect } from "next/navigation";
+import AuthForm from "@/components/auth/AuthForm";
+import { getCurrentUser } from "@/lib/auth/server";
 
-export async function POST(request: NextRequest) {
-  if (!isSupabaseConfigured()) {
-    return NextResponse.json({ error: "Supabase is not configured." }, { status: 500 });
+function LoginContent() {
+  return <AuthForm mode="login" />;
+}
+
+export default async function LoginPage() {
+  const user = await getCurrentUser();
+
+  if (user) {
+    redirect("/workspace");
   }
 
-  const body = (await request.json()) as { email?: string; password?: string };
-  const email = String(body.email || "").trim();
-  const password = String(body.password || "");
-
-  if (!email || !password) {
-    return NextResponse.json({ error: "Email and password are required." }, { status: 400 });
-  }
-
-  const { supabase, applyCookies } = createSupabaseRouteHandlerClient(request);
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error || !data.session) {
-    return NextResponse.json({ error: error?.message || "Invalid credentials." }, { status: 401 });
-  }
-
-  return applyCookies(NextResponse.json({ ok: true }));
+  return (
+    <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <LoginContent />
+    </Suspense>
+  );
 }

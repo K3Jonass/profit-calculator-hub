@@ -1,9 +1,14 @@
-import { NextResponse } from "next/server";
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/lib/auth/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { createSupabaseRouteHandlerClient } from "@/lib/supabase-server";
 
-export async function POST() {
-  const response = NextResponse.json({ ok: true });
-  response.cookies.set(ACCESS_TOKEN_COOKIE, "", { path: "/", maxAge: 0 });
-  response.cookies.set(REFRESH_TOKEN_COOKIE, "", { path: "/", maxAge: 0 });
-  return response;
+export async function POST(request: NextRequest) {
+  if (!isSupabaseConfigured()) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const { supabase, applyCookies } = createSupabaseRouteHandlerClient(request);
+  await supabase.auth.signOut();
+
+  return applyCookies(NextResponse.json({ ok: true }));
 }
