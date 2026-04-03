@@ -1,13 +1,18 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase";
-
-export const ACCESS_TOKEN_COOKIE = "ph_access_token";
-export const REFRESH_TOKEN_COOKIE = "ph_refresh_token";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { getSupabaseServerClient } from "@/lib/supabase-server";
 
 export async function getAccessTokenFromCookies() {
-  const cookieStore = await cookies();
-  return cookieStore.get(ACCESS_TOKEN_COOKIE)?.value || "";
+  if (!isSupabaseConfigured()) {
+    return "";
+  }
+
+  const supabase = await getSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  return session?.access_token || "";
 }
 
 export async function getCurrentUser() {
@@ -15,13 +20,8 @@ export async function getCurrentUser() {
     return null;
   }
 
-  const accessToken = await getAccessTokenFromCookies();
-  if (!accessToken) {
-    return null;
-  }
-
-  const supabase = getSupabaseServerClient(accessToken);
-  const { data, error } = await supabase.auth.getUser(accessToken);
+  const supabase = await getSupabaseServerClient();
+  const { data, error } = await supabase.auth.getUser();
 
   if (error || !data.user) {
     return null;

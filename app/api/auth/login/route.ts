@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from "@/lib/auth/server";
-import { getSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase";
+import { NextRequest, NextResponse } from "next/server";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { createSupabaseRouteHandlerClient } from "@/lib/supabase-server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ error: "Supabase is not configured." }, { status: 500 });
   }
@@ -15,28 +15,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Email and password are required." }, { status: 400 });
   }
 
-  const supabase = getSupabaseServerClient();
+  const { supabase, applyCookies } = createSupabaseRouteHandlerClient(request);
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error || !data.session) {
     return NextResponse.json({ error: error?.message || "Invalid credentials." }, { status: 401 });
   }
 
-  const response = NextResponse.json({ ok: true });
-  response.cookies.set(ACCESS_TOKEN_COOKIE, data.session.access_token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: true,
-    path: "/",
-    maxAge: data.session.expires_in,
-  });
-  response.cookies.set(REFRESH_TOKEN_COOKIE, data.session.refresh_token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: true,
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-  });
-
-  return response;
+  return applyCookies(NextResponse.json({ ok: true }));
 }
