@@ -7,6 +7,7 @@ export const APP_BASE_URL = `https://${APP_HOST}`;
 // NOTE: For every new public page/tool, update this list so sitemap + IndexNow stay in sync.
 export const STATIC_PUBLIC_PATHS = [
   "/",
+  "/calculators",
   "/about",
   "/contact",
   "/privacy-policy",

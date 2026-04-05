@@ -29,6 +29,13 @@ export const blogPosts = [
     category: "Business Decision",
   },
   {
+    title: "Cost of Delay: What It Is and How It Silently Destroys Your Business Growth",
+    description:
+      "Learn what cost of delay is, how to estimate it, and why waiting quietly compounds lost revenue and momentum.",
+    href: "/blog/cost-of-delay-explained",
+    category: "Business Decision",
+  },
+  {
     title: "How to Calculate Cost of Delay: A Simple Formula for Better Prioritization",
     description:
       "Learn how to calculate Cost of Delay using a simple formula, practical examples, and real business scenarios.",
