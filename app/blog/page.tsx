@@ -47,7 +47,7 @@ export default function BlogPage() {
             <Link
               key={post.href}
               href={post.href}
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              className="hover-lift group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
             >
               <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
                 {post.category}
