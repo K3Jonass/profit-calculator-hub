@@ -8,6 +8,5 @@ export default function robots(): MetadataRoute.Robots {
     },
     sitemap: "https://profithub.cloud/sitemap.xml",
     host: "https://profithub.cloud",
-    host: "https://profithub.cloud",
   };
 }

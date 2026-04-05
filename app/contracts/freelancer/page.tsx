@@ -18,7 +18,6 @@ function parseBudget(raw: string) {
 export default function FreelancerContractPage() {
   const [contractText, setContractText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const [error, setError] = useState("");
   const [lastValues, setLastValues] = useState<FreelancerFormValues | null>(null);
 
@@ -27,7 +26,6 @@ export default function FreelancerContractPage() {
       setIsLoading(true);
       setError("");
       setContractText("");
-      setIsUnlocked(false);
       setLastValues(values);
 
       const response = await fetch("/api/generate-contract", {
@@ -57,9 +55,6 @@ export default function FreelancerContractPage() {
     }
   }
 
-  function handleSimulateUnlock() {
-    setIsUnlocked(true);
-  }
 
   const createProjectHref = useMemo(() => {
     if (!lastValues) {
@@ -157,8 +152,6 @@ export default function FreelancerContractPage() {
             <ContractPaywall
               hasContract={Boolean(contractText)}
               contractText={contractText}
-              isUnlocked={isUnlocked}
-              onUnlock={handleSimulateUnlock}
             />
           </div>
         </div>

@@ -12,7 +12,6 @@ import type {
 export default function RevenueShareContractPage() {
   const [contractText, setContractText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const [error, setError] = useState("");
 
   async function handleGenerate(values: RevenueShareFormValues) {
@@ -20,7 +19,6 @@ export default function RevenueShareContractPage() {
       setIsLoading(true);
       setError("");
       setContractText("");
-      setIsUnlocked(false);
 
       const response = await fetch("/api/generate-contract", {
         method: "POST",
@@ -46,9 +44,6 @@ export default function RevenueShareContractPage() {
     }
   }
 
-  function handleSimulateUnlock() {
-    setIsUnlocked(true);
-  }
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -111,11 +106,9 @@ export default function RevenueShareContractPage() {
             />
 
             <ContractPaywall
-  hasContract={Boolean(contractText)}
-  contractText={contractText}
-  isUnlocked={isUnlocked}
-  onUnlock={handleSimulateUnlock}
-/>
+              hasContract={Boolean(contractText)}
+              contractText={contractText}
+            />
           </div>
         </div>
       </section>
