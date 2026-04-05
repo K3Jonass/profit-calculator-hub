@@ -12,7 +12,6 @@ import type {
 export default function WelcomeDocGeneratorPage() {
   const [contractText, setContractText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const [error, setError] = useState("");
 
   async function handleGenerate(values: WelcomeDocFormValues) {
@@ -20,7 +19,6 @@ export default function WelcomeDocGeneratorPage() {
       setIsLoading(true);
       setError("");
       setContractText("");
-      setIsUnlocked(false);
 
       const response = await fetch("/api/generate-contract", {
         method: "POST",
@@ -49,9 +47,6 @@ export default function WelcomeDocGeneratorPage() {
     }
   }
 
-  function handleSimulateUnlock() {
-    setIsUnlocked(true);
-  }
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -109,8 +104,6 @@ export default function WelcomeDocGeneratorPage() {
             <ContractPaywall
               hasContract={Boolean(contractText)}
               contractText={contractText}
-              isUnlocked={isUnlocked}
-              onUnlock={handleSimulateUnlock}
             />
           </div>
         </div>

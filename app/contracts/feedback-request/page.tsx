@@ -12,7 +12,6 @@ import type {
 export default function FeedbackRequestPage() {
   const [contractText, setContractText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const [error, setError] = useState("");
 
   async function handleGenerate(values: FeedbackRequestValues) {
@@ -20,7 +19,6 @@ export default function FeedbackRequestPage() {
       setIsLoading(true);
       setError("");
       setContractText("");
-      setIsUnlocked(false);
 
       const response = await fetch("/api/generate-contract", {
         method: "POST",
@@ -49,9 +47,6 @@ export default function FeedbackRequestPage() {
     }
   }
 
-  function handleSimulateUnlock() {
-    setIsUnlocked(true);
-  }
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -112,8 +107,6 @@ export default function FeedbackRequestPage() {
             <ContractPaywall
               hasContract={Boolean(contractText)}
               contractText={contractText}
-              isUnlocked={isUnlocked}
-              onUnlock={handleSimulateUnlock}
             />
           </div>
         </div>
