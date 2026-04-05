@@ -1,575 +1,194 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { calculators } from "@/lib/calculators-data";
+import { blogPosts } from "@/lib/blog-posts";
 
-const featuredPosts = [
+const categories = [
   {
-    title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
+    title: "Ecommerce Calculators",
     description:
-      "Learn how delayed launches and slow decisions quietly destroy revenue and momentum.",
-    href: "/blog/what-is-cost-of-delay",
-    category: "Business Decision",
+      "Calculate Shopify and dropshipping profitability before scaling ad spend or launching new products.",
+    links: [
+      { href: "/calculators/shopify-profit", label: "Shopify Profit Calculator" },
+      { href: "/calculators/dropshipping-profit", label: "Dropshipping Profit Calculator" },
+      { href: "/calculators/breakeven", label: "Breakeven Calculator for Product Pricing" },
+    ],
   },
   {
-    title: "What Is Subscription Leak? The Quiet Revenue Loss Most Businesses Ignore",
+    title: "SaaS Calculators",
     description:
-      "See how failed payments, weak retention, and churn silently drain recurring revenue.",
-    href: "/blog/what-is-subscription-leak",
-    category: "Subscriptions",
+      "Track recurring revenue, churn leakage, and the opportunity cost of delayed product work.",
+    links: [
+      { href: "/calculators/saas-mrr", label: "SaaS MRR Calculator" },
+      { href: "/calculators/subscription-leak", label: "Subscription Leak Calculator" },
+      { href: "/calculators/cost-of-delay", label: "Cost of Delay Calculator" },
+    ],
   },
   {
-    title: "What Is a Breakeven Point? The Number Every Business Should Know",
+    title: "Freelancer & Deal Tools",
     description:
-      "Understand the number that defines when your business stops losing money.",
-    href: "/blog/what-is-breakeven-point",
-    category: "Business Finance",
+      "Price client work, analyze project profit, and model partnership split scenarios before committing.",
+    links: [
+      { href: "/calculators/freelance-rate", label: "Freelance Rate Calculator" },
+      { href: "/calculators/freelance-project-profit", label: "Freelance Project Profit Analyzer" },
+      { href: "/calculators/revenue-share", label: "Revenue Share Calculator" },
+    ],
   },
 ];
 
-const fadeUp = {
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" as const },
-  viewport: { once: true, amount: 0.2 },
-};
-
-const staggerParent = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-    },
+const useCases = [
+  {
+    title: "Validate a new Shopify product offer",
+    href: "/calculators/shopify-profit",
+    label: "Estimate Shopify product margin before launch",
   },
-};
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 22 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      ease: "easeOut" as const,
-    },
+  {
+    title: "Set your freelance pricing floor",
+    href: "/calculators/freelance-rate",
+    label: "Calculate a sustainable freelance hourly rate",
   },
-};
+  {
+    title: "Prioritize roadmap work by revenue impact",
+    href: "/calculators/cost-of-delay",
+    label: "Quantify the cost of delaying product decisions",
+  },
+  {
+    title: "Audit recurring revenue health",
+    href: "/calculators/subscription-leak",
+    label: "Estimate lost MRR from churn and payment failures",
+  },
+];
 
 export default function HomePageClient() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "ProfitHub",
-    url: "https://profithub.cloud",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://profithub.cloud/?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  const itemListJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "ProfitHub Calculators",
-    itemListElement: calculators.slice(0, 10).map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.title,
-      url: `https://profithub.cloud${item.href}`,
-    })),
-  };
+  const latestGuides = blogPosts.slice(0, 6);
+  const popularCalculators = calculators.slice(0, 6);
+  const featuredTools = calculators.slice(6, 10);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-14">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
-      />
-
-      <section className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 px-6 py-14 text-white shadow-sm md:px-10 md:py-20">
-        <motion.div
-          animate={{
-            opacity: [0.4, 0.7, 0.4],
-            scale: [1, 1.04, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute -left-10 top-10 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-            x: [0, -12, 0],
-            y: [0, 8, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute right-0 top-0 h-64 w-64 rounded-full bg-slate-400/10 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.45, 0.2],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl"
-        />
-
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(148,163,184,0.18),transparent_28%)]" />
-
-        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, duration: 0.5 }}
-              className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1 text-sm font-medium text-slate-200 backdrop-blur"
-            >
-              Free tools for operators, founders, freelancers, and ecommerce sellers
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className="mb-6 flex items-center gap-3"
-            >
-              <motion.div
-                whileHover={{ rotate: -4, scale: 1.05 }}
-                className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg font-bold text-slate-950 shadow-sm"
-              >
-                PH
-              </motion.div>
-
-              <div>
-                <p className="text-lg font-bold tracking-tight">ProfitHub</p>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                  profithub.cloud
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.7 }}
-              className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl md:leading-[1.02]"
-            >
-              Free Profit Calculators for Smarter Business Decisions
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.22, duration: 0.7 }}
-              className="mt-6 max-w-3xl text-lg leading-8 text-slate-300"
-            >
-              ProfitHub helps you calculate margins, MRR, breakeven points,
-              subscription leakage, project profitability, revenue splits, and
-              cost of delay with fast tools built for real business decisions.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28, duration: 0.7 }}
-              className="mt-8 flex flex-col gap-3 sm:flex-row"
-            >
-              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/calculators/shopify-profit"
-                  className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
-                >
-                  Start with a Calculator
-                </Link>
-              </motion.div>
-
-              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                <a
-                  href="#calculators"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                >
-                  Explore All Tools
-                </a>
-              </motion.div>
-
-              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                >
-                  Read the Blog
-                </Link>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              variants={staggerParent}
-              initial="hidden"
-              animate="show"
-              className="mt-10 grid gap-4 sm:grid-cols-3"
-            >
-              {[
-                { label: "Focus", value: "Profitability" },
-                { label: "Built for", value: "Ecommerce, SaaS, Freelance" },
-                { label: "Cost", value: "Free to use" },
-              ].map((item) => (
-                <motion.div
-                  key={item.label}
-                  variants={staggerItem}
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur"
-                >
-                  <p className="text-sm text-slate-400">{item.label}</p>
-                  <p className="mt-2 text-xl font-semibold">{item.value}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 26 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.18, duration: 0.7, ease: "easeOut" }}
-            className="grid gap-4"
-          >
-            <motion.div
-              whileHover={{ y: -4 }}
-              className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur"
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-sm font-medium text-slate-300">
-                  Operator Snapshot
-                </p>
-                <motion.span
-                  animate={{ opacity: [0.65, 1, 0.65] }}
-                  transition={{ duration: 2.2, repeat: Infinity }}
-                  className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-300"
-                >
-                  Live Thinking
-                </motion.span>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  {
-                    label: "Margin Pressure",
-                    value: "Visible",
-                    text: "Understand if revenue is translating into real profit.",
-                  },
-                  {
-                    label: "Revenue Leakage",
-                    value: "Traceable",
-                    text: "Spot churn, pricing gaps, and delayed decisions faster.",
-                  },
-                  {
-                    label: "Breakeven Clarity",
-                    value: "Actionable",
-                    text: "Know the minimum sales volume your model needs.",
-                  },
-                  {
-                    label: "Pricing Logic",
-                    value: "Sharper",
-                    text: "Make decisions with numbers instead of assumptions.",
-                  },
-                ].map((card, index) => (
-                  <motion.div
-                    key={card.label}
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.28 + index * 0.08, duration: 0.45 }}
-                    whileHover={{ y: -4, scale: 1.015 }}
-                    className="rounded-2xl border border-white/10 bg-slate-900/60 p-4"
-                  >
-                    <p className="text-sm text-slate-400">{card.label}</p>
-                    <p className="mt-2 text-2xl font-bold text-white">{card.value}</p>
-                    <p className="mt-2 text-sm text-slate-400">{card.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ y: -4 }}
-              className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur"
-            >
-              <p className="text-sm font-medium text-slate-300">
-                Built for decisions that affect money
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                {[
-                  "Profit Margins",
-                  "MRR",
-                  "Breakeven",
-                  "Revenue Share",
-                  "Subscription Leak",
-                  "Cost of Delay",
-                  "Freelance Pricing",
-                ].map((tag, index) => (
-                  <motion.span
-                    key={tag}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.32 + index * 0.04, duration: 0.35 }}
-                    whileHover={{ y: -2, scale: 1.03 }}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200"
-                  >
-                    {tag}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
+      <section className="motion-fade-up rounded-[2rem] border border-slate-200 bg-slate-950 px-6 py-14 text-white shadow-sm md:px-10 md:py-16">
+        <p className="inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
+          ProfitHub Calculator Platform
+        </p>
+        <h1 className="mt-5 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl md:leading-[1.04]">
+          Free Business Calculators for Ecommerce, SaaS, and Freelancers
+        </h1>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+          Use ProfitHub to calculate profit margins, MRR, breakeven targets, subscription leakage, revenue share payouts, and decision impact with practical tools designed for operators.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/calculators" className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-200">
+            Explore all business calculators
+          </Link>
+          <Link href="/calculators/shopify-profit" className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
+            Start with the Shopify Profit Calculator
+          </Link>
+          <Link href="/blog" className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
+            Read practical calculator guides
+          </Link>
         </div>
       </section>
 
-      <motion.section
-        {...fadeUp}
-        className="mt-16 grid gap-6 md:grid-cols-3"
-      >
-        {[
-          {
-            label: "What ProfitHub does",
-            title: "Turn numbers into decisions",
-            text: "ProfitHub is not just a calculator site. It is a practical decision layer for pricing, margins, retention, launch timing, and business tradeoffs.",
-          },
-          {
-            label: "Why it matters",
-            title: "Revenue can hide weak economics",
-            text: "Founders often scale traffic or sales before understanding margin quality, revenue leakage, or breakeven pressure. That creates fake momentum.",
-          },
-          {
-            label: "How to use it",
-            title: "Pick a calculator. Stress-test a decision.",
-            text: "Whether you run a Shopify store, a SaaS product, or freelance projects, start with the calculator tied to your most important financial question.",
-          },
-        ].map((card) => (
-          <motion.div
-            key={card.title}
-            whileHover={{ y: -6 }}
-            className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm"
-          >
-            <p className="text-sm text-slate-500">{card.label}</p>
-            <h2 className="mt-2 text-xl font-semibold text-slate-900">
-              {card.title}
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600">{card.text}</p>
-          </motion.div>
-        ))}
-      </motion.section>
+      <section className="motion-fade-up mt-14">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Calculator categories</h2>
+        <div className="mt-6 grid gap-5 md:grid-cols-3">
+          {categories.map((category) => (
+            <article key={category.title} className="hover-lift rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-xl font-semibold text-slate-900">{category.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{category.description}</p>
+              <ul className="mt-4 space-y-2 text-sm">
+                {category.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-blue-700">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <motion.section
-        id="calculators"
-        {...fadeUp}
-        className="mt-16"
-      >
-        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section className="motion-fade-up mt-14" id="popular-calculators">
+        <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-              Explore ProfitHub Calculators
-            </h2>
-            <p className="mt-2 max-w-2xl text-slate-600">
-              Free calculators built for ecommerce profitability, SaaS metrics,
-              freelance pricing, partnership math, and smarter business calls.
-            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Popular calculators</h2>
+            <p className="mt-2 text-slate-600">Start with the calculators most used by founders and operators.</p>
           </div>
-
-          <Link
-            href="/blog"
-            className="text-sm font-semibold text-slate-900 transition hover:text-slate-700"
-          >
-            Explore guides and insights →
+          <Link href="/calculators" className="text-sm font-semibold text-slate-900 hover:text-blue-700">
+            View all calculators →
           </Link>
         </div>
-
-        <motion.div
-          variants={staggerParent}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.12 }}
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-        >
-          {calculators.map((item) => (
-            <motion.div key={item.href} variants={staggerItem}>
-              <Link
-                href={item.href}
-                className="group block rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
-              >
-                <motion.div
-                  whileHover={{ y: -6 }}
-                  className="h-full"
-                >
-                  <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                    Free Tool
-                  </div>
-
-                  <h3 className="mb-2 text-xl font-semibold text-slate-900">
-                    {item.title}
-                  </h3>
-
-                  <p className="mb-5 text-sm leading-6 text-slate-600">
-                    {item.description}
-                  </p>
-
-                  <span className="text-sm font-semibold text-slate-900">
-                    Open calculator →
-                  </span>
-                </motion.div>
-              </Link>
-            </motion.div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {popularCalculators.map((item) => (
+            <Link key={item.href} href={item.href} className="hover-lift rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{item.description}</p>
+            </Link>
           ))}
-        </motion.div>
-      </motion.section>
-
-      <motion.section
-        {...fadeUp}
-        className="mt-16 rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 p-8 shadow-sm md:p-10"
-      >
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex rounded-full border border-slate-200 bg-white px-4 py-1 text-sm font-medium text-slate-600"
-          >
-            Built for real-world business use
-          </motion.div>
-
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-            Why use ProfitHub for your online business?
-          </h2>
-
-          <p className="mt-4 leading-8 text-slate-600">
-            Understanding your numbers is the difference between scaling a
-            profitable business and growing a machine that leaks money.
-            ProfitHub helps ecommerce sellers, SaaS founders, and freelancers
-            calculate margins, costs, pricing, recurring revenue, and breakeven
-            pressure faster.
-          </p>
-
-          <p className="mt-4 leading-8 text-slate-600">
-            Whether you are launching products, buying traffic, setting prices,
-            or evaluating partnership terms, these calculators help you move
-            with more clarity and less financial blind spot.
-          </p>
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section {...fadeUp} className="mt-16">
-        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section className="motion-fade-up mt-14">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Use ProfitHub by goal</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {useCases.map((useCase) => (
+            <Link key={useCase.title} href={useCase.href} className="hover-lift rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-blue-200 hover:shadow-md">
+              <h3 className="text-lg font-semibold text-slate-900">{useCase.title}</h3>
+              <p className="mt-2 text-sm text-blue-700">{useCase.label}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="motion-fade-up mt-14">
+        <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-              Featured Insights
-            </h2>
-            <p className="mt-2 text-slate-600">
-              Read practical articles connected to ProfitHub calculators and
-              real business decisions.
-            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Latest blog guides</h2>
+            <p className="mt-2 text-slate-600">Learn the strategy and formulas behind each calculator output.</p>
           </div>
-
-          <Link
-            href="/blog"
-            className="text-sm font-semibold text-slate-900 transition hover:text-slate-700"
-          >
-            Visit the full blog →
+          <Link href="/blog" className="text-sm font-semibold text-slate-900 hover:text-blue-700">
+            Browse all guides →
           </Link>
         </div>
-
-        <motion.div
-          variants={staggerParent}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid gap-6 md:grid-cols-3"
-        >
-          {featuredPosts.map((post) => (
-            <motion.div key={post.href} variants={staggerItem}>
-              <Link
-                href={post.href}
-                className="group block rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md"
-              >
-                <motion.div whileHover={{ y: -6 }}>
-                  <div className="mb-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                    {post.category}
-                  </div>
-
-                  <h3 className="text-2xl font-semibold leading-snug text-slate-900">
-                    {post.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    {post.description}
-                  </p>
-
-                  <span className="mt-5 inline-flex text-sm font-semibold text-slate-900">
-                    Read article →
-                  </span>
-                </motion.div>
-              </Link>
-            </motion.div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {latestGuides.map((post) => (
+            <Link key={post.href} href={post.href} className="hover-lift rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{post.category}</p>
+              <h3 className="mt-2 text-lg font-semibold text-slate-900">{post.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{post.description}</p>
+            </Link>
           ))}
-        </motion.div>
-      </motion.section>
-
-      <motion.section
-        {...fadeUp}
-        className="mt-16 rounded-[2rem] border border-slate-200 bg-slate-900 px-6 py-12 text-white shadow-sm md:px-10"
-      >
-        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">
-              Final CTA
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-              Start with one decision that affects money
-            </h2>
-            <p className="mt-4 leading-8 text-slate-300">
-              Open a calculator, run the numbers, and turn a vague business
-              question into something measurable.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/calculators/breakeven"
-                className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
-              >
-                Calculate Breakeven
-              </Link>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/calculators/saas-mrr"
-                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                Calculate MRR
-              </Link>
-            </motion.div>
-          </div>
         </div>
-      </motion.section>
+      </section>
+
+      <section className="motion-fade-up mt-14">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Featured tools for growth decisions</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {featuredTools.map((tool) => (
+            <Link key={tool.href} href={tool.href} className="hover-lift rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-blue-200 hover:shadow-md">
+              <h3 className="text-xl font-semibold text-slate-900">{tool.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{tool.description}</p>
+              <p className="mt-4 text-sm font-semibold text-blue-700">Open {tool.title}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="motion-fade-up mt-14 rounded-3xl border border-blue-200 bg-blue-50 px-6 py-10">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Turn insights into faster decisions</h2>
+        <p className="mt-3 max-w-3xl text-slate-700">
+          Pick one calculator, run your numbers, then use linked guides to improve pricing, retention, and profitability decisions this week.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/calculators" className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-700">
+            Go to the calculators hub
+          </Link>
+          <Link href="/contracts" className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100">
+            Explore contracts and deal tools
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

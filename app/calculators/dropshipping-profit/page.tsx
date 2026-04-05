@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import DropshippingProfitClient from "./DropshippingProfitClient";
+import CalculatorSeoScaffold from "@/components/seo/CalculatorSeoScaffold";
+import { calculatorSeoContent } from "@/lib/calculator-seo-content";
 
 export const metadata: Metadata = {
   title: "Dropshipping Profit Calculator Free | Profit & Margin Tool",
@@ -8,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function DropshippingProfitPage() {
-  return <DropshippingProfitClient />;
+  return (
+    <CalculatorSeoScaffold content={calculatorSeoContent["dropshipping-profit"]}>
+      <DropshippingProfitClient />
+    </CalculatorSeoScaffold>
+  );
 }

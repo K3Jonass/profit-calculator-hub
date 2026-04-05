@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function ContractsPage() {
   return (
     <main className="min-h-screen bg-slate-50">
-      <section className="border-b border-slate-200 bg-white">
+      <section className="motion-fade-up border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
@@ -35,7 +35,7 @@ export default function ContractsPage() {
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {contractGenerators.map((item) => {
             const content = (
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <div className="hover-lift rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="text-xl font-semibold text-slate-900">
                     {item.title}
