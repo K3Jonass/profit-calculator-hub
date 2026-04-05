@@ -5,242 +5,240 @@ import type { WelcomeDocFormValues } from "@/lib/contract-types";
 import type { ClientAccessRequestValues } from "@/lib/contract-types";
 import type { FeedbackRequestValues } from "@/lib/contract-types";
 
+function section(title: string, body: string) {
+  return `${title}\n${body.trim()}`;
+}
+
 export function generateLocalRevenueShareContract(
   values: RevenueShareFormValues
 ) {
-  return `REVENUE SHARE AGREEMENT
+  const today = new Date().toISOString().slice(0, 10);
 
-This Revenue Share Agreement ("Agreement") is entered into by and between ${values.partyAName} ("Party A") and ${values.partyBName} ("Party B").
-
-1. PARTIES
-Party A: ${values.partyAName}
-Party B: ${values.partyBName}
-
-2. PURPOSE / SCOPE
-This Agreement governs a revenue share arrangement relating to the following service or product:
-${values.serviceDescription}
-
-3. REVENUE SHARE TERMS
-Party B shall be entitled to receive ${values.revenueSharePercentage}% of the revenue generated from the applicable service, product, offer, or business activity covered by this Agreement, unless otherwise agreed in writing by both parties.
-
-4. PAYMENT TERMS
-Payments shall be calculated and paid on a ${values.paymentFrequency} basis in ${values.currency}.
-Each payment should be accompanied by a reasonable summary of the revenue calculation for the relevant period.
-
-5. DURATION
-This Agreement shall begin on the effective date signed by both parties and shall continue until terminated in accordance with this Agreement.
-
-6. TERMINATION
-Either party may terminate this Agreement by providing written notice to the other party within a reasonable notice period.
-Any unpaid revenue share amounts earned before the termination date shall remain payable.
-
-7. LIABILITY AND LIMITATION OF RESPONSIBILITY
-Each party remains responsible for its own business operations, decisions, and compliance obligations.
-Neither party shall be liable for indirect, incidental, or consequential losses except where required by applicable law.
-
-8. GOVERNING LAW
-This Agreement shall be governed by the laws of ${values.country}.
-
-9. GENERAL PROVISIONS
-Any amendments to this Agreement should be made in writing and agreed to by both parties.
-If any provision is found unenforceable, the remaining provisions shall remain in effect.
-
-10. SIGNATURE BLOCKS
-
-Party A: ${values.partyAName}
-Signature: ______________________
-Date: __________________________
-
-Party B: ${values.partyBName}
-Signature: ______________________
-Date: __________________________
-
-This document is a template and not legal advice.`;
+  return `${values.partyAName.toUpperCase()} - ${values.partyBName.toUpperCase()}\nREVENUE SHARE AGREEMENT\nDate: ${today}\n\nThis Revenue Share Agreement ("Agreement") is entered into by and between ${values.partyAName} ("Party A") and ${values.partyBName} ("Party B") as of the date above. The parties agree as follows:\n\n${section(
+    "Definitions",
+    `"Net Revenue" means gross amounts actually received from the services or products listed below, less refunds, payment processor fees, taxes, and chargebacks.\n"Services" means: ${values.serviceDescription}.`
+  )}\n\n${section(
+    "1. Scope of Work",
+    `${values.partyAName} will deliver and/or manage the Services. ${values.partyBName} will support execution as agreed between the parties. The Services covered by this Agreement are limited to: ${values.serviceDescription}.`
+  )}\n\n${section(
+    "2. Payment Terms",
+    `${values.partyBName} will receive ${values.revenueSharePercentage}% of Net Revenue from the Services. Settlement will be made on a ${values.paymentFrequency} basis in ${values.currency}. Each payment will include a simple revenue statement showing the calculation period, gross receipts, approved deductions, and final payable amount.`
+  )}\n\n${section(
+    "3. Responsibilities",
+    `Each party will:\n- Perform its obligations in good faith and in a commercially reasonable manner.\n- Maintain accurate records relevant to the revenue share calculation.\n- Promptly notify the other party of material issues affecting delivery or collections.`
+  )}\n\n${section(
+    "4. Duration & Termination",
+    `This Agreement starts on the date above and continues until terminated by either party with reasonable written notice. Any earned but unpaid revenue share accrued before the termination effective date remains payable.`
+  )}\n\n${section(
+    "5. Confidentiality",
+    `Each party will treat non-public commercial, financial, and customer information disclosed under this Agreement as confidential and will not disclose it except as required to perform obligations or by law.`
+  )}\n\n${section(
+    "6. Liability",
+    `To the maximum extent permitted by law, neither party is liable for indirect, incidental, or consequential losses. Each party remains responsible for its own acts, omissions, and compliance obligations.`
+  )}\n\n${section(
+    "7. Governing Law",
+    `This Agreement is governed by the laws of ${values.country}, without regard to conflict-of-law rules.`
+  )}\n\n${section(
+    "8. Signatures",
+    `Party A: ${values.partyAName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________\n\nParty B: ${values.partyBName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalFreelancerContract(
   values: FreelancerFormValues
 ) {
-  return `FREELANCER AGREEMENT
+  const today = new Date().toISOString().slice(0, 10);
 
-This Freelancer Agreement ("Agreement") is entered into by and between ${values.clientName} ("Client") and ${values.freelancerName} ("Freelancer").
-
-1. PARTIES
-Client: ${values.clientName}
-Freelancer: ${values.freelancerName}
-
-2. SERVICES / SCOPE
-The Freelancer agrees to perform the following services:
-${values.projectDescription}
-
-3. PAYMENT TERMS
-The Client agrees to pay ${values.paymentAmount} ${values.currency} as a ${values.paymentType} payment.
-
-4. DEADLINE
-The expected completion date for the services is:
-${values.deadline || "Not specified"}
-
-5. RELATIONSHIP OF PARTIES
-The Freelancer is an independent contractor and not an employee of the Client.
-
-6. CONFIDENTIALITY
-Both parties agree to keep all confidential information related to the project private.
-
-7. TERMINATION
-Either party may terminate this Agreement with reasonable written notice.
-Any work completed before termination must be compensated accordingly.
-
-8. LIABILITY
-Each party is responsible for its own actions and obligations under this Agreement.
-
-9. GOVERNING LAW
-This Agreement shall be governed by the laws of ${values.country}.
-
-10. SIGNATURE BLOCKS
-
-Client: ${values.clientName}
-Signature: ______________________
-Date: __________________________
-
-Freelancer: ${values.freelancerName}
-Signature: ______________________
-Date: __________________________
-
-This document is a template and not legal advice.`;
+  return `${values.clientName.toUpperCase()} - ${values.freelancerName.toUpperCase()}\nFREELANCER SERVICES AGREEMENT\nDate: ${today}\n\nThis Freelancer Services Agreement ("Agreement") is entered into by and between ${values.clientName} ("Client") and ${values.freelancerName} ("Freelancer") as of the date above.\n\n${section(
+    "Definitions",
+    `"Services" means: ${values.projectDescription}.\n"Deliverables" means the work product produced by the Freelancer under this Agreement.`
+  )}\n\n${section(
+    "1. Scope of Work",
+    `Freelancer will perform the following Services for Client: ${values.projectDescription}. Work outside this scope requires written approval by both parties.`
+  )}\n\n${section(
+    "2. Payment Terms",
+    `Client will pay ${values.paymentAmount} ${values.currency} on a ${values.paymentType} basis. Freelancer may issue invoices according to agreed milestones or schedule, and Client will pay each approved invoice by the due date stated on the invoice.`
+  )}\n\n${section(
+    "3. Responsibilities",
+    `Freelancer responsibilities:\n- Deliver Services using reasonable professional care.\n- Communicate progress and blockers in a timely manner.\n\nClient responsibilities:\n- Provide required inputs, approvals, and access in a timely manner.\n- Review submitted work and give consolidated feedback.`
+  )}\n\n${section(
+    "4. Duration & Termination",
+    `This Agreement starts on the date above. Target completion date: ${values.deadline || "Not specified"}. Either party may terminate with written notice. Client will pay for all approved work completed up to the termination date.`
+  )}\n\n${section(
+    "5. Confidentiality",
+    `Each party will keep confidential information private and use it only for this engagement. This obligation survives termination of the Agreement.`
+  )}\n\n${section(
+    "6. Liability",
+    `Freelancer acts as an independent contractor and not as an employee, agent, or partner of Client. Each party remains responsible for its own legal and tax obligations. Neither party is liable for indirect or consequential losses to the extent permitted by law.`
+  )}\n\n${section(
+    "7. Governing Law",
+    `This Agreement is governed by the laws of ${values.country}.`
+  )}\n\n${section(
+    "8. Signatures",
+    `Client: ${values.clientName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________\n\nFreelancer: ${values.freelancerName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalInvoiceContract(values: InvoiceFormValues) {
-  return `INVOICE
-
-From: ${values.businessName}
-To: ${values.clientName}
-
-Invoice Number: ${values.invoiceNumber}
-Issue Date: ${values.issueDate}
-Due Date: ${values.dueDate}
-Country: ${values.country}
-
-1. SERVICES / ITEMS
-${values.serviceDescription}
-
-2. BILLING SUMMARY
-Subtotal: ${values.amountDue} ${values.currency}
-Total Amount Due: ${values.amountDue} ${values.currency}
-
-3. PAYMENT TERMS
-Payment is due by ${values.dueDate}.
-Please include the invoice number (${values.invoiceNumber}) with the payment reference.
-A late payment fee may apply if payment is delayed beyond the due date, where permitted by applicable law.
-
-4. NOTES
-Thank you for your business.
-
-This document is a template and not legal advice.`;
+  return `${values.businessName.toUpperCase()}\nINVOICE\nDate: ${values.issueDate}\n\nThis invoice is issued by ${values.businessName} to ${values.clientName} for services and/or items described below.\n\n${section(
+    "Definitions",
+    `"Issuer" means ${values.businessName}.\n"Recipient" means ${values.clientName}.`
+  )}\n\n${section(
+    "1. Scope of Work",
+    `Services / Items:\n${values.serviceDescription}`
+  )}\n\n${section(
+    "2. Payment Terms",
+    `Invoice Number: ${values.invoiceNumber}\nIssue Date: ${values.issueDate}\nDue Date: ${values.dueDate}\nCurrency: ${values.currency}\nAmount Due: ${values.amountDue} ${values.currency}\n\nPayment is due by the due date above. Include invoice reference ${values.invoiceNumber} with payment.`
+  )}\n\n${section(
+    "3. Responsibilities",
+    `Issuer will provide the listed services/items as agreed. Recipient is responsible for timely payment and for notifying Issuer promptly of any billing discrepancy.`
+  )}\n\n${section(
+    "4. Duration & Termination",
+    `This invoice remains payable until settled in full, unless replaced by a corrected invoice issued in writing by ${values.businessName}.`
+  )}\n\n${section(
+    "5. Confidentiality",
+    `Commercial terms, rates, and project details contained in this invoice should be treated as confidential unless disclosure is required by law.`
+  )}\n\n${section(
+    "6. Liability",
+    `Late payment charges may apply where permitted by law. Liability remains limited to the unpaid amount under this invoice, except where prohibited by applicable law.`
+  )}\n\n${section(
+    "7. Governing Law",
+    `This invoice is governed by the laws of ${values.country}.`
+  )}\n\n${section(
+    "8. Signatures",
+    `Issuer (${values.businessName}): ____________________________\nDate: ____________________________\n\nRecipient (${values.clientName}): ____________________________\nDate: ____________________________`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
-
 export function generateLocalWelcomeDoc(values: WelcomeDocFormValues) {
-  return `CLIENT WELCOME DOCUMENT
+  const today = new Date().toISOString().slice(0, 10);
 
-Welcome to ${values.companyName}!
-
-Client: ${values.clientName}
-Project: ${values.projectName}
-Country / Jurisdiction: ${values.country}
-
-1. WELCOME
-We are excited to support ${values.clientName} on ${values.projectName}.
-This document outlines how we will collaborate and what to expect throughout the engagement.
-
-2. SERVICES OVERVIEW
-${values.servicesOverview}
-
-3. COMMUNICATION CHANNELS
-${values.communicationChannels}
-
-4. TIMELINE OVERVIEW
-${values.timelineOverview}
-
-5. KEY DELIVERABLES
-${values.keyDeliverables}
-
-6. COLLABORATION EXPECTATIONS
-Both parties will communicate proactively, provide feedback in a timely manner, and keep project details organized through the agreed communication channels.
-
-7. GOVERNING LAW
-This document shall be governed by the laws of ${values.country}.
-
-This document is a template and not legal advice.`;
+  return `${values.companyName.toUpperCase()}\nCLIENT WELCOME DOCUMENT\nDate: ${today}\n\nWelcome to ${values.companyName}. This document outlines how ${values.companyName} and ${values.clientName} will work together on ${values.projectName}.\n\n${section(
+    "Definitions",
+    `"Project" means ${values.projectName}.\n"Team" means representatives of ${values.companyName} and ${values.clientName}.`
+  )}\n\n${section(
+    "1. Scope of Work",
+    `Services Overview:\n${values.servicesOverview}`
+  )}\n\n${section(
+    "2. Payment Terms",
+    `Payment structure is governed by your signed proposal, service agreement, or statement of work, including invoice timing, due dates, and approved payment methods.`
+  )}\n\n${section(
+    "3. Responsibilities",
+    `Communication Channels:\n${values.communicationChannels}\n\nBoth parties will provide timely approvals, organized feedback, and complete project inputs needed for delivery.`
+  )}\n\n${section(
+    "4. Duration & Termination",
+    `Timeline Overview:\n${values.timelineOverview}\n\nEither party may pause or terminate work according to the governing service agreement.`
+  )}\n\n${section(
+    "5. Confidentiality",
+    `Both parties agree to protect confidential and proprietary information shared during onboarding and project execution.`
+  )}\n\n${section(
+    "6. Liability",
+    `Each party is responsible for its own internal processes, approvals, and compliance duties. Neither party is liable for indirect or consequential loss to the extent permitted by law.`
+  )}\n\n${section(
+    "7. Governing Law",
+    `This welcome document is governed by the laws of ${values.country}.`
+  )}\n\n${section(
+    "8. Signatures",
+    `Prepared by (${values.companyName}): ____________________________\nDate: ____________________________\n\nAcknowledged by (${values.clientName}): ____________________________\nDate: ____________________________\n\nKey Deliverables:\n${values.keyDeliverables}`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalClientAccessRequest(
   values: ClientAccessRequestValues
 ) {
-  return `CLIENT ACCESS REQUEST
+  const today = new Date().toISOString().slice(0, 10);
 
-Company: ${values.companyName}
-Client: ${values.clientName}
-Country / Jurisdiction: ${values.country}
-
-1. REQUESTED ACCESS
-${values.requestedAccess}
-
-2. PURPOSE OF ACCESS
-${values.purposeOfAccess}
-
-3. DEADLINE / URGENCY
-${values.deadlineOrUrgency}
-
-4. NOTES / INSTRUCTIONS
-${values.notesOrInstructions || "None provided."}
-
-5. SECURITY AND CONFIDENTIALITY
-Requested access should be granted using least-privilege principles where possible and only for the intended business purpose.
-Any credentials or sensitive data shared during this process must be handled securely and in accordance with agreed policies.
-
-6. APPROVAL
-Requested By (${values.companyName}): ______________________
-Date: ______________________
-
-Approved By (${values.clientName}): ______________________
-Date: ______________________
-
-Governing Law: ${values.country}
-
-This document is a template and not legal advice.`;
+  return `${values.companyName.toUpperCase()}\nCLIENT ACCESS REQUEST\nDate: ${today}\n\nThis document requests access required to complete approved project work for ${values.clientName}.\n\n${section(
+    "Definitions",
+    `"Requested Access" means account permissions, tools, and systems listed in this request.\n"Authorized Users" means approved personnel from ${values.companyName}.`
+  )}\n\n${section(
+    "1. Scope of Work",
+    `Requested Access:\n${values.requestedAccess}\n\nPurpose of Access:\n${values.purposeOfAccess}`
+  )}\n\n${section(
+    "2. Payment Terms",
+    `No additional payment obligation is created by this request unless agreed separately in writing.`
+  )}\n\n${section(
+    "3. Responsibilities",
+    `${values.companyName} responsibilities:\n- Use access strictly for approved business purposes.\n- Follow least-privilege principles and client security policies.\n- Report incidents promptly.\n\n${values.clientName} responsibilities:\n- Provision the required level of access within the agreed timeline.\n- Confirm constraints, approval flow, and revocation process.`
+  )}\n\n${section(
+    "4. Duration & Termination",
+    `Deadline / Urgency:\n${values.deadlineOrUrgency}\n\nAccess should remain active only as long as required for approved work and may be revoked upon completion or termination of the engagement.`
+  )}\n\n${section(
+    "5. Confidentiality",
+    `Credentials, internal systems, business data, and customer information obtained through granted access must be kept confidential and protected by appropriate safeguards.`
+  )}\n\n${section(
+    "6. Liability",
+    `Each party remains responsible for its own system controls and administrative actions. Unauthorized use is prohibited and may result in immediate access revocation.`
+  )}\n\n${section(
+    "7. Governing Law",
+    `This request is governed by the laws of ${values.country}.`
+  )}\n\n${section(
+    "8. Signatures",
+    `Requested By (${values.companyName}): ____________________________\nDate: ____________________________\n\nApproved By (${values.clientName}): ____________________________\nDate: ____________________________\n\nAdditional Notes:\n${values.notesOrInstructions || "None provided."}`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalFeedbackRequest(values: FeedbackRequestValues) {
-  const subjectLine =
+  const today = new Date().toISOString().slice(0, 10);
+  const toneLine =
     values.tone === "formal"
-      ? `Testimonial Request - ${values.businessName}`
-      : `Quick favor? Feedback on our project`;
+      ? "This request is presented in a formal tone."
+      : "This request is presented in a friendly, conversational tone.";
 
-  return `FEEDBACK / TESTIMONIAL REQUEST
-
-Subject: ${subjectLine}
-
-Hello ${values.clientName},
-
-I hope you're doing well. This is ${values.businessName}.
-
-I wanted to thank you again for the opportunity to collaborate on:
-${values.projectDescription}
-
-We were glad to help deliver:
-${values.resultsAchieved}
-
-If you're open to it, I'd really appreciate a short feedback note or testimonial that we can use on ${values.platform}.
-
-Optional prompt you can use:
-"What was the challenge before we started, what changed after the project, and what result mattered most to you?"
-
-Thank you for your time and support.
-
-Best regards,
-${values.businessName}
-
-Country / Jurisdiction: ${values.country}
-
-This document is a template and not legal advice.`;
+  return `${values.businessName.toUpperCase()}\nCLIENT FEEDBACK & TESTIMONIAL REQUEST\nDate: ${today}\n\nThis request asks ${values.clientName} for feedback and permission to use a testimonial related to recently completed work.\n\n${section(
+    "Definitions",
+    `"Feedback" means private comments for service improvement.\n"Testimonial" means a public statement the client authorizes ${values.businessName} to share on ${values.platform}.`
+  )}\n\n${section(
+    "1. Scope of Work",
+    `Project Context:\n${values.projectDescription}\n\nResults Achieved:\n${values.resultsAchieved}`
+  )}\n\n${section(
+    "2. Payment Terms",
+    `No payment is requested through this document. This is a communication and approval request only.`
+  )}\n\n${section(
+    "3. Responsibilities",
+    `${values.businessName} will:\n- Use any testimonial only as authorized by the client.\n- Preserve context and avoid misleading edits.\n\n${values.clientName} may:\n- Share brief written feedback on outcomes and experience.\n- Approve, decline, or revise any public testimonial language.`
+  )}\n\n${section(
+    "4. Duration & Termination",
+    `This request remains open until the client responds or declines. Either party may withdraw from this request at any time before publication.`
+  )}\n\n${section(
+    "5. Confidentiality",
+    `Non-public information shared while preparing feedback remains confidential unless the client explicitly approves public disclosure.`
+  )}\n\n${section(
+    "6. Liability",
+    `Published testimonials are used for informational marketing purposes only and do not create guarantees of future performance.`
+  )}\n\n${section(
+    "7. Governing Law",
+    `This request is governed by the laws of ${values.country}.`
+  )}\n\n${section(
+    "8. Signatures",
+    `Requested By (${values.businessName}): ____________________________\nDate: ____________________________\n\nAcknowledged By (${values.clientName}): ____________________________\nDate: ____________________________\n\nPreferred platform: ${values.platform}\nTone guidance: ${toneLine}`
+  )}\n\nSuggested client prompt:\n"What challenge did you face before we started, what changed after the project, and what result mattered most to you?"\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
