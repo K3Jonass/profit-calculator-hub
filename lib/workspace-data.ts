@@ -1,5 +1,4 @@
 import { revalidatePath } from "next/cache";
-import { getAccessTokenFromCookies, requireAuthUser } from "@/lib/auth/server";
 import { isSupabaseConfigured, supabaseRestRequest } from "@/lib/supabase";
 import {
   Client,
@@ -10,17 +9,6 @@ import {
   ProjectStatus,
   ProjectWithClient,
 } from "@/lib/workspace-types";
-
-async function getAuthContext() {
-  const user = await requireAuthUser();
-  const accessToken = await getAccessTokenFromCookies();
-
-  if (!accessToken) {
-    throw new Error("You must be logged in.");
-  }
-
-  return { user, accessToken };
-}
 
 export async function getWorkspaceSummary() {
   if (!isSupabaseConfigured()) {
@@ -33,23 +21,18 @@ export async function getWorkspaceSummary() {
     };
   }
 
-  const { user, accessToken } = await getAuthContext();
-
   const [clients, projects, deliverables] = await Promise.all([
     supabaseRestRequest<Client[]>({
       table: "clients",
-      query: { select: "id", owner_user_id: `eq.${user.id}` },
-      accessToken,
+      query: { select: "id" },
     }),
     supabaseRestRequest<Project[]>({
       table: "projects",
-      query: { select: "id,status", owner_user_id: `eq.${user.id}` },
-      accessToken,
+      query: { select: "id,status" },
     }),
     supabaseRestRequest<Deliverable[]>({
       table: "deliverables",
-      query: { select: "id", owner_user_id: `eq.${user.id}` },
-      accessToken,
+      query: { select: "id" },
     }),
   ]);
 
@@ -67,16 +50,12 @@ export async function listClients() {
     return { configured: false, data: [] as Client[] };
   }
 
-  const { user, accessToken } = await getAuthContext();
-
   const data = await supabaseRestRequest<Client[]>({
     table: "clients",
     query: {
       select: "*",
-      owner_user_id: `eq.${user.id}`,
       order: "created_at.desc",
     },
-    accessToken,
   });
 
   return { configured: true, data };
@@ -87,8 +66,6 @@ export async function createClient(formData: FormData) {
     return;
   }
 
-  const { user, accessToken } = await getAuthContext();
-
   const fullName = String(formData.get("full_name") ?? "").trim();
   if (!fullName) {
     throw new Error("Client full name is required.");
@@ -98,14 +75,12 @@ export async function createClient(formData: FormData) {
     table: "clients",
     method: "POST",
     body: {
-      owner_user_id: user.id,
       full_name: fullName,
       email: String(formData.get("email") ?? "").trim() || null,
       company_name: String(formData.get("company_name") ?? "").trim() || null,
       notes: String(formData.get("notes") ?? "").trim() || null,
     },
     preferReturnRepresentation: true,
-    accessToken,
   });
 
   revalidatePath("/workspace");
@@ -117,17 +92,13 @@ export async function listProjects() {
     return { configured: false, data: [] as ProjectWithClient[] };
   }
 
-  const { user, accessToken } = await getAuthContext();
-
   const data = await supabaseRestRequest<ProjectWithClient[]>({
     table: "projects",
     query: {
       select:
         "id,owner_user_id,client_id,project_name,status,start_date,due_date,budget,notes,portal_slug,created_at,source_contract_type,source_contract_payload,clients(id,full_name,company_name)",
-      owner_user_id: `eq.${user.id}`,
       order: "created_at.desc",
     },
-    accessToken,
   });
 
   return { configured: true, data };
@@ -147,13 +118,9 @@ function createPortalSlug(projectName: string) {
 async function resolveClientId({
   clientId,
   prefillClientName,
-  userId,
-  accessToken,
 }: {
   clientId: string;
   prefillClientName: string;
-  userId: string;
-  accessToken: string;
 }) {
   if (clientId) {
     return clientId;
@@ -167,11 +134,9 @@ async function resolveClientId({
     table: "clients",
     query: {
       select: "id,full_name",
-      owner_user_id: `eq.${userId}`,
       full_name: `eq.${prefillClientName}`,
       limit: "1",
     },
-    accessToken,
   });
 
   if (existing[0]) {
@@ -182,12 +147,10 @@ async function resolveClientId({
     table: "clients",
     method: "POST",
     body: {
-      owner_user_id: userId,
       full_name: prefillClientName,
       notes: "Auto-created from freelancer contract.",
     },
     preferReturnRepresentation: true,
-    accessToken,
   });
 
   return created[0]?.id;
@@ -197,8 +160,6 @@ export async function createProject(formData: FormData) {
   if (!isSupabaseConfigured()) {
     return;
   }
-
-  const { user, accessToken } = await getAuthContext();
 
   const clientId = String(formData.get("client_id") ?? "").trim();
   const prefillClientName = String(formData.get("prefill_client_name") ?? "").trim();
@@ -211,8 +172,6 @@ export async function createProject(formData: FormData) {
   const resolvedClientId = await resolveClientId({
     clientId,
     prefillClientName,
-    userId: user.id,
-    accessToken,
   });
 
   if (!resolvedClientId) {
@@ -227,7 +186,6 @@ export async function createProject(formData: FormData) {
     table: "projects",
     method: "POST",
     body: {
-      owner_user_id: user.id,
       client_id: resolvedClientId,
       project_name: projectName,
       status,
@@ -240,7 +198,6 @@ export async function createProject(formData: FormData) {
       source_contract_payload: sourceContractPayloadRaw ? JSON.parse(sourceContractPayloadRaw) : null,
     },
     preferReturnRepresentation: true,
-    accessToken,
   });
 
   revalidatePath("/workspace");
@@ -252,18 +209,14 @@ export async function getProjectById(projectId: string) {
     return { configured: false, data: null as ProjectDetails | null };
   }
 
-  const { user, accessToken } = await getAuthContext();
-
   const projectRows = await supabaseRestRequest<ProjectWithClient[]>({
     table: "projects",
     query: {
       select:
         "id,owner_user_id,client_id,project_name,status,start_date,due_date,budget,notes,portal_slug,created_at,source_contract_type,source_contract_payload,clients(id,full_name,company_name)",
       id: `eq.${projectId}`,
-      owner_user_id: `eq.${user.id}`,
       limit: "1",
     },
-    accessToken,
   });
 
   const project = projectRows[0];
@@ -276,10 +229,8 @@ export async function getProjectById(projectId: string) {
     query: {
       select: "*",
       project_id: `eq.${projectId}`,
-      owner_user_id: `eq.${user.id}`,
       order: "created_at.desc",
     },
-    accessToken,
   });
 
   return {
@@ -296,8 +247,6 @@ export async function createDeliverable(formData: FormData) {
     return;
   }
 
-  const { user, accessToken } = await getAuthContext();
-
   const projectId = String(formData.get("project_id") ?? "").trim();
   const title = String(formData.get("title") ?? "").trim();
 
@@ -311,7 +260,6 @@ export async function createDeliverable(formData: FormData) {
     table: "deliverables",
     method: "POST",
     body: {
-      owner_user_id: user.id,
       project_id: projectId,
       title,
       status,
@@ -319,7 +267,6 @@ export async function createDeliverable(formData: FormData) {
       notes: String(formData.get("notes") ?? "").trim() || null,
     },
     preferReturnRepresentation: true,
-    accessToken,
   });
 
   revalidatePath(`/workspace/projects/${projectId}`);
@@ -329,8 +276,6 @@ export async function updateDeliverableStatus(formData: FormData) {
   if (!isSupabaseConfigured()) {
     return;
   }
-
-  const { user, accessToken } = await getAuthContext();
 
   const deliverableId = String(formData.get("deliverable_id") ?? "").trim();
   const projectId = String(formData.get("project_id") ?? "").trim();
@@ -345,11 +290,9 @@ export async function updateDeliverableStatus(formData: FormData) {
     method: "PATCH",
     query: {
       id: `eq.${deliverableId}`,
-      owner_user_id: `eq.${user.id}`,
     },
     body: { status },
     preferReturnRepresentation: true,
-    accessToken,
   });
 
   revalidatePath(`/workspace/projects/${projectId}`);
