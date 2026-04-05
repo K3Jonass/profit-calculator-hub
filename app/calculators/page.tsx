@@ -77,7 +77,7 @@ const calculatorGroups = [
 export default function CalculatorsPage() {
   return (
     <main className="min-h-screen bg-slate-50">
-      <section className="border-b border-slate-200 bg-white">
+      <section className="motion-fade-up border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
             ProfitHub Calculators Hub
@@ -91,7 +91,7 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+
         <div className="space-y-12">
           {calculatorGroups.map((group) => (
             <section key={group.heading}>
@@ -103,7 +103,7 @@ export default function CalculatorsPage() {
                   <Link
                     key={calculator.href}
                     href={calculator.href}
-                    className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
+
                   >
                     <h3 className="text-xl font-semibold text-slate-900 transition group-hover:text-blue-700">
                       {calculator.title}

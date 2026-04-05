@@ -3,61 +3,70 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact ProfitHub",
   description:
-    "Contact ProfitHub for questions, partnerships, or support. Reach out and get a response quickly.",
+    "Contact ProfitHub for calculator support, tool ideas, partnerships, and bug reports.",
   alternates: {
     canonical: "/contact",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+const contactTopics = [
+  {
+    title: "Calculator support",
+    description: "Questions about calculator inputs, outputs, or interpretation of results.",
+  },
+  {
+    title: "Tool suggestions",
+    description: "Request new calculators, use cases, or workflow improvements for ProfitHub.",
+  },
+  {
+    title: "Bug reports",
+    description: "Report incorrect calculations, UX issues, or content bugs with reproducible details.",
+  },
+  {
+    title: "Partnership inquiries",
+    description: "Explore collaborations, integrations, and distribution partnerships.",
+  },
+];
 
 export default function ContactPage() {
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
-
-      <section className="rounded-[2rem] border border-slate-200 bg-white p-10 shadow-sm">
-        <div className="max-w-2xl">
+    <main className="mx-auto max-w-5xl px-6 py-16">
+      <section className="motion-fade-up rounded-[2rem] border border-slate-200 bg-white p-10 shadow-sm">
+        <div className="max-w-3xl">
           <div className="mb-4 inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-sm font-medium text-slate-600">
-            Contact
+            Contact ProfitHub
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900">
-            Get in touch
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">Talk with the ProfitHub team</h1>
 
-          <p className="mt-4 text-lg text-slate-600 leading-7">
-            Have a question, idea, or partnership request? Reach out and we’ll
-            get back to you as soon as possible.
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            We build free calculators, practical business guides, and lightweight deal tools. If you need help, have a suggestion, or want to collaborate, we’d love to hear from you.
           </p>
         </div>
       </section>
 
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">
-          Email
-        </h2>
-
-        <a
-          href="mailto:contact@profithub.cloud"
-          className="text-lg font-medium text-blue-600 hover:underline"
-        >
+      <section className="motion-fade-up mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 className="text-2xl font-semibold text-slate-900">Primary contact</h2>
+        <a href="mailto:contact@profithub.cloud" className="mt-4 inline-flex text-lg font-semibold text-blue-700 animated-link">
           contact@profithub.cloud
         </a>
-
-        <p className="mt-4 text-slate-600">
-          We usually respond within 24–48 hours.
-        </p>
+        <p className="mt-3 text-slate-600">Typical response time: within 1–2 business days.</p>
       </section>
 
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-semibold text-slate-900 mb-4">
-          What you can contact us for
-        </h2>
-
-        <ul className="space-y-2 text-slate-600">
-          <li>• Support and questions</li>
-          <li>• Business partnerships</li>
-          <li>• Feature requests</li>
-          <li>• Feedback and improvements</li>
-        </ul>
+      <section className="motion-fade-up mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <h2 className="text-2xl font-semibold text-slate-900">What you can contact us for</h2>
+        <div className="motion-stagger mt-5 grid gap-4 md:grid-cols-2">
+          {contactTopics.map((topic) => (
+            <article key={topic.title} className="hover-lift rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <h3 className="text-base font-semibold text-slate-900">{topic.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{topic.description}</p>
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
