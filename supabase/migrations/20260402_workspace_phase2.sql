@@ -42,7 +42,7 @@ alter table public.clients enable row level security;
 alter table public.projects enable row level security;
 alter table public.deliverables enable row level security;
 
--- MVP public policies (adjust for production auth later)
+-- MVP public policies (intentionally public: no login required)
 drop policy if exists "Public read clients" on public.clients;
 create policy "Public read clients" on public.clients for select using (true);
 
