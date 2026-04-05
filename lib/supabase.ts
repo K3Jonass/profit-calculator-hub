@@ -1,6 +1,3 @@
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
 interface SupabaseRequestOptions {
   table: string;
   method?: "GET" | "POST" | "PATCH";
@@ -10,21 +7,33 @@ interface SupabaseRequestOptions {
   accessToken?: string;
 }
 
+interface SupabaseEnv {
+  url: string;
+  anonKey: string;
+}
+
+function readSupabaseEnv(): SupabaseEnv {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() || "";
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() || "";
+
+  return { url, anonKey };
+}
+
 export function isSupabaseConfigured() {
-  return Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
+  const { url, anonKey } = readSupabaseEnv();
+  return Boolean(url && anonKey);
 }
 
 export function getSupabaseEnv() {
-  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  const { url, anonKey } = readSupabaseEnv();
+
+  if (!url || !anonKey) {
     throw new Error(
       "Supabase credentials are missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
     );
   }
 
-  return {
-    url: SUPABASE_URL,
-    anonKey: SUPABASE_ANON_KEY,
-  };
+  return { url, anonKey };
 }
 
 export async function supabaseRestRequest<T>({
