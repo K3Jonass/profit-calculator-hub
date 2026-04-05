@@ -3,19 +3,27 @@ import { calculators } from "@/lib/calculators-data";
 
 export default function RelatedCalculators({
   currentHref,
+  calculatorHrefs,
 }: {
   currentHref: string;
+  calculatorHrefs?: string[];
 }) {
-  const related = calculators.filter((item) => item.href !== currentHref).slice(0, 4);
+  const related = calculatorHrefs
+    ? calculatorHrefs
+        .map((href) => calculators.find((item) => item.href === href))
+        .filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : calculators.filter((item) => item.href !== currentHref).slice(0, 4);
+
+  if (related.length === 0) {
+    return null;
+  }
 
   return (
     <section className="mt-16">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-          Related Calculators
-        </h2>
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Related Calculators</h2>
         <p className="mt-2 text-slate-600">
-          Explore more tools to understand your pricing, margins, and business numbers.
+          Explore connected tools to compare margins, pricing, recurring revenue, and growth scenarios.
         </p>
       </div>
 

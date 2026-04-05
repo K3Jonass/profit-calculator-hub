@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import FreelanceRateClient from "./FreelanceRateClient";
+import CalculatorSeoScaffold from "@/components/seo/CalculatorSeoScaffold";
+import { calculatorSeoContent } from "@/lib/calculator-seo-content";
 
 export const metadata: Metadata = {
   title: "Freelance Rate Calculator Free | Hourly Rate Tool",
@@ -8,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function FreelanceRatePage() {
-  return <FreelanceRateClient />;
+  return (
+    <CalculatorSeoScaffold content={calculatorSeoContent["freelance-rate"]}>
+      <FreelanceRateClient />
+    </CalculatorSeoScaffold>
+  );
 }

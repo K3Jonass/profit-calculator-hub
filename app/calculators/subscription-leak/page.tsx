@@ -1,15 +1,18 @@
-import SubscriptionLeakClient from "./SubscriptionLeakClient";
 import type { Metadata } from "next";
+import SubscriptionLeakClient from "./SubscriptionLeakClient";
+import CalculatorSeoScaffold from "@/components/seo/CalculatorSeoScaffold";
+import { calculatorSeoContent } from "@/lib/calculator-seo-content";
 
 export const metadata: Metadata = {
-  title: "Subscription Leak Calculator Free Tool",
+  title: "Subscription Leak Calculator Free | Lost MRR Estimator",
   description:
-    "Calculate how much your subscriptions cost per month and per year, and discover where your money is leaking.",
-  alternates: {
-    canonical: "/calculators/subscription-leak",
-  },
+    "Estimate recurring revenue loss from churn and failed payments with this subscription leak calculator.",
 };
 
 export default function SubscriptionLeakPage() {
-  return <SubscriptionLeakClient />;
+  return (
+    <CalculatorSeoScaffold content={calculatorSeoContent["subscription-leak"]}>
+      <SubscriptionLeakClient />
+    </CalculatorSeoScaffold>
+  );
 }

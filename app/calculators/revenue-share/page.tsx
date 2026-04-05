@@ -1,15 +1,17 @@
-import RevenueShareClient from "./RevenueShareClient";
 import type { Metadata } from "next";
+import RevenueShareClient from "./RevenueShareClient";
+import CalculatorSeoScaffold from "@/components/seo/CalculatorSeoScaffold";
+import { calculatorSeoContent } from "@/lib/calculator-seo-content";
 
 export const metadata: Metadata = {
-  title: "Revenue Share Deal Calculator Free Tool",
-  description:
-    "Calculate whether a revenue share partnership is fair based on split percentage, workload, and expected earnings.",
-  alternates: {
-    canonical: "/calculators/revenue-share",
-  },
+  title: "Revenue Share Calculator Free | Partnership Split Tool",
+  description: "Model fair revenue split scenarios and estimate partner payouts with this free calculator.",
 };
 
 export default function RevenueSharePage() {
-  return <RevenueShareClient />;
+  return (
+    <CalculatorSeoScaffold content={calculatorSeoContent["revenue-share"]}>
+      <RevenueShareClient />
+    </CalculatorSeoScaffold>
+  );
 }
