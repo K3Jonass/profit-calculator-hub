@@ -31,9 +31,8 @@ Global style rules:
      6. Liability
      7. Governing Law
      8. Signatures
+     9. Additional Terms (Optional)
 - Use bullet points where helpful.
-- Always end with this exact sentence:
-"This document is a template and not legal advice."
 `;
 
 export function buildRevenueSharePrompt(values: RevenueShareFormValues) {

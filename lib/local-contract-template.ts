@@ -40,8 +40,14 @@ export function generateLocalRevenueShareContract(
     `This Agreement is governed by the laws of ${values.country}, without regard to conflict-of-law rules.`
   )}\n\n${section(
     "8. Signatures",
-    `Party A: ${values.partyAName}\nSignature: ____________________________\nDate: ____________________________\n\nParty B: ${values.partyBName}\nSignature: ____________________________\nDate: ____________________________`
-  )}\n\nThis document is a template and not legal advice.`;
+    `Party A: ${values.partyAName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________\n\nParty B: ${values.partyBName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalFreelancerContract(
@@ -75,8 +81,14 @@ export function generateLocalFreelancerContract(
     `This Agreement is governed by the laws of ${values.country}.`
   )}\n\n${section(
     "8. Signatures",
-    `Client: ${values.clientName}\nSignature: ____________________________\nDate: ____________________________\n\nFreelancer: ${values.freelancerName}\nSignature: ____________________________\nDate: ____________________________`
-  )}\n\nThis document is a template and not legal advice.`;
+    `Client: ${values.clientName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________\n\nFreelancer: ${values.freelancerName}\nAuthorized Signature: ____________________________
+Printed Name: ____________________________\nDate: ____________________________`
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalInvoiceContract(values: InvoiceFormValues) {
@@ -107,7 +119,11 @@ export function generateLocalInvoiceContract(values: InvoiceFormValues) {
   )}\n\n${section(
     "8. Signatures",
     `Issuer (${values.businessName}): ____________________________\nDate: ____________________________\n\nRecipient (${values.clientName}): ____________________________\nDate: ____________________________`
-  )}\n\nThis document is a template and not legal advice.`;
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalWelcomeDoc(values: WelcomeDocFormValues) {
@@ -140,7 +156,11 @@ export function generateLocalWelcomeDoc(values: WelcomeDocFormValues) {
   )}\n\n${section(
     "8. Signatures",
     `Prepared by (${values.companyName}): ____________________________\nDate: ____________________________\n\nAcknowledged by (${values.clientName}): ____________________________\nDate: ____________________________\n\nKey Deliverables:\n${values.keyDeliverables}`
-  )}\n\nThis document is a template and not legal advice.`;
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalClientAccessRequest(
@@ -175,7 +195,11 @@ export function generateLocalClientAccessRequest(
   )}\n\n${section(
     "8. Signatures",
     `Requested By (${values.companyName}): ____________________________\nDate: ____________________________\n\nApproved By (${values.clientName}): ____________________________\nDate: ____________________________\n\nAdditional Notes:\n${values.notesOrInstructions || "None provided."}`
-  )}\n\nThis document is a template and not legal advice.`;
+  )}\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
 
 export function generateLocalFeedbackRequest(values: FeedbackRequestValues) {
@@ -212,5 +236,9 @@ export function generateLocalFeedbackRequest(values: FeedbackRequestValues) {
   )}\n\n${section(
     "8. Signatures",
     `Requested By (${values.businessName}): ____________________________\nDate: ____________________________\n\nAcknowledged By (${values.clientName}): ____________________________\nDate: ____________________________\n\nPreferred platform: ${values.platform}\nTone guidance: ${toneLine}`
-  )}\n\nSuggested client prompt:\n"What challenge did you face before we started, what changed after the project, and what result mattered most to you?"\n\nThis document is a template and not legal advice.`;
+  )}\n\nSuggested client prompt:\n"What challenge did you face before we started, what changed after the project, and what result mattered most to you?"\n\n9. Additional Terms (Optional)
+Add any additional agreement terms, approvals, or notes here:
+____________________________________________
+____________________________________________
+____________________________________________`;
 }
