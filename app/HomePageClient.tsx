@@ -65,7 +65,7 @@ export default function HomePageClient() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-14">
-
+      <section className="rounded-[2rem] bg-slate-950 px-6 py-12 text-white md:px-10">
         <p className="inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
           ProfitHub Calculator Platform
         </p>
@@ -88,7 +88,10 @@ export default function HomePageClient() {
         </div>
       </section>
 
-
+      <section className="mt-10">
+        <div className="grid gap-4 md:grid-cols-3">
+          {categories.map((category) => (
+            <article key={category.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-xl font-semibold text-slate-900">{category.title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">{category.description}</p>
               <ul className="mt-4 space-y-2 text-sm">
@@ -105,7 +108,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-
+      <section className="mt-12">
         <div className="flex items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">Popular calculators</h2>
@@ -117,7 +120,7 @@ export default function HomePageClient() {
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {popularCalculators.map((item) => (
-
+            <Link key={item.href} href={item.href} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
               <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
               <p className="mt-2 text-sm text-slate-600">{item.description}</p>
             </Link>
@@ -125,7 +128,11 @@ export default function HomePageClient() {
         </div>
       </section>
 
-
+      <section className="mt-12 rounded-2xl border border-blue-100 bg-blue-50 p-6">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Common use cases</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {useCases.map((useCase) => (
+            <Link key={useCase.href} href={useCase.href} className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm transition hover:shadow-md">
               <h3 className="text-lg font-semibold text-slate-900">{useCase.title}</h3>
               <p className="mt-2 text-sm text-blue-700">{useCase.label}</p>
             </Link>
@@ -133,7 +140,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-
+      <section className="mt-12">
         <div className="flex items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900">Latest blog guides</h2>
@@ -145,7 +152,7 @@ export default function HomePageClient() {
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {latestGuides.map((post) => (
-
+            <Link key={post.href} href={post.href} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{post.category}</p>
               <h3 className="mt-2 text-lg font-semibold text-slate-900">{post.title}</h3>
               <p className="mt-2 text-sm text-slate-600">{post.description}</p>
@@ -154,7 +161,11 @@ export default function HomePageClient() {
         </div>
       </section>
 
-
+      <section className="mt-12">
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">More tools to explore</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {featuredTools.map((tool) => (
+            <Link key={tool.href} href={tool.href} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
               <h3 className="text-xl font-semibold text-slate-900">{tool.title}</h3>
               <p className="mt-2 text-sm text-slate-600">{tool.description}</p>
               <p className="mt-4 text-sm font-semibold text-blue-700">Open {tool.title}</p>
@@ -163,7 +174,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-
+      <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-100 p-8">
         <h2 className="text-3xl font-bold tracking-tight text-slate-900">Turn insights into faster decisions</h2>
         <p className="mt-3 max-w-3xl text-slate-700">
           Pick one calculator, run your numbers, then use linked guides to improve pricing, retention, and profitability decisions this week.
