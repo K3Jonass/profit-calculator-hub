@@ -2,6 +2,37 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { blogPosts } from "@/lib/blog-posts";
+
+const blogFaqItems = [
+  {
+    question: "Which calculator should I use with this guide?",
+    answer:
+      "Use the calculator that matches the main metric in the article, then compare your result with one related tool for better decision context.",
+  },
+  {
+    question: "How many internal links should each guide include?",
+    answer:
+      "Include one primary calculator link and at least two related guides using descriptive anchor text that reflects the reader intent.",
+  },
+];
+
+function toDirectAnswer(description: string) {
+  return description
+    .replace(/^Learn\s+/i, "")
+    .replace(/^Discover\s+/i, "")
+    .replace(/^Understand\s+/i, "")
+    .replace(/^A practical guide to\s+/i, "")
+    .replace(/^A proven\s+/i, "")
+    .replace(/^Design\s+/i, "")
+    .replace(/^Turn\s+/i, "")
+    .replace(/^Use\s+/i, "")
+    .replace(/^Build\s+/i, "")
+    .replace(/^Set up\s+/i, "")
+    .replace(/^Spot\s+/i, "")
+    .replace(/^Compare\s+/i, "")
+    .replace(/^See\s+/i, "");
+}
 
 export default function BlogArticleEnhancer({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -11,8 +42,69 @@ export default function BlogArticleEnhancer({ children }: { children: React.Reac
     return <>{children}</>;
   }
 
+  const post = blogPosts.find((item) => item.href === pathname);
+  const articleUrl = `https://profithub.cloud${pathname}`;
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://profithub.cloud/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://profithub.cloud/blog" },
+      { "@type": "ListItem", position: 3, name: post?.title ?? "Article", item: articleUrl },
+    ],
+  };
+
+  const articleSchema = post
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.description,
+        url: articleUrl,
+        mainEntityOfPage: articleUrl,
+        author: {
+          "@type": "Organization",
+          name: "ProfitHub",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "ProfitHub",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://profithub.cloud/icon.png",
+          },
+        },
+      }
+    : null;
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: blogFaqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  const directAnswerIntro = post
+    ? `Short answer: ${toDirectAnswer(post.description)}`
+    : "Short answer: This guide explains the core concept, formula, and practical actions you can apply with ProfitHub tools.";
+
   return (
     <>
+      {articleSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} /> : null}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+
+      <div className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Direct answer</p>
+        <p className="mt-2 text-sm leading-7 text-slate-700">{directAnswerIntro}</p>
+      </div>
+
       <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-blue-200 bg-blue-50 p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-800">Use this calculator</p>
         <p className="mt-2 text-sm text-slate-700">
@@ -42,14 +134,12 @@ export default function BlogArticleEnhancer({ children }: { children: React.Reac
 
       <section className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6">
         <h2 className="text-2xl font-bold tracking-tight text-slate-900">FAQ</h2>
-        <details className="mt-4 rounded-xl border border-slate-200 p-4">
-          <summary className="cursor-pointer font-semibold text-slate-900">Which calculator should I use with this guide?</summary>
-          <p className="mt-2 text-sm text-slate-600">Use the calculator most closely aligned with the metric discussed in the article, then compare with at least one related tool for better context.</p>
-        </details>
-        <details className="mt-3 rounded-xl border border-slate-200 p-4">
-          <summary className="cursor-pointer font-semibold text-slate-900">How many internal links should each guide include?</summary>
-          <p className="mt-2 text-sm text-slate-600">Aim to link one primary calculator plus at least two related guides or tools using descriptive anchor text.</p>
-        </details>
+        {blogFaqItems.map((item) => (
+          <details key={item.question} className="mt-3 rounded-xl border border-slate-200 p-4 first:mt-4">
+            <summary className="cursor-pointer font-semibold text-slate-900">{item.question}</summary>
+            <p className="mt-2 text-sm text-slate-600">{item.answer}</p>
+          </details>
+        ))}
       </section>
 
       <div className="mx-auto mt-8 max-w-4xl rounded-2xl border border-blue-200 bg-blue-50 p-6">
