@@ -18,7 +18,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Shopify Profit Calculator",
     slug: "shopify-profit",
     shortAnswer:
-      "The Shopify Profit Calculator estimates your net profit and profit margin by subtracting product, shipping, ad, and platform costs from sales revenue.",
+      "The Shopify Profit Calculator helps you estimate true store profitability by subtracting product cost, shipping, ad spend, transaction fees, and other operating expenses from sales. Use it to see net profit and margin quickly before you scale campaigns, change pricing, or launch a new product line.",
     resultsExplanation:
       "Your net profit shows what you keep after costs, total costs show where your money goes, and margin shows the percentage of revenue you keep as profit.",
     howToUse: [
@@ -40,7 +40,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Dropshipping Profit Calculator",
     slug: "dropshipping-profit",
     shortAnswer:
-      "The Dropshipping Profit Calculator shows how much profit you keep per period after product, shipping, transaction, and marketing costs.",
+      "The Dropshipping Profit Calculator estimates how much money you actually keep after supplier cost, shipping, transaction fees, and marketing spend. It gives you a clear profit and margin view so you can validate product pricing, avoid weak offers, and scale only when unit economics are healthy.",
     resultsExplanation:
       "Use net profit to understand your take-home amount and margin percentage to benchmark pricing and ad efficiency.",
     howToUse: ["Enter your total sales revenue.", "Add supplier cost, shipping, marketing, and transaction fees.", "Use the margin result to validate your offer before scaling."],
@@ -57,7 +57,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "SaaS MRR Calculator",
     slug: "saas-mrr",
     shortAnswer:
-      "The SaaS MRR Calculator estimates monthly recurring revenue and annual recurring revenue based on active subscribers and plan pricing.",
+      "The SaaS MRR Calculator estimates your Monthly Recurring Revenue and ARR using subscriber counts and plan value. It helps founders and operators track predictable growth, compare month-to-month performance, and make better decisions about retention, acquisition, and roadmap priorities based on recurring income, not one-time sales.",
     resultsExplanation:
       "MRR reflects predictable monthly income while ARR annualizes that baseline to help with targets, hiring, and runway planning.",
     howToUse: ["Enter your active customer count and average monthly plan value.", "Add expansion or contraction if relevant.", "Track changes monthly to monitor growth quality."],
@@ -75,7 +75,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Freelance Rate Calculator",
     slug: "freelance-rate",
     shortAnswer:
-      "The Freelance Rate Calculator helps you set an hourly rate that covers expenses, taxes, non-billable time, and your target income.",
+      "The Freelance Rate Calculator helps you set a sustainable hourly rate by accounting for your income goal, taxes, business overhead, and non-billable time. It shows the minimum rate required to stay profitable, so you can price confidently and stop accepting projects that quietly underpay your actual workload.",
     resultsExplanation:
       "Your rate output shows what you need to charge to hit income goals while accounting for the reality of utilization and overhead.",
     howToUse: ["Set your income target and annual business expenses.", "Estimate realistic billable hours, not total work hours.", "Use the calculated rate as your minimum sustainable baseline."],
@@ -93,7 +93,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Breakeven Calculator",
     slug: "breakeven",
     shortAnswer:
-      "The Breakeven Calculator tells you how many units or sales you need to cover fixed and variable costs before generating profit.",
+      "The Breakeven Calculator shows how many sales or units you need to cover fixed and variable costs before earning profit. It turns pricing and cost assumptions into a clear target so you can set realistic goals, evaluate product viability, and reduce risk before spending more on growth.",
     resultsExplanation:
       "Your breakeven output defines your minimum viable sales volume, making pricing, inventory, and ad planning more objective.",
     howToUse: ["Enter fixed monthly costs.", "Enter selling price and variable cost per unit.", "Use the breakeven units result to set realistic sales goals."],
@@ -110,7 +110,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Freelance Project Profit Analyzer",
     slug: "freelance-project-profit",
     shortAnswer:
-      "The Freelance Project Profit Analyzer estimates real project profit after labor, revisions, software, and delivery overhead.",
+      "The Freelance Project Profit Analyzer estimates true project profit after labor time, revision cycles, software costs, and delivery overhead. It helps freelancers evaluate whether a scope is financially worth taking, then adjust price, boundaries, or timelines before committing to work that looks busy but pays poorly.",
     resultsExplanation:
       "Results show whether the project is financially healthy before you commit, renegotiate scope, or adjust pricing.",
     howToUse: ["Enter quoted project revenue.", "Add estimated hours, hourly value, and extra project costs.", "Review expected profit and margin before sending your proposal."],
@@ -127,7 +127,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Subscription Leak Calculator",
     slug: "subscription-leak",
     shortAnswer:
-      "The Subscription Leak Calculator estimates lost recurring revenue from churn, failed renewals, and retention breakdowns.",
+      "The Subscription Leak Calculator estimates how much recurring revenue you lose from churn, failed payments, and weak retention systems. It translates leakage into concrete MRR impact so you can prioritize onboarding fixes, recovery workflows, and lifecycle improvements that protect growth and improve cash-flow predictability.",
     resultsExplanation:
       "Use the leak estimate to prioritize retention fixes and understand the growth impact of reducing churn.",
     howToUse: ["Enter active subscribers and average subscription value.", "Add churn or failed-payment assumptions.", "Use lost MRR results to prioritize onboarding and recovery systems."],
@@ -144,7 +144,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Revenue Share Calculator",
     slug: "revenue-share",
     shortAnswer:
-      "The Revenue Share Calculator models partnership payout splits so both sides can evaluate deal fairness before signing.",
+      "The Revenue Share Calculator models payout outcomes for partnership deals by applying split percentages to total revenue. It helps both sides evaluate fairness, align on upside, and test scenarios before signing, so negotiations are based on transparent numbers instead of assumptions that create conflict later.",
     resultsExplanation:
       "The split results reveal expected payout by percentage so partners can align contributions, upside, and risk.",
     howToUse: ["Enter total revenue for the deal period.", "Set proposed split percentages for each party.", "Compare payout outcomes to negotiate fair terms."],
@@ -161,7 +161,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Cost of Delay Calculator",
     slug: "cost-of-delay",
     shortAnswer:
-      "The Cost of Delay Calculator estimates how much revenue or value you lose when launches, projects, or priorities are delayed.",
+      "The Cost of Delay Calculator estimates the financial impact of waiting on launches, projects, or strategic decisions. By converting delay time into lost value, it helps teams prioritize high-impact work, defend urgency with numbers, and avoid hidden revenue loss caused by slow execution and unclear sequencing.",
     resultsExplanation:
       "The output turns delay into financial impact so teams can prioritize high-value work with more confidence.",
     howToUse: ["Estimate weekly revenue or value at stake.", "Enter expected delay duration.", "Use estimated loss to decide sequencing and urgency."],
@@ -178,7 +178,7 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     title: "Business Decision Score Calculator",
     slug: "decision-score",
     shortAnswer:
-      "The Business Decision Score Calculator helps you compare opportunities using weighted factors like profit potential, effort, and risk.",
+      "The Business Decision Score Calculator helps you compare options using weighted factors like profit potential, implementation effort, timing, and downside risk. It creates a consistent scoring framework so founders and operators can prioritize objectively, communicate tradeoffs clearly, and avoid reactive decisions driven by opinion alone.",
     resultsExplanation:
       "Scores help rank options consistently so you can prioritize high-leverage work and avoid reactive decisions.",
     howToUse: ["Define options you are comparing.", "Score each option on weighted criteria.", "Prioritize the highest combined score and revisit assumptions monthly."],

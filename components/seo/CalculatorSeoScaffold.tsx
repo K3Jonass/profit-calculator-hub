@@ -15,18 +15,20 @@ export default function CalculatorSeoScaffold({
 }) {
   const url = `https://profithub.cloud/calculators/${content.slug}`;
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: content.faq.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
+  const faqSchema = content.faq.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: content.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -42,20 +44,33 @@ export default function CalculatorSeoScaffold({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: content.title,
+    description: content.shortAnswer,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Any",
     isAccessibleForFree: true,
     url,
   };
 
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: content.title,
+    description: content.shortAnswer,
+    url,
+    breadcrumb: {
+      "@id": `${url}#breadcrumb`,
+    },
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-12 md:px-6 md:py-14">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {faqSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /> : null}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({ ...breadcrumbSchema, "@id": `${url}#breadcrumb` }) }}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
 
       <Breadcrumbs
         items={[
