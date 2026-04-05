@@ -29,7 +29,6 @@ const importantLinks = [
   { href: "/calculators", label: "Calculators Hub" },
   { href: "/blog", label: "Blog Guides" },
   { href: "/about", label: "About ProfitHub" },
-
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
 ];
@@ -53,7 +52,7 @@ export default function Footer() {
           </div>
         </section>
 
-
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <FooterColumn title="Top calculators" links={topCalculatorLinks} />
           <FooterColumn title="Top blog guides" links={topBlogLinks} />
           <FooterColumn title="Contract / deal tools" links={contractLinks} />
@@ -81,7 +80,7 @@ function FooterColumn({
       <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{title}</h3>
       <div className="flex flex-col gap-3 text-sm text-slate-600">
         {links.map((link) => (
-
+          <Link key={link.href} href={link.href} className="transition hover:text-slate-900">
             {link.label}
           </Link>
         ))}
