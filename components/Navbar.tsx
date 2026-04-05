@@ -9,7 +9,6 @@ const navLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/contracts", label: "Contracts & Deal Tools" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -26,7 +25,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:border-slate-800/80 dark:bg-slate-950/60">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-        <Link href="/" className="group inline-flex items-center gap-3 transition motion-fade-up" aria-label="ProfitHub Home" onClick={closeMobileMenu}>
+
           <span className="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-sm font-bold text-white shadow-lg">
             PH
           </span>

@@ -91,7 +91,7 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      <section className="motion-fade-up mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+
         <div className="space-y-12">
           {calculatorGroups.map((group) => (
             <section key={group.heading}>
@@ -103,7 +103,7 @@ export default function CalculatorsPage() {
                   <Link
                     key={calculator.href}
                     href={calculator.href}
-                    className="hover-lift group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:border-blue-200 hover:shadow-lg"
+
                   >
                     <h3 className="text-xl font-semibold text-slate-900 transition group-hover:text-blue-700">
                       {calculator.title}
