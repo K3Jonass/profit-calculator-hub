@@ -80,7 +80,7 @@ export default function ContractPreview({
           Contract Preview
         </h2>
         <p className="mt-2 text-sm leading-6 text-slate-600">
-          Review the generated contract before unlocking download.
+          Review the generated contract before downloading.
         </p>
       </div>
 
