@@ -1,0 +1,11 @@
+{
+  "name": "ProfitHub Freelancer App",
+  "mcp_manifest_url": "https://profithub.cloud/.well-known/mcp.json",
+  "mcp_endpoint_url": "https://profithub.cloud/api/mcp",
+  "tools": [
+    "generate_invoice",
+    "generate_contract",
+    "generate_primary_doc"
+  ],
+  "status": "scaffolded_for_submission"
+}
