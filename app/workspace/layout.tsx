@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import WorkspaceNav from "@/components/workspace/WorkspaceNav";
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
+};
+
+
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
   return (

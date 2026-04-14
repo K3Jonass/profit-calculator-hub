@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         has: [
           {
+            type: "header",
+            key: "x-forwarded-proto",
+            value: "http",
+          },
+        ],
+        destination: "https://profithub.cloud/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [
+          {
             type: "host",
             value: "www.profithub.cloud",
           },

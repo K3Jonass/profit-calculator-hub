@@ -1,6 +1,18 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import StatusBadge from "@/components/workspace/StatusBadge";
 import { getPortalProjectBySlug } from "@/lib/workspace-data";
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    robots: {
+      index: false,
+      follow: false,
+      nocache: true,
+    },
+  };
+}
+
+
 
 export default async function PortalPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

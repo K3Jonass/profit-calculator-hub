@@ -7,6 +7,11 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+const NOINDEX_PREFIXES = ["/workspace", "/portal"];
+const CANONICAL_PATH_OVERRIDES: Record<string, string> = {
+  "/privacy": "/privacy-policy",
+};
+
 const baseMetadata: Metadata = {
   icons: {
     icon: "/icon",
@@ -60,15 +65,39 @@ const baseMetadata: Metadata = {
   },
 };
 
+function normalizePathname(pathname: string) {
+  if (!pathname || pathname === "/") {
+    return "/";
+  }
+
+  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+}
+
+function isNoindexPath(pathname: string) {
+  return NOINDEX_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
-  const pathname = headersList.get("x-pathname") || "/";
+  const rawPathname = headersList.get("x-pathname") || "/";
+  const pathname = normalizePathname(rawPathname);
+  const canonicalPath = CANONICAL_PATH_OVERRIDES[pathname] || pathname;
+  const noindex = isNoindexPath(pathname);
 
   return {
     ...baseMetadata,
     alternates: {
-      canonical: pathname,
+      canonical: canonicalPath,
     },
+    robots: noindex
+      ? {
+          index: false,
+          follow: false,
+          nocache: true,
+        }
+      : baseMetadata.robots,
   };
 }
 
@@ -83,11 +112,11 @@ export default function RootLayout({
     name: "ProfitHub",
     url: "https://profithub.cloud",
     logo: {
-  "@type": "ImageObject",
-  url: "https://profithub.cloud/icon.png",
-  width: 512,
-  height: 512,
-},
+      "@type": "ImageObject",
+      url: "https://profithub.cloud/icon.png",
+      width: 512,
+      height: 512,
+    },
   };
 
   const websiteJsonLd = {
@@ -119,14 +148,14 @@ export default function RootLayout({
         </Script>
 
         <Script id="microsoft-clarity" strategy="afterInteractive">
-  {`
+          {`
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "w50lpevu96");
   `}
-</Script>
+        </Script>
 
         <script
           type="application/ld+json"

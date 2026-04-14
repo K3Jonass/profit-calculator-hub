@@ -1,5 +1,16 @@
+import type { Metadata } from "next";
 import { contractGenerators } from "@/lib/contracts-generators";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Free Contract Generators for Freelancers and Teams | ProfitHub",
+  description:
+    "Generate practical contract templates for revenue share deals, freelance work, invoices, welcome docs, and client access workflows.",
+  alternates: {
+    canonical: "/contracts",
+  },
+};
+
 
 
 

@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cost of Delay Explained: Why Slow Decisions Cost Real Money",
+  description:
+    "Understand cost of delay with simple examples so you can prioritize faster and avoid hidden revenue loss.",
+  alternates: {
+    canonical: "/blog/cost-of-delay-explained",
+  },
+};
+
 export default function Page() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="text-4xl font-bold mb-6">
+      <h1 className="mb-6 text-4xl font-bold">
         Cost of Delay: What It Is and How It Silently Destroys Your Business Growth
       </h1>
 
@@ -15,7 +26,7 @@ export default function Page() {
         often costs more than making an imperfect move today.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
+      <h2 className="mb-4 mt-10 text-2xl font-semibold">
         What is cost of delay in simple terms?
       </h2>
 
@@ -28,7 +39,7 @@ export default function Page() {
         Whether you are launching a product, starting a business, or closing a deal, every delay has a hidden price.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
+      <h2 className="mb-4 mt-10 text-2xl font-semibold">
         How to calculate cost of delay
       </h2>
 
@@ -41,7 +52,7 @@ export default function Page() {
         means losing approximately $3,000 in potential revenue.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
+      <h2 className="mb-4 mt-10 text-2xl font-semibold">
         Try the cost of delay calculator
       </h2>
 
@@ -51,12 +62,12 @@ export default function Page() {
 
       <a
         href="/calculators/cost-of-delay"
-        className="inline-block mt-4 rounded-xl bg-slate-900 px-6 py-3 text-white font-semibold"
+        className="mt-4 inline-block rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white"
       >
         Use the Cost of Delay Calculator →
       </a>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
+      <h2 className="mb-4 mt-10 text-2xl font-semibold">
         Why cost of delay is dangerous
       </h2>
 
@@ -70,7 +81,7 @@ export default function Page() {
         The longer you wait, the more advantage you give to competitors.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
+      <h2 className="mb-4 mt-10 text-2xl font-semibold">
         Final insight
       </h2>
 
