@@ -61,7 +61,8 @@ const baseMetadata: Metadata = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pathname = headers().get("x-pathname") || "/";
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "/";
 
   return {
     ...baseMetadata,
