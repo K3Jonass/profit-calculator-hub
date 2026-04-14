@@ -1,6 +1,18 @@
 "use client";
+
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import {
+  CalculatorField,
+  CalculatorHero,
+  CalculatorPanel,
+  CalculatorResultsGrid,
+  CalculatorSelectField,
+  CalculatorShell,
+  CalculatorTwoColumn,
+  MetricCard,
+  VerdictBanner,
+} from "@/components/calculators/CalculatorUI";
 
 export default function FreelanceProjectProfitPage() {
   const [projectPrice, setProjectPrice] = useState(1000);
@@ -11,8 +23,7 @@ export default function FreelanceProjectProfitPage() {
   const [difficulty, setDifficulty] = useState("medium");
 
   const results = useMemo(() => {
-    const difficultyMultiplier =
-      difficulty === "low" ? 0.95 : difficulty === "medium" ? 1 : 1.2;
+    const difficultyMultiplier = difficulty === "low" ? 0.95 : difficulty === "medium" ? 1 : 1.2;
 
     const totalHours = (estimatedHours + extraRevisionHours) * difficultyMultiplier;
     const platformFee = projectPrice * (platformFeePercent / 100);
@@ -22,272 +33,68 @@ export default function FreelanceProjectProfitPage() {
     const profitMargin = projectPrice > 0 ? (netProfit / projectPrice) * 100 : 0;
 
     let verdict = "Good Deal";
-    let verdictColor = "text-green-600";
-    let verdictBg = "bg-green-50 border-green-200";
+    let tone = "bg-green-50 border-green-200 text-green-700 dark:bg-green-950/40 dark:border-green-900 dark:text-green-300";
 
     if (realHourlyRate < 10 || profitMargin < 20) {
       verdict = "Bad Deal";
-      verdictColor = "text-red-600";
-      verdictBg = "bg-red-50 border-red-200";
+      tone = "bg-red-50 border-red-200 text-red-700 dark:bg-red-950/40 dark:border-red-900 dark:text-red-300";
     } else if (realHourlyRate < 25 || profitMargin < 35) {
       verdict = "Risky Deal";
-      verdictColor = "text-yellow-600";
-      verdictBg = "bg-yellow-50 border-yellow-200";
+      tone = "bg-yellow-50 border-yellow-200 text-yellow-700 dark:bg-yellow-950/40 dark:border-yellow-900 dark:text-yellow-300";
     }
 
-    return {
-      totalHours,
-      platformFee,
-      totalCosts,
-      netProfit,
-      realHourlyRate,
-      profitMargin,
-      verdict,
-      verdictColor,
-      verdictBg,
-    };
-  }, [
-    projectPrice,
-    estimatedHours,
-    extraRevisionHours,
-    platformFeePercent,
-    otherCosts,
-    difficulty,
-  ]);
+    return { totalHours, platformFee, totalCosts, netProfit, realHourlyRate, profitMargin, verdict, tone };
+  }, [projectPrice, estimatedHours, extraRevisionHours, platformFeePercent, otherCosts, difficulty]);
 
   return (
-    <main className="min-h-screen bg-white text-slate-900">
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="mb-10">
-          <span className="inline-flex rounded-full border border-slate-200 px-4 py-1 text-sm text-slate-600">
-            Free Tool
-          </span>
+    <CalculatorShell>
+      <CalculatorHero
+        badge="Freelance Deals"
+        title="Freelance Project Profit Analyzer"
+        description="Check whether a freelance project is actually worth taking after fees, revisions, hidden costs, and client difficulty."
+      />
 
-          <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-            Freelance Project Profit Analyzer
-          </h1>
-
-          <p className="mt-4 max-w-3xl text-lg text-slate-600">
-            Check whether a freelance project is actually worth taking after fees,
-            revisions, hidden costs, and client difficulty.
-          </p>
-        </div>
-
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-6 text-2xl font-semibold">Project Inputs</h2>
-
-            <div className="space-y-5">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Project Price ($)
-                </label>
-                <input
-                  type="number"
-                  value={projectPrice}
-                  onChange={(e) => setProjectPrice(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Estimated Work Hours
-                </label>
-                <input
-                  type="number"
-                  value={estimatedHours}
-                  onChange={(e) => setEstimatedHours(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Extra Revision Hours
-                </label>
-                <input
-                  type="number"
-                  value={extraRevisionHours}
-                  onChange={(e) => setExtraRevisionHours(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Platform Fee (%)
-                </label>
-                <input
-                  type="number"
-                  value={platformFeePercent}
-                  onChange={(e) => setPlatformFeePercent(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Other Costs ($)
-                </label>
-                <input
-                  type="number"
-                  value={otherCosts}
-                  onChange={(e) => setOtherCosts(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Client Difficulty
-                </label>
-                <select
-                  value={difficulty}
-                  onChange={(e) => setDifficulty(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-                >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                </select>
-              </div>
+      <CalculatorTwoColumn
+        left={
+          <CalculatorPanel title="Project Inputs">
+            <div className="space-y-4">
+              <CalculatorField label="Project Price ($)" type="number" value={projectPrice} onChange={(e) => setProjectPrice(Number(e.target.value))} />
+              <CalculatorField label="Estimated Work Hours" type="number" value={estimatedHours} onChange={(e) => setEstimatedHours(Number(e.target.value))} />
+              <CalculatorField label="Extra Revision Hours" type="number" value={extraRevisionHours} onChange={(e) => setExtraRevisionHours(Number(e.target.value))} />
+              <CalculatorField label="Platform Fee (%)" type="number" value={platformFeePercent} onChange={(e) => setPlatformFeePercent(Number(e.target.value))} />
+              <CalculatorField label="Other Costs ($)" type="number" value={otherCosts} onChange={(e) => setOtherCosts(Number(e.target.value))} />
+              <CalculatorSelectField label="Client Difficulty" value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </CalculatorSelectField>
             </div>
-          </div>
-
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-            <h2 className="mb-6 text-2xl font-semibold">Analysis Result</h2>
-
-            <div className={`rounded-2xl border p-4 ${results.verdictBg}`}>
-              <p className="text-sm text-slate-600">Verdict</p>
-              <p className={`mt-1 text-2xl font-bold ${results.verdictColor}`}>
-                {results.verdict}
-              </p>
+          </CalculatorPanel>
+        }
+        right={
+          <CalculatorPanel title="Analysis Result">
+            <VerdictBanner toneClassName={results.tone} value={results.verdict} />
+            <div className="mt-5">
+              <CalculatorResultsGrid>
+                <MetricCard label="Total Effective Hours" value={results.totalHours.toFixed(1)} />
+                <MetricCard label="Platform Fee" value={`$${results.platformFee.toFixed(2)}`} />
+                <MetricCard label="Total Costs" value={`$${results.totalCosts.toFixed(2)}`} />
+                <MetricCard label="Net Profit" value={`$${results.netProfit.toFixed(2)}`} emphasize />
+                <MetricCard label="Real Hourly Rate" value={`$${results.realHourlyRate.toFixed(2)}/hr`} />
+                <MetricCard label="Profit Margin" value={`${results.profitMargin.toFixed(1)}%`} />
+              </CalculatorResultsGrid>
             </div>
+          </CalculatorPanel>
+        }
+      />
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <p className="text-sm text-slate-500">Total Effective Hours</p>
-                <p className="mt-2 text-2xl font-bold">
-                  {results.totalHours.toFixed(1)}
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <p className="text-sm text-slate-500">Platform Fee</p>
-                <p className="mt-2 text-2xl font-bold">
-                  ${results.platformFee.toFixed(2)}
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <p className="text-sm text-slate-500">Net Profit</p>
-                <p className="mt-2 text-2xl font-bold">
-                  ${results.netProfit.toFixed(2)}
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <p className="text-sm text-slate-500">Real Hourly Rate</p>
-                <p className="mt-2 text-2xl font-bold">
-                  ${results.realHourlyRate.toFixed(2)}/hr
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:col-span-2">
-                <p className="text-sm text-slate-500">Profit Margin</p>
-                <p className="mt-2 text-2xl font-bold">
-                  {results.profitMargin.toFixed(1)}%
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-5">
-              <h3 className="text-lg font-semibold">What this means</h3>
-              <p className="mt-3 text-slate-600">
-                This result helps you see the real value of a freelance project
-                after hidden time and business costs. A project that looks good
-                on the surface can become weak once revisions, fees, and client
-                difficulty are included.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-semibold">When to use this tool</h2>
-          <div className="mt-4 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <h3 className="font-semibold">Freelancers</h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Check whether a client project is profitable before accepting it.
-              </p>
-            </div>
-
-          <div className="mt-12 grid gap-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
-  <div>
-    <h2 className="text-2xl font-semibold text-slate-900">
-      Should you accept this project?
-    </h2>
-    <p className="mt-4 text-slate-600 leading-7">
-      If your real hourly rate is low or your margin is weak, this freelance project
-      may not be worth your time. Consider increasing your price, reducing the scope,
-      or setting clearer revision limits before accepting the deal.
-    </p>
-  </div>
-
-  <div>
-    <h2 className="text-2xl font-semibold text-slate-900">
-      Common mistakes
-    </h2>
-    <ul className="mt-4 space-y-3 text-slate-600">
-      <li>• Underestimating revision time</li>
-      <li>• Ignoring platform fees</li>
-      <li>• Accepting difficult clients without pricing adjustment</li>
-      <li>• Forgetting hidden delivery or communication costs</li>
-    </ul>
-  </div>
-</div>
-
-<div className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-  <h2 className="text-2xl font-semibold text-slate-900">
-    Related calculators
-  </h2>
-  <p className="mt-3 text-slate-600">
-    Use more tools on ProfitHub to price your services better and avoid weak deals.
-  </p>
-
-  <div className="mt-5 flex flex-wrap gap-3">
-    <Link
-      href="/calculators/freelance-rate"
-      className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-    >
-      Improve your hourly rate →
-    </Link>
-
-    <Link
-      href="/calculators/breakeven"
-      className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-    >
-      Check your breakeven point →
-    </Link>
-  </div>
-</div>  
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <h3 className="font-semibold">Agencies</h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Measure margin risk when revisions and account management are involved.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <h3 className="font-semibold">Beginners</h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Avoid underpricing and learn what a healthy project looks like.
-              </p>
-            </div>
-          </div>
+      <section className="mt-8 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Related calculators</h2>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/calculators/freelance-rate" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Improve your hourly rate →</Link>
+          <Link href="/calculators/breakeven" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Check your breakeven point →</Link>
         </div>
       </section>
-    </main>
+    </CalculatorShell>
   );
 }

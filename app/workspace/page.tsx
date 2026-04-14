@@ -7,33 +7,33 @@ export default async function WorkspaceOverviewPage() {
   return (
     <div className="space-y-6">
       {!summary.configured && (
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950/60 dark:text-amber-200">
           Supabase is not configured yet. Add credentials to activate persistence.
         </div>
       )}
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 motion-stagger">
         {[
           { label: "Clients", value: summary.clientCount },
           { label: "Projects", value: summary.projectCount },
           { label: "Active Projects", value: summary.activeProjectCount },
           { label: "Deliverables", value: summary.deliverableCount },
         ].map((card) => (
-          <div key={card.label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-500">{card.label}</p>
-            <p className="mt-2 text-3xl font-semibold text-slate-900">{card.value}</p>
+          <div key={card.label} className="hover-lift rounded-2xl border-soft surface-card p-5">
+            <p className="text-sm text-slate-500 dark:text-slate-400">{card.label}</p>
+            <p className="mt-2 text-3xl font-semibold text-slate-900 dark:text-slate-100">{card.value}</p>
           </div>
         ))}
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2">
-        <Link href="/workspace/clients" className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-          <h2 className="text-lg font-semibold text-slate-900">Manage clients</h2>
-          <p className="mt-1 text-sm text-slate-600">Create and track client records.</p>
+      <section className="grid gap-4 md:grid-cols-2 motion-stagger">
+        <Link href="/workspace/clients" className="hover-lift rounded-2xl border-soft surface-card p-5">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Manage clients</h2>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Create and track client records.</p>
         </Link>
-        <Link href="/workspace/projects" className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-          <h2 className="text-lg font-semibold text-slate-900">Manage projects</h2>
-          <p className="mt-1 text-sm text-slate-600">Create projects and track deliverables.</p>
+        <Link href="/workspace/projects" className="hover-lift rounded-2xl border-soft surface-card p-5">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Manage projects</h2>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Create projects and track deliverables.</p>
         </Link>
       </section>
     </div>
