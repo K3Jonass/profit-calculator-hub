@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -6,12 +7,12 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   icons: {
-  icon: "/icon",
-  shortcut: "/icon",
-  apple: "/icon",
-},
+    icon: "/icon",
+    shortcut: "/icon",
+    apple: "/icon",
+  },
   metadataBase: new URL("https://profithub.cloud"),
   title: {
     default: "ProfitHub",
@@ -38,9 +39,6 @@ export const metadata: Metadata = {
   creator: "ProfitHub",
   publisher: "ProfitHub",
   category: "Business",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "ProfitHub",
     description:
@@ -61,6 +59,17 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const pathname = headers().get("x-pathname") || "/";
+
+  return {
+    ...baseMetadata,
+    alternates: {
+      canonical: pathname,
+    },
+  };
+}
 
 export default function RootLayout({
   children,
