@@ -2,6 +2,17 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import {
+  CalculatorField,
+  CalculatorHero,
+  CalculatorPanel,
+  CalculatorResultsGrid,
+  CalculatorShell,
+  CalculatorTwoColumn,
+  EmptyState,
+  MetricCard,
+  VerdictBanner,
+} from "@/components/calculators/CalculatorUI";
 
 export default function SubscriptionLeakClient() {
   const [subscriptions, setSubscriptions] = useState([
@@ -10,28 +21,17 @@ export default function SubscriptionLeakClient() {
     { name: "Canva", cost: 13 },
     { name: "ChatGPT", cost: 20 },
   ]);
-
   const [hourlyIncome, setHourlyIncome] = useState(10);
 
-  const totalMonthly = useMemo(() => {
-    return subscriptions.reduce((sum, item) => sum + (Number(item.cost) || 0), 0);
-  }, [subscriptions]);
-
+  const totalMonthly = useMemo(() => subscriptions.reduce((sum, item) => sum + (Number(item.cost) || 0), 0), [subscriptions]);
   const totalYearly = totalMonthly * 12;
   const workHoursNeeded = hourlyIncome > 0 ? totalMonthly / hourlyIncome : 0;
 
-  const cancelSuggestions = useMemo(() => {
-    return [...subscriptions]
-      .sort((a, b) => b.cost - a.cost)
-      .slice(0, 3);
-  }, [subscriptions]);
+  const cancelSuggestions = useMemo(() => [...subscriptions].sort((a, b) => b.cost - a.cost).slice(0, 3), [subscriptions]);
 
   function updateSubscription(index: number, field: "name" | "cost", value: string) {
     const updated = [...subscriptions];
-    updated[index] = {
-      ...updated[index],
-      [field]: field === "cost" ? Number(value) : value,
-    };
+    updated[index] = { ...updated[index], [field]: field === "cost" ? Number(value) : value };
     setSubscriptions(updated);
   }
 
@@ -44,72 +44,49 @@ export default function SubscriptionLeakClient() {
   }
 
   let verdict = "Light Subscription Load";
-  let verdictColor = "text-green-600";
-  let verdictBg = "bg-green-50 border-green-200";
+  let tone = "bg-green-50 border-green-200 text-green-700 dark:bg-green-950/40 dark:border-green-900 dark:text-green-300";
 
   if (totalMonthly >= 100 && totalMonthly < 250) {
     verdict = "Moderate Subscription Leak";
-    verdictColor = "text-yellow-600";
-    verdictBg = "bg-yellow-50 border-yellow-200";
+    tone = "bg-yellow-50 border-yellow-200 text-yellow-700 dark:bg-yellow-950/40 dark:border-yellow-900 dark:text-yellow-300";
   } else if (totalMonthly >= 250) {
     verdict = "Heavy Subscription Leak";
-    verdictColor = "text-red-600";
-    verdictBg = "bg-red-50 border-red-200";
+    tone = "bg-red-50 border-red-200 text-red-700 dark:bg-red-950/40 dark:border-red-900 dark:text-red-300";
   }
 
   return (
-    <main className="min-h-screen bg-white text-slate-900">
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="mb-10">
-          <span className="inline-flex rounded-full border border-slate-200 px-4 py-1 text-sm text-slate-600">
-            Free Tool
-          </span>
+    <CalculatorShell>
+      <CalculatorHero
+        badge="Personal Finance"
+        title="Subscription Leak Calculator"
+        description="Find out how much your subscriptions are costing you per month and per year, and see how many hours you work just to pay for them."
+      />
 
-          <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-            Subscription Leak Calculator
-          </h1>
-
-          <p className="mt-4 max-w-3xl text-lg text-slate-600">
-            Find out how much your subscriptions are costing you per month and per year,
-            and see how many hours you work just to pay for them.
-          </p>
-        </div>
-
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-6 text-2xl font-semibold">Your Subscriptions</h2>
-
-            <div className="space-y-4">
+      <CalculatorTwoColumn
+        left={
+          <CalculatorPanel title="Your Subscriptions">
+            <div className="space-y-3">
               {subscriptions.map((item, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-                >
-                  <div className="grid gap-3 md:grid-cols-[1fr_140px_auto]">
-                    <input
+                <div key={index} className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/60">
+                  <div className="grid gap-3 md:grid-cols-[1fr_160px_auto]">
+                    <CalculatorField
+                      label="Subscription name"
                       type="text"
                       value={item.name}
-                      onChange={(e) =>
-                        updateSubscription(index, "name", e.target.value)
-                      }
-                      placeholder="Subscription name"
-                      className="rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
+                      onChange={(e) => updateSubscription(index, "name", e.target.value)}
+                      className="py-2.5"
                     />
-
-                    <input
+                    <CalculatorField
+                      label="Monthly cost"
                       type="number"
                       value={item.cost}
-                      onChange={(e) =>
-                        updateSubscription(index, "cost", e.target.value)
-                      }
-                      placeholder="Monthly cost"
-                      className="rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
+                      onChange={(e) => updateSubscription(index, "cost", e.target.value)}
+                      className="py-2.5"
                     />
-
                     <button
                       type="button"
                       onClick={() => removeSubscription(index)}
-                      className="rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+                      className="mt-7 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
                     >
                       Remove
                     </button>
@@ -121,124 +98,51 @@ export default function SubscriptionLeakClient() {
             <button
               type="button"
               onClick={addSubscription}
-              className="mt-5 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="mt-4 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500"
             >
               Add subscription
             </button>
 
-            <div className="mt-8">
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Your Hourly Income ($)
-              </label>
-              <input
-                type="number"
-                value={hourlyIncome}
-                onChange={(e) => setHourlyIncome(Number(e.target.value))}
-                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-500"
-              />
+            <div className="mt-5">
+              <CalculatorField label="Your Hourly Income ($)" type="number" value={hourlyIncome} onChange={(e) => setHourlyIncome(Number(e.target.value))} />
             </div>
-          </div>
-
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-            <h2 className="mb-6 text-2xl font-semibold">Leak Analysis</h2>
-
-            <div className={`rounded-2xl border p-4 ${verdictBg}`}>
-              <p className="text-sm text-slate-600">Verdict</p>
-              <p className={`mt-1 text-2xl font-bold ${verdictColor}`}>
-                {verdict}
-              </p>
+          </CalculatorPanel>
+        }
+        right={
+          <CalculatorPanel title="Leak Analysis">
+            <VerdictBanner toneClassName={tone} value={verdict} />
+            <div className="mt-5">
+              <CalculatorResultsGrid>
+                <MetricCard label="Monthly Total" value={`$${totalMonthly.toFixed(2)}`} emphasize />
+                <MetricCard label="Yearly Total" value={`$${totalYearly.toFixed(2)}`} />
+                <MetricCard label="Hours Worked to Pay Them" value={`${workHoursNeeded.toFixed(1)} hours / month`} />
+              </CalculatorResultsGrid>
             </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <p className="text-sm text-slate-500">Monthly Total</p>
-                <p className="mt-2 text-2xl font-bold">${totalMonthly.toFixed(2)}</p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <p className="text-sm text-slate-500">Yearly Total</p>
-                <p className="mt-2 text-2xl font-bold">${totalYearly.toFixed(2)}</p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:col-span-2">
-                <p className="text-sm text-slate-500">Hours Worked to Pay Them</p>
-                <p className="mt-2 text-2xl font-bold">
-                  {workHoursNeeded.toFixed(1)} hours / month
-                </p>
-              </div>
+            <div className="mt-5">
+              {cancelSuggestions.length === 0 ? (
+                <EmptyState title="No subscriptions yet" description="Add at least one subscription to see cancellation suggestions." />
+              ) : (
+                <div className="space-y-2">
+                  {cancelSuggestions.map((item, index) => (
+                    <div key={`${item.name}-${index}`} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-900/80">
+                      <span className="font-medium text-slate-800 dark:text-slate-100">{item.name || "Unnamed subscription"}</span>
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">${Number(item.cost || 0).toFixed(2)}/mo</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+          </CalculatorPanel>
+        }
+      />
 
-            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-5">
-              <h3 className="text-lg font-semibold">Top cancellation candidates</h3>
-              <div className="mt-4 space-y-3">
-                {cancelSuggestions.map((item, index) => (
-                  <div
-                    key={`${item.name}-${index}`}
-                    className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3"
-                  >
-                    <span className="font-medium text-slate-800">
-                      {item.name || "Unnamed subscription"}
-                    </span>
-                    <span className="text-sm font-semibold text-slate-600">
-                      ${Number(item.cost || 0).toFixed(2)}/mo
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-900">
-              What this means
-            </h2>
-            <p className="mt-4 leading-7 text-slate-600">
-              Small subscriptions often feel harmless on their own, but together they
-              can create a serious monthly leak. This calculator helps you see the total
-              impact clearly before it becomes normal spending.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-900">
-              Common mistakes
-            </h2>
-            <ul className="mt-4 space-y-3 text-slate-600">
-              <li>• Forgetting annual plans converted into monthly cost</li>
-              <li>• Paying for tools you barely use</li>
-              <li>• Keeping overlapping subscriptions</li>
-              <li>• Ignoring how much work time those costs represent</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-semibold text-slate-900">
-            Related calculators
-          </h2>
-          <p className="mt-3 text-slate-600">
-            Explore more ProfitHub tools to understand your money, pricing, and business decisions better.
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              href="/calculators/breakeven"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
-              Check your breakeven point →
-            </Link>
-
-            <Link
-              href="/calculators/freelance-project-profit"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
-              Analyze a freelance deal →
-            </Link>
-          </div>
+      <section className="mt-8 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Related calculators</h2>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/calculators/breakeven" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Check your breakeven point →</Link>
+          <Link href="/calculators/freelance-project-profit" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Analyze a freelance deal →</Link>
         </div>
       </section>
-    </main>
+    </CalculatorShell>
   );
 }
