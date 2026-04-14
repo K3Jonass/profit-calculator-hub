@@ -64,130 +64,137 @@ export default function HomePageClient() {
   const featuredTools = calculators.slice(6, 10);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-14">
-      <section className="rounded-[2rem] bg-slate-950 px-6 py-12 text-white md:px-10">
-        <p className="inline-flex rounded-full border border-white/15 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
-          ProfitHub Calculator Platform
-        </p>
-        <h1 className="mt-5 max-w-4xl text-4xl font-bold tracking-tight md:text-6xl md:leading-[1.04]">
-          Free Business Calculators for Ecommerce, SaaS, and Freelancers
-        </h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
-          Use ProfitHub to calculate profit margins, MRR, breakeven targets, subscription leakage, revenue share payouts, and decision impact with practical tools designed for operators.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/calculators" className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-200">
-            Explore all business calculators
-          </Link>
-          <Link href="/calculators/shopify-profit" className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
-            Start with the Shopify Profit Calculator
-          </Link>
-          <Link href="/blog" className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
-            Read practical calculator guides
-          </Link>
+    <div className="mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-12">
+      <section className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-slate-950 px-6 py-12 text-white shadow-[0_28px_80px_rgba(15,23,42,0.45)] motion-fade-up md:px-10 md:py-16">
+        <div className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-blue-500/30 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-indigo-500/30 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-1/3 h-px w-1/2 bg-linear-to-r from-transparent via-white/35 to-transparent" />
+
+        <div className="relative">
+          <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200">
+            ProfitHub Calculator Platform
+          </p>
+
+          <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-white md:text-6xl md:leading-[1.02]">
+            Free business calculators built like an AI-era operating console
+          </h1>
+
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
+            Use ProfitHub to calculate profit margins, MRR, breakeven targets, subscription leakage, revenue share payouts, and decision impact with practical tools designed for operators.
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/calculators" className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 hover:-translate-y-0.5 hover:bg-slate-200">
+              Explore all business calculators
+            </Link>
+            <Link href="/calculators/shopify-profit" className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15">
+              Start with Shopify Profit
+            </Link>
+            <Link href="/blog" className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15">
+              Read practical guides
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="mt-10">
-        <div className="grid gap-4 md:grid-cols-3">
-          {categories.map((category) => (
-            <article key={category.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-slate-900">{category.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{category.description}</p>
-              <ul className="mt-4 space-y-2 text-sm">
-                {category.links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="font-medium text-slate-900 underline decoration-slate-300 underline-offset-4 hover:text-blue-700">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+      <section className="mt-10 grid gap-4 md:grid-cols-3 motion-stagger">
+        {categories.map((category) => (
+          <article key={category.title} className="hover-lift rounded-3xl border-soft surface-card p-6">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{category.title}</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{category.description}</p>
+            <ul className="mt-5 space-y-2.5 text-sm">
+              {category.links.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="animated-link font-medium text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-blue-300">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </section>
 
-      <section className="mt-12">
+      <section className="mt-14">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Popular calculators</h2>
-            <p className="mt-2 text-slate-600">Start with the calculators most used by founders and operators.</p>
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Popular calculators</h2>
+            <p className="mt-2 text-slate-600 dark:text-slate-300">Start with the calculators most used by founders and operators.</p>
           </div>
-          <Link href="/calculators" className="text-sm font-semibold text-slate-900 hover:text-blue-700">
-            View all calculators →
+          <Link href="/calculators" className="animated-link text-sm font-semibold text-slate-900 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-300">
+            View all calculators
           </Link>
         </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3 motion-stagger">
           {popularCalculators.map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-              <h3 className="text-lg font-semibold text-slate-900">{item.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{item.description}</p>
+            <Link key={item.href} href={item.href} className="hover-lift group rounded-3xl border-soft surface-card p-5">
+              <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-700 dark:text-slate-100 dark:group-hover:text-blue-300">{item.title}</h3>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.description}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mt-12 rounded-2xl border border-blue-100 bg-blue-50 p-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Common use cases</h2>
+      <section className="mt-14 overflow-hidden rounded-3xl border border-blue-200/60 bg-linear-to-b from-blue-50 to-white p-6 dark:border-blue-900/50 dark:from-slate-900 dark:to-slate-950">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Common use cases</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {useCases.map((useCase) => (
-            <Link key={useCase.href} href={useCase.href} className="rounded-2xl border border-blue-100 bg-white p-5 shadow-sm transition hover:shadow-md">
-              <h3 className="text-lg font-semibold text-slate-900">{useCase.title}</h3>
-              <p className="mt-2 text-sm text-blue-700">{useCase.label}</p>
+            <Link key={useCase.href} href={useCase.href} className="hover-lift rounded-2xl border border-blue-100 bg-white/85 p-5 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{useCase.title}</h3>
+              <p className="mt-2 text-sm text-blue-700 dark:text-blue-300">{useCase.label}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mt-12">
+      <section className="mt-14">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900">Latest blog guides</h2>
-            <p className="mt-2 text-slate-600">Learn the strategy and formulas behind each calculator output.</p>
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Latest blog guides</h2>
+            <p className="mt-2 text-slate-600 dark:text-slate-300">Learn the strategy and formulas behind each calculator output.</p>
           </div>
-          <Link href="/blog" className="text-sm font-semibold text-slate-900 hover:text-blue-700">
-            Browse all guides →
+          <Link href="/blog" className="animated-link text-sm font-semibold text-slate-900 hover:text-blue-700 dark:text-slate-100 dark:hover:text-blue-300">
+            Browse all guides
           </Link>
         </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3 motion-stagger">
           {latestGuides.map((post) => (
-            <Link key={post.href} href={post.href} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{post.category}</p>
-              <h3 className="mt-2 text-lg font-semibold text-slate-900">{post.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{post.description}</p>
+            <Link key={post.href} href={post.href} className="hover-lift group rounded-3xl border-soft surface-card p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{post.category}</p>
+              <h3 className="mt-2 text-lg font-semibold text-slate-900 group-hover:text-blue-700 dark:text-slate-100 dark:group-hover:text-blue-300">{post.title}</h3>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{post.description}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mt-12">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">More tools to explore</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="mt-14">
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">More tools to explore</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4 motion-stagger">
           {featuredTools.map((tool) => (
-            <Link key={tool.href} href={tool.href} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
-              <h3 className="text-xl font-semibold text-slate-900">{tool.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{tool.description}</p>
-              <p className="mt-4 text-sm font-semibold text-blue-700">Open {tool.title}</p>
+            <Link key={tool.href} href={tool.href} className="hover-lift group rounded-3xl border-soft surface-card p-5">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{tool.title}</h3>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{tool.description}</p>
+              <p className="mt-4 text-sm font-semibold text-blue-700 transition group-hover:translate-x-0.5 dark:text-blue-300">Open {tool.title} →</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-100 p-8">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Turn insights into faster decisions</h2>
-        <p className="mt-3 max-w-3xl text-slate-700">
+      <section className="mt-14 rounded-[2rem] border border-slate-200/90 bg-slate-100/85 p-8 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70">
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Turn insights into faster decisions</h2>
+        <p className="mt-3 max-w-3xl text-slate-700 dark:text-slate-300">
           Pick one calculator, run your numbers, then use linked guides to improve pricing, retention, and profitability decisions this week.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/calculators" className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-700">
+          <Link href="/calculators" className="rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-700 dark:bg-blue-600 dark:hover:bg-blue-500">
             Go to the calculators hub
           </Link>
-          <Link href="/contracts" className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100">
+          <Link href="/contracts" className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800">
             Explore contracts and deal tools
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
