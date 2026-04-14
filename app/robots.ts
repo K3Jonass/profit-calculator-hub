@@ -2,34 +2,27 @@ import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", "/blog", "/calculators", "/contracts", "/about", "/contact"],
+        disallow: [
+          "/workspace",
+          "/workspace/",
+          "/portal",
+          "/portal/",
+          "/api/",
+          "/*?*utm_",
+          "/*?*fbclid=",
+          "/*?*gclid=",
+        ],
       },
       {
-        userAgent: "OAI-SearchBot",
-        allow: "/",
-      },
-      {
-        userAgent: "GPTBot",
-        allow: "/",
-      },
-      {
-        userAgent: "ClaudeBot",
-        allow: "/",
-      },
-      {
-        userAgent: "PerplexityBot",
-        allow: "/",
-      },
-      {
-        userAgent: "Perplexity-User",
+        userAgent: "Googlebot",
         allow: "/",
       },
     ],
     sitemap: "https://profithub.cloud/sitemap.xml",
-    host: "https://profithub.cloud",
+    host: "profithub.cloud",
   };
 }
