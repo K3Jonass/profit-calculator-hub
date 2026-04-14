@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+export const metadata: Metadata = {
+  title: "Business Calculators Hub | ProfitHub",
+  description:
+    "Browse ProfitHub business calculators for ecommerce, SaaS, pricing, freelancing, breakeven planning, and decision scoring.",
+  alternates: {
+    canonical: "/calculators",
+  },
+};
+
+
 
 const calculatorGroups = [
   {
