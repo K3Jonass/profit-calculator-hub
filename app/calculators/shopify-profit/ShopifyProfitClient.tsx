@@ -1,10 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { type ChangeEvent, useMemo, useState } from "react";
 import { calculateShopifyProfit } from "@/lib/calculators";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import type { AppLocale } from "@/lib/i18n/config";
 import { getShopifyProfitCopy } from "@/lib/i18n/calculator-shopify-profit";
+
+const LOCALE_REGION_MAP: Record<AppLocale, string> = {
+  en: "en-US",
+  ar: "ar",
+  fr: "fr-FR",
+  es: "es-ES",
+  ru: "ru-RU",
+};
 
 export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
   const [form, setForm] = useState({
@@ -17,12 +25,30 @@ export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
 
   const copy = getShopifyProfitCopy(locale);
   const result = useMemo(() => calculateShopifyProfit(form), [form]);
+  const localeTag = LOCALE_REGION_MAP[locale];
+  const currencyFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat(localeTag, {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2,
+      }),
+    [localeTag],
+  );
+  const percentFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat(localeTag, {
+        maximumFractionDigits: 2,
+      }),
+    [localeTag],
+  );
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
+    const parsedValue = Number(value);
     setForm((prev) => ({
       ...prev,
-      [name]: Number(value),
+      [name]: Number.isFinite(parsedValue) ? parsedValue : 0,
     }));
   }
 
@@ -81,9 +107,9 @@ export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <ResultCard label={copy.results.netProfit} value={`$${result.netProfit.toFixed(2)}`} />
-        <ResultCard label={copy.results.totalCosts} value={`$${result.totalCosts.toFixed(2)}`} />
-        <ResultCard label={copy.results.margin} value={`${result.margin.toFixed(2)}%`} />
+        <ResultCard label={copy.results.netProfit} value={currencyFormatter.format(result.netProfit)} />
+        <ResultCard label={copy.results.totalCosts} value={currencyFormatter.format(result.totalCosts)} />
+        <ResultCard label={copy.results.margin} value={`${percentFormatter.format(result.margin)}%`} />
       </div>
 
       <section className="mt-14 max-w-none">
@@ -113,7 +139,7 @@ function Input({
   placeholder: string;
   name: string;
   value: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   validationHint: string;
 }) {
   return (
