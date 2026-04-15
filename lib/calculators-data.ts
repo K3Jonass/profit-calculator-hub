@@ -1,4 +1,6 @@
-export const calculators = [
+import type { AppLocale } from "@/lib/i18n/config";
+
+const englishCalculators = [
   {
     title: "Shopify Profit Calculator",
     href: "/calculators/shopify-profit",
@@ -55,3 +57,17 @@ export const calculators = [
   href: "/calculators/decision-score",
 },
 ];
+
+export function getCalculators(locale: AppLocale) {
+  if (locale === "en") {
+    return englishCalculators;
+  }
+
+  return englishCalculators.map((item) => ({
+    ...item,
+    title: `[TODO ${locale}] ${item.title}`,
+    description: `[TODO ${locale}] ${item.description}`,
+  }));
+}
+
+export const calculators = englishCalculators;

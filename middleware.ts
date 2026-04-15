@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { DEFAULT_LOCALE, isSupportedLocale, stripLocaleFromPathname } from "@/lib/i18n/config";
 
 const NOINDEX_PREFIXES = ["/workspace", "/portal"];
 const CANONICAL_HOST = "profithub.cloud";
@@ -28,6 +29,10 @@ function getCanonicalRedirect(request: NextRequest) {
   return destination;
 }
 
+function isPrivatePath(pathname: string) {
+  return pathname === "/workspace" || pathname.startsWith("/workspace/") || pathname === "/portal" || pathname.startsWith("/portal/");
+}
+
 export function middleware(request: NextRequest) {
   const canonicalDestination = getCanonicalRedirect(request);
 
@@ -35,16 +40,35 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(canonicalDestination, 308);
   }
 
+  const pathname = request.nextUrl.pathname;
+  const segments = pathname.split("/").filter(Boolean);
+  const firstSegment = segments[0];
+  const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
+  const preferredLocale = cookieLocale && isSupportedLocale(cookieLocale) ? cookieLocale : DEFAULT_LOCALE;
+  const locale = firstSegment && isSupportedLocale(firstSegment) ? firstSegment : preferredLocale;
+
+  if (!isPrivatePath(pathname) && !isSupportedLocale(firstSegment || "")) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = pathname === "/" ? `/${preferredLocale}` : `/${preferredLocale}${pathname}`;
+    return NextResponse.redirect(redirectUrl, 307);
+  }
+
+  const internalPathname = stripLocaleFromPathname(pathname);
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+  requestHeaders.set("x-locale", locale);
+  requestHeaders.set("x-pathname", internalPathname);
 
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  const response = isSupportedLocale(firstSegment || "")
+    ? NextResponse.rewrite(new URL(internalPathname, request.url), {
+        request: {
+          headers: requestHeaders,
+        },
+      })
+    : NextResponse.next({ request: { headers: requestHeaders } });
 
-  if (isNoindexPath(request.nextUrl.pathname)) {
+  response.cookies.set("NEXT_LOCALE", locale, { path: "/", sameSite: "lax" });
+
+  if (isNoindexPath(internalPathname)) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
   }
 

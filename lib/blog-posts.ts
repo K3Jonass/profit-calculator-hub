@@ -1,5 +1,7 @@
 
-export const blogPosts = [
+import type { AppLocale } from "@/lib/i18n/config";
+
+const englishBlogPosts = [
   {
     title: "What Is a Breakeven Point? The Number Every Business Should Know",
     description:
@@ -323,3 +325,19 @@ export const blogPosts = [
     category: "Contracts",
   },
 ];
+
+
+export function getBlogPosts(locale: AppLocale) {
+  if (locale === "en") {
+    return englishBlogPosts;
+  }
+
+  return englishBlogPosts.map((post) => ({
+    ...post,
+    title: `[TODO ${locale}] ${post.title}`,
+    description: `[TODO ${locale}] ${post.description}`,
+    category: `[TODO ${locale}] ${post.category}`,
+  }));
+}
+
+export const blogPosts = englishBlogPosts;
