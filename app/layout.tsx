@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { DEFAULT_LOCALE, isRtlLocale, isSupportedLocale, SUPPORTED_LOCALES, withLocale, type AppLocale } from "@/lib/i18n/config";
 
 const NOINDEX_PREFIXES = ["/workspace", "/portal"];
 const CANONICAL_PATH_OVERRIDES: Record<string, string> = {
@@ -13,168 +14,67 @@ const CANONICAL_PATH_OVERRIDES: Record<string, string> = {
 };
 
 const baseMetadata: Metadata = {
-  icons: {
-    icon: "/icon",
-    shortcut: "/icon",
-    apple: "/icon",
-  },
+  icons: { icon: "/icon", shortcut: "/icon", apple: "/icon" },
   metadataBase: new URL("https://profithub.cloud"),
-  title: {
-    default: "ProfitHub",
-    template: "%s | ProfitHub",
-  },
-  description:
-    "Free online profit calculators for ecommerce, SaaS, freelancers, subscriptions, pricing, revenue share, breakeven analysis, and smarter business decisions.",
+  title: { default: "ProfitHub", template: "%s | ProfitHub" },
+  description: "Free online profit calculators for ecommerce, SaaS, freelancers, subscriptions, pricing, revenue share, breakeven analysis, and smarter business decisions.",
   applicationName: "ProfitHub",
-  keywords: [
-    "profit calculator",
-    "business calculator",
-    "shopify profit calculator",
-    "dropshipping profit calculator",
-    "saas mrr calculator",
-    "freelance rate calculator",
-    "breakeven calculator",
-    "revenue share calculator",
-    "subscription leak calculator",
-    "cost of delay calculator",
-    "freelance project profit calculator",
-    "business decision calculator",
-  ],
-  authors: [{ name: "ProfitHub" }],
-  creator: "ProfitHub",
-  publisher: "ProfitHub",
-  category: "Business",
-  openGraph: {
-    title: "ProfitHub",
-    description:
-      "Free calculators for ecommerce, SaaS, freelancers, subscriptions, pricing, and smarter business decisions.",
-    url: "https://profithub.cloud",
-    siteName: "ProfitHub",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ProfitHub",
-    description:
-      "Free calculators for ecommerce, SaaS, freelancers, subscriptions, pricing, and smarter business decisions.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
 
 function normalizePathname(pathname: string) {
-  if (!pathname || pathname === "/") {
-    return "/";
-  }
-
+  if (!pathname || pathname === "/") return "/";
   return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 }
 
 function isNoindexPath(pathname: string) {
-  return NOINDEX_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
+  return NOINDEX_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+}
+
+function buildLanguageAlternates(pathname: string) {
+  return Object.fromEntries(SUPPORTED_LOCALES.map((locale) => [locale, withLocale(pathname, locale)]));
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const rawPathname = headersList.get("x-pathname") || "/";
+  const rawLocale = headersList.get("x-locale") || DEFAULT_LOCALE;
+  const locale = isSupportedLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE;
   const pathname = normalizePathname(rawPathname);
-  const canonicalPath = CANONICAL_PATH_OVERRIDES[pathname] || pathname;
+  const canonicalPath = withLocale(CANONICAL_PATH_OVERRIDES[pathname] || pathname, locale);
   const noindex = isNoindexPath(pathname);
 
   return {
     ...baseMetadata,
     alternates: {
       canonical: canonicalPath,
+      languages: {
+        ...buildLanguageAlternates(pathname),
+        "x-default": withLocale(pathname, DEFAULT_LOCALE),
+      },
     },
-    robots: noindex
-      ? {
-          index: false,
-          follow: false,
-          nocache: true,
-        }
-      : baseMetadata.robots,
+    robots: noindex ? { index: false, follow: false, nocache: true } : { index: true, follow: true },
   };
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "ProfitHub",
-    url: "https://profithub.cloud",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://profithub.cloud/icon.png",
-      width: 512,
-      height: 512,
-    },
-  };
-
-  const websiteJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "ProfitHub",
-    url: "https://profithub.cloud",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://profithub.cloud/?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
-  };
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const headersList = await headers();
+  const localeHeader = headersList.get("x-locale") || DEFAULT_LOCALE;
+  const locale: AppLocale = isSupportedLocale(localeHeader) ? localeHeader : DEFAULT_LOCALE;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} dir={isRtlLocale(locale) ? "rtl" : "ltr"} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-BXLJ84T4B5"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-BXLJ84T4B5');
-          `}
-        </Script>
-
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w50lpevu96");
-  `}
-        </Script>
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-BXLJ84T4B5" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-BXLJ84T4B5');`}</Script>
+        <Script id="microsoft-clarity" strategy="afterInteractive">{`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "w50lpevu96");`}</Script>
 
         <div className="relative min-h-screen">
           <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.06),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.05),transparent_28%)]" />
           <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-24 border-b border-transparent bg-white/55 backdrop-blur-xl dark:bg-slate-950/35" />
 
-          <Navbar />
-
+          <Navbar locale={locale} />
           <main className="relative z-10">{children}</main>
-
-          <Footer />
+          <Footer locale={locale} />
         </div>
 
         <Analytics />

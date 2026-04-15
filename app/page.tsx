@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import HomePageClient from "./HomePageClient";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 
-export const metadata: Metadata = {
-  title: "Free Profit Calculators for Online Businesses | ProfitHub",
-  description:
-    "ProfitHub.cloud offers free online calculators for ecommerce, SaaS, freelance work, subscriptions, revenue sharing, breakeven analysis, and smarter business decisions.",
-  alternates: {
-    canonical: "/",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  const t = getPublicPageMessages(locale);
+  return {
+    title: t.home.meta.title,
+    description: t.home.meta.description,
+  };
+}
 
-export default function Page() {
-  return <HomePageClient />;
+export default async function Page() {
+  const locale = await getRequestLocale();
+  return <HomePageClient locale={locale} />;
 }

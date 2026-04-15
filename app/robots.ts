@@ -8,8 +8,12 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/workspace",
         "/workspace/",
+        "/*/workspace",
+        "/*/workspace/*",
         "/portal",
         "/portal/",
+        "/*/portal",
+        "/*/portal/*",
         "/api",
         "/api/",
         "/*?*utm_",

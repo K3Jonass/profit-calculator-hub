@@ -1,5 +1,6 @@
 import { blogPosts } from "@/lib/blog-posts";
 import { contractGenerators } from "@/lib/contracts-generators";
+import { SUPPORTED_LOCALES, withLocale } from "@/lib/i18n/config";
 
 export const APP_HOST = "profithub.cloud";
 export const APP_BASE_URL = `https://${APP_HOST}`;
@@ -71,4 +72,9 @@ export function toAbsoluteUrl(path: string) {
 
 export function getAllPublicUrls() {
   return getAllPublicPaths().map(toAbsoluteUrl);
+}
+
+
+export function getLocalizedPublicPaths() {
+  return getAllPublicPaths().flatMap((path) => SUPPORTED_LOCALES.map((locale) => withLocale(path, locale)));
 }

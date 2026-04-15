@@ -2,17 +2,25 @@ import type { Metadata } from "next";
 import ShopifyProfitClient from "./ShopifyProfitClient";
 import CalculatorSeoScaffold from "@/components/seo/CalculatorSeoScaffold";
 import { calculatorSeoContent } from "@/lib/calculator-seo-content";
+import { getShopifyProfitCopy } from "@/lib/i18n/calculator-shopify-profit";
+import { getRequestLocale } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Shopify Profit Calculator Free | Net Profit & Margin Tool",
-  description:
-    "Calculate Shopify net profit, total costs, and profit margin in seconds with this free tool.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  const copy = getShopifyProfitCopy(locale);
 
-export default function ShopifyProfitPage() {
+  return {
+    title: copy.metaTitle,
+    description: copy.metaDescription,
+  };
+}
+
+export default async function ShopifyProfitPage() {
+  const locale = await getRequestLocale();
+
   return (
     <CalculatorSeoScaffold content={calculatorSeoContent["shopify-profit"]}>
-      <ShopifyProfitClient />
+      <ShopifyProfitClient locale={locale} />
     </CalculatorSeoScaffold>
   );
 }
