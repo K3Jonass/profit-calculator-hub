@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateDropshippingProfit } from "@/lib/calculators";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import { CalculatorField, CalculatorHero, CalculatorPanel, CalculatorResultsGrid, CalculatorShell, MetricCard } from "@/components/calculators/CalculatorUI";
 
 export default function DropshippingProfitClient() {
   const [form, setForm] = useState({
@@ -24,88 +25,36 @@ export default function DropshippingProfitClient() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14">
-      <h1 className="mb-3 text-4xl font-bold tracking-tight">
-        Dropshipping Profit Calculator
-      </h1>
-
-      <p className="mb-8 text-slate-600">
-        Calculate your dropshipping revenue, total costs, net profit, and margin instantly.
-      </p>
-
-      <div className="mb-10 grid gap-4 md:grid-cols-2">
-        <Input label="Number of Orders" name="orders" value={form.orders} onChange={handleChange} />
-        <Input label="Selling Price ($)" name="sellingPrice" value={form.sellingPrice} onChange={handleChange} />
-        <Input label="Product Cost ($)" name="productCost" value={form.productCost} onChange={handleChange} />
-        <Input label="Ad Spend ($)" name="adsCost" value={form.adsCost} onChange={handleChange} />
-        <Input label="Shipping Costs ($)" name="shipping" value={form.shipping} onChange={handleChange} />
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-4">
-        <ResultCard label="Revenue" value={`$${result.revenue.toFixed(2)}`} />
-        <ResultCard label="Costs" value={`$${result.costs.toFixed(2)}`} />
-        <ResultCard label="Profit" value={`$${result.profit.toFixed(2)}`} />
-        <ResultCard label="Margin" value={`${result.margin.toFixed(2)}%`} />
-      </div>
-
-      <section className="mt-14 max-w-none">
-        <h2 className="mb-3 text-2xl font-bold text-slate-900">
-          How this dropshipping calculator works
-        </h2>
-        <p className="mb-6 text-slate-600">
-          This calculator estimates your total revenue from orders, then subtracts product costs,
-          shipping, and ad spend to show your actual net profit and margin.
-        </p>
-
-        <h2 className="mb-3 text-2xl font-bold text-slate-900">
-          Why this matters
-        </h2>
-        <p className="text-slate-600">
-          Many dropshipping stores look profitable at the revenue level but become weak after ad
-          costs and fulfillment expenses are included. Use this tool before scaling.
-        </p>
-      </section>
-    </div>
-  );
-}
-
-function Input({
-  label,
-  name,
-  value,
-  onChange,
-}: {
-  label: string;
-  name: string;
-  value: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
-  return (
-    <div>
-      <label className="mb-2 block text-sm font-medium text-slate-700">{label}</label>
-      <input
-        type="number"
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-slate-500"
+    <CalculatorShell>
+      <CalculatorHero
+        badge="Ecommerce"
+        title="Dropshipping Profit Calculator"
+        description="Calculate your dropshipping revenue, total costs, net profit, and margin instantly."
       />
-    </div>
-  );
-}
 
-function ResultCard({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="mt-2 text-2xl font-bold text-slate-900">{value}</p>
-      <RelatedCalculators currentHref="/calculators/dropshipping-profit" />
-    </div>
+      <CalculatorPanel title="Store Inputs">
+        <div className="grid gap-4 md:grid-cols-2">
+          <CalculatorField label="Number of Orders" type="number" name="orders" value={form.orders} onChange={handleChange} />
+          <CalculatorField label="Selling Price ($)" type="number" name="sellingPrice" value={form.sellingPrice} onChange={handleChange} />
+          <CalculatorField label="Product Cost ($)" type="number" name="productCost" value={form.productCost} onChange={handleChange} />
+          <CalculatorField label="Ad Spend ($)" type="number" name="adsCost" value={form.adsCost} onChange={handleChange} />
+          <CalculatorField label="Shipping Costs ($)" type="number" name="shipping" value={form.shipping} onChange={handleChange} />
+        </div>
+      </CalculatorPanel>
+
+      <section className="mt-6 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
+        <h2 className="mb-5 text-2xl font-semibold text-slate-900 dark:text-slate-100">Results</h2>
+        <CalculatorResultsGrid columns="md:grid-cols-2 xl:grid-cols-4">
+          <MetricCard label="Revenue" value={`$${result.revenue.toFixed(2)}`} />
+          <MetricCard label="Costs" value={`$${result.costs.toFixed(2)}`} />
+          <MetricCard label="Profit" value={`$${result.profit.toFixed(2)}`} emphasize />
+          <MetricCard label="Margin" value={`${result.margin.toFixed(2)}%`} />
+        </CalculatorResultsGrid>
+      </section>
+
+      <section className="mt-8">
+        <RelatedCalculators currentHref="/calculators/dropshipping-profit" />
+      </section>
+    </CalculatorShell>
   );
 }
