@@ -51,7 +51,7 @@ export default function DropshippingProfitClient() {
           <MetricCard label="Margin" value={`${result.margin.toFixed(2)}%`} />
         </CalculatorResultsGrid>
       </section>
-
+       
       <section className="mt-8">
         <RelatedCalculators currentHref="/calculators/dropshipping-profit" />
       </section>
