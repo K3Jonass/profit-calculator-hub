@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "How to Automate Client Onboarding with Welcome Docs and Light SOPs",
   description:
     "Turn client onboarding into a repeatable system using welcome docs, approvals, and lightweight operating procedures.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Automatiser l’onboarding client avec des documents d’accueil efficaces",
+  description:
+    "Mettez en place un onboarding client automatisé avec welcome docs et processus légers pour réduire les frictions et accélérer le démarrage.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="automate-client-onboarding-with-welcome-docs"
+        title="Automatiser l’onboarding client avec des documents d’accueil efficaces"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Structurer mon onboarding client"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">How to Automate Client Onboarding with Welcome Docs and Light SOPs</h1>

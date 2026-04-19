@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "Client Welcome Doc That Prevents Scope Creep Before It Starts",
   description:
     "Use a client welcome document to lock expectations, communication rules, and delivery boundaries before project execution begins.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Document d’accueil client : prévenir le scope creep dès le départ",
+  description:
+    "Créez un welcome doc client qui fixe attentes, périmètre et règles de validation pour protéger la marge projet.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="client-welcome-doc-that-prevents-scope-creep"
+        title="Document d’accueil client : prévenir le scope creep dès le départ"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Renforcer mon cadrage client"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Client Welcome Doc That Prevents Scope Creep Before It Starts</h1>

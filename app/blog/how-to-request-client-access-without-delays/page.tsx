@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "How to Request Client Access Without Delays, Rework, or Awkward Follow-Ups",
   description:
     "Learn a repeatable framework for requesting client access to ad accounts, analytics, and CMS tools without bottlenecks.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment demander des accès client sans retards ni relances inutiles",
+  description:
+    "Adoptez une méthode claire pour demander des accès client rapidement et éviter les blocages de démarrage projet.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="how-to-request-client-access-without-delays"
+        title="Comment demander des accès client sans retards ni relances inutiles"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Optimiser mes demandes d’accès"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">How to Request Client Access Without Delays, Rework, or Awkward Follow-Ups</h1>

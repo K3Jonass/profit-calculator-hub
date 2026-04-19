@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Testimonial Request System After Project Delivery: Timing, Friction, and Follow-Through",
   description:
     "Design a post-delivery testimonial request system that increases response rates and captures credible proof.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Système de demande de témoignage après livraison : timing, friction, suivi",
+  description:
+    "Construisez un système post-livraison pour obtenir plus de témoignages utiles et exploitables commercialement.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="testimonial-request-system-after-project-delivery"
+        title="Système de demande de témoignage après livraison : timing, friction, suivi"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Créer mon système post-livraison"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Testimonial Request System After Project Delivery: Timing, Friction, and Follow-Through</h1>

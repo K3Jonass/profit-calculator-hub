@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Freelancer Contract Negotiation Guide: Protect Margin Without Losing Great Clients",
   description:
     "A negotiation framework freelancers can use to improve contract terms while preserving trust and deal velocity.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Guide de négociation de contrat freelance : protéger la marge sans bloquer le deal",
+  description:
+    "Négociez vos contrats freelance avec une approche structurée pour sécuriser les clauses clés et préserver la relation client.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="freelancer-contract-negotiation-guide"
+        title="Guide de négociation de contrat freelance : protéger la marge sans bloquer le deal"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Préparer ma négociation contractuelle"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Freelancer Contract Negotiation Guide: Protect Margin Without Losing Great Clients</h1>

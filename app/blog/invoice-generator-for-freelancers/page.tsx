@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "Invoice Generator for Freelancers: Build a Payment System That Gets You Paid on Time",
   description:
     "Learn how freelancers can use an invoice generator to standardize billing, protect cash flow, and reduce late payments with practical operating systems.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Générateur de facture freelance : sécuriser les paiements et la trésorerie",
+  description:
+    "Utilisez un générateur de facture pour standardiser vos envois, réduire les retards et protéger votre cash-flow freelance.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="invoice-generator-for-freelancers"
+        title="Générateur de facture freelance : sécuriser les paiements et la trésorerie"
+        ctaHref="/calculators/invoice-generator"
+        ctaText="Ouvrir le générateur de facture"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Invoice Generator for Freelancers: Build a Payment System That Gets You Paid on Time</h1>

@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
   description:
     "Learn what Cost of Delay means, how to calculate it, and why slow product or business decisions quietly destroy revenue. Use our Cost of Delay Calculator to quantify urgency.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Qu’est-ce que le coût du retard ? La perte de revenus invisible derrière les décisions lentes",
+  description:
+    "Comprenez le coût du retard, son calcul pratique et son impact direct sur la croissance, la marge et la capacité d’exécution.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="what-is-cost-of-delay"
+        title="Qu’est-ce que le coût du retard ? La perte de revenus invisible derrière les décisions lentes"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="Ouvrir le calculateur de coût du retard"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

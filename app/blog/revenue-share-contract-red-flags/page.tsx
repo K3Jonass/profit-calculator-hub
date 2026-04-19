@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Revenue Share Contract Red Flags: Clauses That Quietly Destroy Good Partnerships",
   description:
     "Spot the most dangerous red flags in revenue share contracts before signing and protect long-term upside.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Red flags d’un contrat de partage de revenus : clauses à surveiller",
+  description:
+    "Repérez les clauses à risque dans un contrat de partage de revenus avant signature pour protéger votre marge.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="revenue-share-contract-red-flags"
+        title="Red flags d’un contrat de partage de revenus : clauses à surveiller"
+        ctaHref="/calculators/revenue-share"
+        ctaText="Auditer mon contrat"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Revenue Share Contract Red Flags: Clauses That Quietly Destroy Good Partnerships</h1>

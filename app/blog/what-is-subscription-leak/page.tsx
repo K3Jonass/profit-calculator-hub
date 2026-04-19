@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "What Is Subscription Leak? The Quiet Revenue Loss Most Businesses Ignore",
   description:
     "Learn what subscription leak is, how recurring revenue silently slips away, and why failed payments, inactive users, and weak retention systems hurt growth.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Qu’est-ce qu’une fuite d’abonnement ? La perte récurrente que beaucoup d’entreprises ignorent",
+  description:
+    "Identifiez les causes de fuite d’abonnement : churn, paiements échoués, annulations évitables et frictions d’onboarding.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="what-is-subscription-leak"
+        title="Qu’est-ce qu’une fuite d’abonnement ? La perte récurrente que beaucoup d’entreprises ignorent"
+        ctaHref="/calculators/subscription-leak"
+        ctaText="Ouvrir le calculateur de fuite d’abonnement"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

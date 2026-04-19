@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Freelance Contract Template for Project-Based Work: A Practical Operating Version",
   description:
     "Use a project-based freelance contract template that keeps delivery clear, revisions controlled, and payments enforceable.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Template de contrat freelance pour missions au forfait projet",
+  description:
+    "Utilisez un template de contrat freelance opérationnel pour cadrer livrables, révisions, paiement et responsabilité.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="freelance-contract-template-for-project-based-work"
+        title="Template de contrat freelance pour missions au forfait projet"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Utiliser un template de contrat solide"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Freelance Contract Template for Project-Based Work: A Practical Operating Version</h1>

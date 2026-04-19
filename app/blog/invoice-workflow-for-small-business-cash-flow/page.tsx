@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "Invoice Workflow for Small Business Cash Flow: From Delivery to Collection",
   description:
     "Design an invoice workflow that protects small business cash flow with clear approvals, due dates, and escalation rules.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Workflow de facturation : protéger la trésorerie d’une petite entreprise",
+  description:
+    "Mettez en place un workflow de facturation fiable pour raccourcir les délais d’encaissement et stabiliser votre cash-flow.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="invoice-workflow-for-small-business-cash-flow"
+        title="Workflow de facturation : protéger la trésorerie d’une petite entreprise"
+        ctaHref="/calculators/invoice-generator"
+        ctaText="Structurer mon workflow de facturation"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Invoice Workflow for Small Business Cash Flow: From Delivery to Collection</h1>

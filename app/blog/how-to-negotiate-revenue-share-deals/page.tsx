@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "How to Negotiate Revenue Share Deals Without Killing the Partnership",
   description:
     "A negotiation playbook for revenue share deals that balances upside, risk, and operational ownership.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment négocier un deal de partage de revenus sans casser le partenariat",
+  description:
+    "Négociez vos accords de partage de revenus avec une méthode qui équilibre risque, transparence et exécution.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="how-to-negotiate-revenue-share-deals"
+        title="Comment négocier un deal de partage de revenus sans casser le partenariat"
+        ctaHref="/calculators/revenue-share"
+        ctaText="Préparer ma négociation"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">How to Negotiate Revenue Share Deals Without Killing the Partnership</h1>

@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "How to Price Freelance Projects Profitably (Without Guessing)",
   description:
     "Learn how to price freelance projects based on profit, time, and value so you avoid underpricing and maximize income.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment tarifer ses projets freelance de façon rentable",
+  description:
+    "Construisez une tarification projet rentable avec cadrage, logique de marge, options d’offre et garde-fous contractuels.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="how-to-price-freelance-projects-profitably"
+        title="Comment tarifer ses projets freelance de façon rentable"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Tarifer mon projet avec marge"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="text-4xl font-bold mb-6">

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata: Metadata = {
+const enMeta = {
   title: "Cost of Delay Explained: Why Slow Decisions Cost Real Money",
   description:
     "Understand cost of delay with simple examples so you can prioritize faster and avoid hidden revenue loss.",
@@ -9,7 +11,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Coût du retard : pourquoi l’attente détruit silencieusement votre croissance",
+  description:
+    "Découvrez pourquoi retarder un lancement, une correction ou une décision crée une perte cumulée de revenus, de marge et d’apprentissage.",
+  alternates: {
+    canonical: "/fr/blog/cost-of-delay-explained",
+  },
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="cost-of-delay-explained"
+        title="Coût du retard : pourquoi l’attente détruit silencieusement votre croissance"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="Ouvrir le calculateur de coût du retard"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="mb-6 text-4xl font-bold">

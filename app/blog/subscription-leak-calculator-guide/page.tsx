@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "Subscription Leak Calculator: How to Estimate Lost MRR from Churn and Retention Gaps",
   description:
     "Learn how a Subscription Leak Calculator helps estimate lost MRR from churn, failed payments, and retention gaps so you can fix revenue leakage before it compounds.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Calculateur de fuite d’abonnement : estimer le MRR perdu et prioriser les actions de rétention",
+  description:
+    "Utilisez un calculateur de fuite d’abonnement pour estimer le MRR perdu, comparer les leviers et planifier un plan d’action.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="subscription-leak-calculator-guide"
+        title="Calculateur de fuite d’abonnement : estimer le MRR perdu et prioriser les actions de rétention"
+        ctaHref="/calculators/subscription-leak"
+        ctaText="Lancer le calculateur de fuite"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Freelancer Contract Clauses You Should Never Skip If You Want Predictable Profit",
   description:
     "The core freelancer contract clauses that protect scope, payment timing, intellectual property, and margins.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Clauses de contrat freelance à ne jamais omettre",
+  description:
+    "Sécurisez vos missions freelance avec les clauses essentielles qui protègent périmètre, paiement, IP et marge.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="freelancer-contract-clauses-you-should-never-skip"
+        title="Clauses de contrat freelance à ne jamais omettre"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Renforcer mon contrat freelance"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Freelancer Contract Clauses You Should Never Skip If You Want Predictable Profit</h1>

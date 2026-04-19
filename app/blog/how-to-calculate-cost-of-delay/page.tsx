@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "How to Calculate Cost of Delay: A Simple Formula for Better Prioritization",
   description:
     "Learn how to calculate Cost of Delay using a simple formula, practical examples, and real business scenarios. Quantify urgency and prioritize work that protects revenue.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment calculer le coût du retard : méthode simple pour mieux prioriser",
+  description:
+    "Apprenez à estimer rapidement le coût du retard avec une formule claire, des hypothèses réalistes et des cas concrets.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="how-to-calculate-cost-of-delay"
+        title="Comment calculer le coût du retard : méthode simple pour mieux prioriser"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="Calculer votre coût du retard"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

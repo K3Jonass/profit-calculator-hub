@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Client Access Request Template: Get Logins Fast Without Creating Security Risk",
   description:
     "A practical client access request process for agencies and operators who need speed without compromising security.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Template de demande d’accès client : aller vite sans compromettre la sécurité",
+  description:
+    "Utilisez un template de demande d’accès client pour accélérer l’onboarding tout en respectant les bonnes pratiques de sécurité.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="client-access-request-template-security"
+        title="Template de demande d’accès client : aller vite sans compromettre la sécurité"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Sécuriser mes demandes d’accès"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Client Access Request Template: Get Logins Fast Without Creating Security Risk</h1>
