@@ -5,6 +5,14 @@ import { calculateShopifyProfit } from "@/lib/calculators";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import type { AppLocale } from "@/lib/i18n/config";
 import { getShopifyProfitCopy } from "@/lib/i18n/calculator-shopify-profit";
+import {
+  CalculatorField,
+  CalculatorHero,
+  CalculatorPanel,
+  CalculatorResultsGrid,
+  CalculatorShell,
+  MetricCard,
+} from "@/components/calculators/CalculatorUI";
 
 const LOCALE_REGION_MAP: Record<AppLocale, string> = {
   en: "en-US",
@@ -14,7 +22,12 @@ const LOCALE_REGION_MAP: Record<AppLocale, string> = {
   ru: "ru-RU",
 };
 
-export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
+
+export default function ShopifyProfitClient({
+  locale,
+}: {
+  locale: AppLocale;
+}) {
   const [form, setForm] = useState({
     revenue: 12000,
     productCost: 4000,
@@ -23,9 +36,10 @@ export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
     shipping: 1200,
   });
 
-  const copy = getShopifyProfitCopy(locale);
+  const copy = getShopifyProfitCopy();
   const result = useMemo(() => calculateShopifyProfit(form), [form]);
   const localeTag = LOCALE_REGION_MAP[locale];
+
   const currencyFormatter = useMemo(
     () =>
       new Intl.NumberFormat(localeTag, {
@@ -33,19 +47,21 @@ export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
         currency: "USD",
         maximumFractionDigits: 2,
       }),
-    [localeTag],
+    [localeTag]
   );
+
   const percentFormatter = useMemo(
     () =>
       new Intl.NumberFormat(localeTag, {
         maximumFractionDigits: 2,
       }),
-    [localeTag],
+    [localeTag]
   );
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     const parsedValue = Number(value);
+
     setForm((prev) => ({
       ...prev,
       [name]: Number.isFinite(parsedValue) ? parsedValue : 0,
@@ -53,124 +69,82 @@ export default function ShopifyProfitClient({ locale }: { locale: AppLocale }) {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14">
-      <h1 className="mb-3 text-4xl font-bold tracking-tight">{copy.title}</h1>
+  return (
+    <CalculatorShell>
+      <CalculatorHero
+        badge={copy.badge}
+        title={copy.title}
+        description={copy.subtitle ?? copy.description}
+      />
 
-      <p className="mb-8 text-slate-600">{copy.subtitle}</p>
+      <CalculatorPanel title={copy.inputsTitle ?? "Store Inputs"}>
+        <div className="grid gap-4 md:grid-cols-2">
+          <CalculatorField
+            label={copy.fields?.revenue?.label ?? "Revenue ($)"}
+            type="number"
+            name="revenue"
+            value={form.revenue}
+            onChange={handleChange}
+          />
+          <CalculatorField
+            label={copy.fields?.productCost?.label ?? "Product Cost ($)"}
+            type="number"
+            name="productCost"
+            value={form.productCost}
+            onChange={handleChange}
+          />
+          <CalculatorField
+            label={copy.fields?.adsCost?.label ?? "Ad Spend ($)"}
+            type="number"
+            name="adsCost"
+            value={form.adsCost}
+            onChange={handleChange}
+          />
+          <CalculatorField
+            label={copy.fields?.fees?.label ?? "Fees ($)"}
+            type="number"
+            name="fees"
+            value={form.fees}
+            onChange={handleChange}
+          />
+          <CalculatorField
+            label={copy.fields?.shipping?.label ?? "Shipping ($)"}
+            type="number"
+            name="shipping"
+            value={form.shipping}
+            onChange={handleChange}
+          />
+        </div>
+      </CalculatorPanel>
 
-      <div className="mb-10 grid gap-4 md:grid-cols-2">
-        <Input
-          label={copy.fields.revenue.label}
-          helper={copy.fields.revenue.helper}
-          placeholder={copy.fields.revenue.placeholder}
-          name="revenue"
-          value={form.revenue}
-          onChange={handleChange}
-          validationHint={copy.results.validationHint}
-        />
-        <Input
-          label={copy.fields.productCost.label}
-          helper={copy.fields.productCost.helper}
-          placeholder={copy.fields.productCost.placeholder}
-          name="productCost"
-          value={form.productCost}
-          onChange={handleChange}
-          validationHint={copy.results.validationHint}
-        />
-        <Input
-          label={copy.fields.adsCost.label}
-          helper={copy.fields.adsCost.helper}
-          placeholder={copy.fields.adsCost.placeholder}
-          name="adsCost"
-          value={form.adsCost}
-          onChange={handleChange}
-          validationHint={copy.results.validationHint}
-        />
-        <Input
-          label={copy.fields.fees.label}
-          helper={copy.fields.fees.helper}
-          placeholder={copy.fields.fees.placeholder}
-          name="fees"
-          value={form.fees}
-          onChange={handleChange}
-          validationHint={copy.results.validationHint}
-        />
-        <Input
-          label={copy.fields.shipping.label}
-          helper={copy.fields.shipping.helper}
-          placeholder={copy.fields.shipping.placeholder}
-          name="shipping"
-          value={form.shipping}
-          onChange={handleChange}
-          validationHint={copy.results.validationHint}
-        />
-      </div>
+      <section className="mt-6 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
+        <h2 className="mb-5 text-2xl font-semibold text-slate-900 dark:text-slate-100">
+          {copy.resultsTitle ?? copy.results?.title ?? "Results"}
+        </h2>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <ResultCard label={copy.results.netProfit} value={currencyFormatter.format(result.netProfit)} />
-        <ResultCard label={copy.results.totalCosts} value={currencyFormatter.format(result.totalCosts)} />
-        <ResultCard label={copy.results.margin} value={`${percentFormatter.format(result.margin)}%`} />
-      </div>
-
-      <section className="mt-14 max-w-none">
-        <h2 className="mb-3 text-2xl font-bold text-slate-900">{copy.sections.howItWorksTitle}</h2>
-        <p className="mb-6 text-slate-600">{copy.sections.howItWorksBody}</p>
-
-        <h2 className="mb-3 text-2xl font-bold text-slate-900">{copy.sections.whyMarginTitle}</h2>
-        <p className="text-slate-600">{copy.sections.whyMarginBody}</p>
+        <CalculatorResultsGrid columns="md:grid-cols-2 xl:grid-cols-4">
+          <MetricCard
+            label={copy.results?.revenue ?? "Revenue"}
+            value={currencyFormatter.format(form.revenue)}
+          />
+          <MetricCard
+            label={copy.results?.totalCosts ?? "Costs"}
+            value={currencyFormatter.format(result.totalCosts)}
+          />
+          <MetricCard
+            label={copy.results?.netProfit ?? "Profit"}
+            value={currencyFormatter.format(result.netProfit)}
+            emphasize
+          />
+          <MetricCard
+            label={copy.results?.margin ?? "Margin"}
+            value={`${percentFormatter.format(result.margin)}%`}
+          />
+        </CalculatorResultsGrid>
       </section>
 
-      <RelatedCalculators currentHref="/calculators/shopify-profit" locale={locale} />
-    </div>
+      <section className="mt-8">
+        <RelatedCalculators currentHref="/calculators/shopify-profit" locale={locale} />
+      </section>
+    </CalculatorShell>
   );
-}
-
-function Input({
-  label,
-  helper,
-  placeholder,
-  name,
-  value,
-  onChange,
-  validationHint,
-}: {
-  label: string;
-  helper: string;
-  placeholder: string;
-  name: string;
-  value: number;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  validationHint: string;
-}) {
-  return (
-    <div>
-      <label className="mb-2 block text-sm font-medium text-slate-700">{label}</label>
-      <input
-        type="number"
-        min={0}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        title={validationHint}
-        className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-slate-500"
-      />
-      <p className="mt-1 text-xs text-slate-500">{helper}</p>
-    </div>
-  );
-}
-
-function ResultCard({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="mt-2 text-2xl font-bold text-slate-900">{value}</p>
-    </div>
-  );
-}
