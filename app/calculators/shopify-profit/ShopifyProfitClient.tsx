@@ -36,7 +36,7 @@ export default function ShopifyProfitClient({
     shipping: 1200,
   });
 
-  const copy = getShopifyProfitCopy();
+  const copy = getShopifyProfitCopy(locale);
   const result = useMemo(() => calculateShopifyProfit(form), [form]);
   const localeTag = LOCALE_REGION_MAP[locale];
 
@@ -69,15 +69,13 @@ export default function ShopifyProfitClient({
   }
 
   return (
-  return (
     <CalculatorShell>
       <CalculatorHero
-        badge={copy.badge}
         title={copy.title}
-        description={copy.subtitle ?? copy.description}
+        description={copy.subtitle}
       />
 
-      <CalculatorPanel title={copy.inputsTitle ?? "Store Inputs"}>
+      <CalculatorPanel title="Store Inputs">
         <div className="grid gap-4 md:grid-cols-2">
           <CalculatorField
             label={copy.fields?.revenue?.label ?? "Revenue ($)"}
@@ -119,12 +117,12 @@ export default function ShopifyProfitClient({
 
       <section className="mt-6 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
         <h2 className="mb-5 text-2xl font-semibold text-slate-900 dark:text-slate-100">
-          {copy.resultsTitle ?? copy.results?.title ?? "Results"}
+          {"Results"}
         </h2>
 
         <CalculatorResultsGrid columns="md:grid-cols-2 xl:grid-cols-4">
           <MetricCard
-            label={copy.results?.revenue ?? "Revenue"}
+            label="Revenue"
             value={currencyFormatter.format(form.revenue)}
           />
           <MetricCard
@@ -143,8 +141,9 @@ export default function ShopifyProfitClient({
         </CalculatorResultsGrid>
       </section>
 
-      <section className="mt-8">
-        <RelatedCalculators currentHref="/calculators/shopify-profit" locale={locale} />
-      </section>
-    </CalculatorShell>
-  );
+        <section className="mt-8">
+          <RelatedCalculators currentHref="/calculators/shopify-profit" locale={locale} />
+        </section>
+      </CalculatorShell>
+    );
+  }
