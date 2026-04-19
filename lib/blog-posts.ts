@@ -1,4 +1,3 @@
-
 import type { AppLocale } from "@/lib/i18n/config";
 
 const englishBlogPosts = [
@@ -326,18 +325,38 @@ const englishBlogPosts = [
   },
 ];
 
+type PostTranslation = Pick<(typeof englishBlogPosts)[number], "title" | "description" | "category">;
+
+const frenchBlogPostTranslations: Record<string, PostTranslation> = {
+  "/blog/what-is-breakeven-point": {
+    title: "Point mort : le chiffre que toute entreprise doit absolument maîtriser",
+    description:
+      "Comprenez le point mort, son calcul concret et son impact direct sur les prix, la rentabilité et la survie d’une entreprise.",
+    category: "Finance d’entreprise",
+  },
+  "/blog/how-to-calculate-breakeven-point": {
+    title: "Comment calculer le point mort : formule simple, exemple concret et décisions clés",
+    description:
+      "Apprenez à calculer votre point mort avec une formule claire et des exemples pratiques pour produit, service et activité freelance.",
+    category: "Finance d’entreprise",
+  },
+  "/blog/why-breakeven-analysis-matters": {
+    title: "Pourquoi l’analyse du point mort est le test le plus rapide d’un modèle économique",
+    description:
+      "Découvrez pourquoi l’analyse du point mort aide les entreprises, SaaS et freelances à valider prix, coûts et profit avant d’investir.",
+    category: "Finance d’entreprise",
+  },
+};
 
 export function getBlogPosts(locale: AppLocale) {
-  if (locale === "en") {
-    return englishBlogPosts;
+  if (locale === "fr") {
+    return englishBlogPosts.map((post) => {
+      const translation = frenchBlogPostTranslations[post.href];
+      return translation ? { ...post, ...translation } : post;
+    });
   }
 
-  return englishBlogPosts.map((post) => ({
-    ...post,
-    title: `[TODO ${locale}] ${post.title}`,
-    description: `[TODO ${locale}] ${post.description}`,
-    category: `[TODO ${locale}] ${post.category}`,
-  }));
+  return englishBlogPosts;
 }
 
 export const blogPosts = englishBlogPosts;
