@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "Freelance Project Profit Explained: Why Revenue Is Not Enough",
   description:
     "Learn how to calculate freelance project profit, track real margins, and avoid working on projects that look good but lose money.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Rentabilité d’un projet freelance : ce que le chiffre d’affaires ne montre pas",
+  description:
+    "Apprenez à mesurer la rentabilité réelle d’un projet freelance en intégrant coûts cachés, temps réel et marge nette.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="freelance-project-profit-explained"
+        title="Rentabilité d’un projet freelance : ce que le chiffre d’affaires ne montre pas"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Mesurer ma rentabilité projet"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

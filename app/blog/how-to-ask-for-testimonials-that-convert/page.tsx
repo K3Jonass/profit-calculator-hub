@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "How to Ask for Testimonials That Convert into Qualified Leads",
   description:
     "A proven testimonial request workflow for freelancers and agencies that want social proof that actually sells.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment demander des témoignages clients qui convertissent vraiment",
+  description:
+    "Collectez des témoignages spécifiques et crédibles avec une méthode qui augmente leur impact commercial.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="how-to-ask-for-testimonials-that-convert"
+        title="Comment demander des témoignages clients qui convertissent vraiment"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Structurer ma collecte de témoignages"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">How to Ask for Testimonials That Convert into Qualified Leads</h1>

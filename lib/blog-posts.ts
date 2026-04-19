@@ -346,6 +346,264 @@ const frenchBlogPostTranslations: Record<string, PostTranslation> = {
       "Découvrez pourquoi l’analyse du point mort aide les entreprises, SaaS et freelances à valider prix, coûts et profit avant d’investir.",
     category: "Finance d’entreprise",
   },
+  "/blog/what-is-cost-of-delay": {
+    title: "Qu’est-ce que le coût du retard ? La perte de revenus invisible derrière les décisions lentes",
+    description:
+      "Comprenez le coût du retard, son calcul pratique et son impact direct sur la croissance, la marge et la capacité d’exécution.",
+    category: "Décision d’entreprise",
+  },
+  "/blog/cost-of-delay-explained": {
+    title: "Coût du retard : pourquoi l’attente détruit silencieusement votre croissance",
+    description:
+      "Découvrez pourquoi retarder un lancement, une correction ou une décision crée une perte cumulée de revenus, de marge et d’apprentissage.",
+    category: "Décision d’entreprise",
+  },
+  "/blog/how-to-calculate-cost-of-delay": {
+    title: "Comment calculer le coût du retard : méthode simple pour mieux prioriser",
+    description:
+      "Apprenez à estimer rapidement le coût du retard avec une formule claire, des hypothèses réalistes et des cas concrets.",
+    category: "Décision d’entreprise",
+  },
+  "/blog/cost-of-delay-examples": {
+    title: "Exemples de coût du retard : e-commerce, SaaS et freelance en situation réelle",
+    description:
+      "Analysez des exemples concrets de coût du retard pour comprendre combien coûte une semaine de décision différée.",
+    category: "Décision d’entreprise",
+  },
+  "/blog/what-is-a-revenue-share-agreement": {
+    title: "Qu’est-ce qu’un accord de partage de revenus ? Guide pratique pour structurer un modèle équitable",
+    description:
+      "Comprenez le fonctionnement d’un accord de partage de revenus, les clauses clés et la logique d’un split soutenable pour les deux parties.",
+    category: "Partenariats",
+  },
+  "/blog/how-to-calculate-revenue-share": {
+    title: "Comment calculer un partage de revenus : formule, scénarios et logique d’équité",
+    description:
+      "Apprenez à calculer un partage de revenus avec une méthode claire, des hypothèses vérifiables et des scénarios de négociation réalistes.",
+    category: "Partenariats",
+  },
+  "/blog/revenue-share-vs-profit-share": {
+    title: "Partage de revenus vs partage de profits : quel modèle choisir selon votre réalité opérationnelle ?",
+    description:
+      "Comparez partage de revenus et partage de profits pour choisir une structure compatible avec la transparence, le risque et la vitesse d’exécution.",
+    category: "Partenariats",
+  },
+  "/blog/what-is-subscription-leak": {
+    title: "Qu’est-ce qu’une fuite d’abonnement ? La perte récurrente que beaucoup d’entreprises ignorent",
+    description:
+      "Identifiez les causes de fuite d’abonnement : churn, paiements échoués, annulations évitables et frictions d’onboarding.",
+    category: "Abonnements",
+  },
+  "/blog/how-to-reduce-subscription-churn": {
+    title: "Comment réduire le churn d’abonnement et protéger votre MRR durablement",
+    description:
+      "Mettez en place un système anti-churn avec onboarding, recouvrement des paiements, signaux de risque et boucles de rétention.",
+    category: "Abonnements",
+  },
+  "/blog/subscription-leak-calculator-guide": {
+    title: "Calculateur de fuite d’abonnement : estimer le MRR perdu et prioriser les actions de rétention",
+    description:
+      "Utilisez un calculateur de fuite d’abonnement pour estimer le MRR perdu, comparer les leviers et planifier un plan d’action.",
+    category: "Abonnements",
+  },
+  "/blog/shopify-profit-margin-explained": {
+    title: "Marge Shopify expliquée : comment savoir si votre boutique gagne vraiment de l’argent",
+    description:
+      "Comprenez comment calculer et piloter la marge Shopify réelle pour éviter de scaler un chiffre d’affaires non rentable.",
+    category: "E-commerce",
+  },
+  "/blog/how-to-calculate-shopify-profit": {
+    title: "Comment calculer le profit Shopify : méthode complète pour piloter la rentabilité",
+    description:
+      "Apprenez à calculer le profit Shopify avec une méthode opérationnelle qui intègre coûts réels, canaux et retours.",
+    category: "E-commerce",
+  },
+  "/blog/why-your-shopify-store-is-not-profitable": {
+    title: "Pourquoi votre boutique Shopify n’est pas rentable (même avec des ventes)",
+    description:
+      "Identifiez les causes structurelles d’une boutique Shopify non rentable et les leviers concrets pour restaurer la marge.",
+    category: "E-commerce",
+  },
+  "/blog/dropshipping-profit-margin": {
+    title: "Marge dropshipping : ce que vous gardez réellement par vente",
+    description:
+      "Maîtrisez la marge dropshipping réelle en intégrant coûts acquisition, retours, logistique et support pour décider quoi scaler.",
+    category: "E-commerce",
+  },
+  "/blog/is-dropshipping-profitable": {
+    title: "Le dropshipping est-il encore rentable en 2026 ?",
+    description:
+      "Analysez dans quelles conditions le dropshipping reste rentable et comment éviter les erreurs qui détruisent la marge.",
+    category: "E-commerce",
+  },
+  "/blog/dropshipping-profit-per-product": {
+    title: "Profit dropshipping par produit : comment fixer un prix vraiment rentable",
+    description:
+      "Calculez le profit net par produit en dropshipping pour filtrer les offres fragiles et scaler les références rentables.",
+    category: "E-commerce",
+  },
+  "/blog/what-is-mrr": {
+    title: "Qu’est-ce que le MRR ? Le KPI central de tout SaaS",
+    description:
+      "Comprenez le MRR, ses composants et son rôle stratégique pour piloter une croissance SaaS durable et prévisible.",
+    category: "SaaS",
+  },
+  "/blog/how-to-calculate-mrr": {
+    title: "Comment calculer le MRR : formule SaaS simple et fiable",
+    description:
+      "Apprenez à calculer un MRR comparable dans le temps avec une méthode claire incluant expansion, contraction et churn.",
+    category: "SaaS",
+  },
+  "/blog/why-mrr-matters": {
+    title: "Pourquoi le MRR compte plus que le revenu total en SaaS",
+    description:
+      "Découvrez pourquoi le MRR est l’indicateur le plus utile pour arbitrer acquisition, produit, rétention et croissance SaaS.",
+    category: "SaaS",
+  },
+  "/blog/how-to-price-freelance-work": {
+    title: "Comment fixer ses tarifs freelance sans se sous-vendre",
+    description:
+      "Construisez un pricing freelance rentable avec une méthode basée sur revenu cible, valeur client et protection de marge.",
+    category: "Freelance",
+  },
+  "/blog/freelance-hourly-vs-project": {
+    title: "Tarif horaire vs forfait projet : quel modèle freelance est le plus rentable ?",
+    description:
+      "Comparez facturation horaire et forfait projet pour choisir le modèle qui protège le mieux votre marge freelance.",
+    category: "Freelance",
+  },
+  "/blog/freelance-income-goals": {
+    title: "Objectifs de revenu freelance : méthode concrète pour les atteindre",
+    description:
+      "Transformez votre objectif de revenu freelance en plan d’action chiffré avec pricing, volume client et pilotage mensuel.",
+    category: "Freelance",
+  },
+  "/blog/freelance-project-profit-explained": {
+    title: "Rentabilité d’un projet freelance : ce que le chiffre d’affaires ne montre pas",
+    description:
+      "Apprenez à mesurer la rentabilité réelle d’un projet freelance en intégrant coûts cachés, temps réel et marge nette.",
+    category: "Freelance",
+  },
+  "/blog/how-to-price-freelance-projects-profitably": {
+    title: "Comment tarifer ses projets freelance de façon rentable",
+    description:
+      "Construisez une tarification projet rentable avec cadrage, logique de marge, options d’offre et garde-fous contractuels.",
+    category: "Freelance",
+  },
+  "/blog/freelance-project-profit-mistakes": {
+    title: "Erreurs de rentabilité freelance : les pièges qui réduisent votre revenu",
+    description:
+      "Identifiez les erreurs fréquentes qui détruisent la marge des projets freelance et mettez en place des correctifs concrets.",
+    category: "Freelance",
+  },
+  "/blog/invoice-generator-for-freelancers": {
+    title: "Générateur de facture freelance : sécuriser les paiements et la trésorerie",
+    description:
+      "Utilisez un générateur de facture pour standardiser vos envois, réduire les retards et protéger votre cash-flow freelance.",
+    category: "Contrats",
+  },
+  "/blog/how-to-write-invoice-that-gets-paid-fast": {
+    title: "Comment rédiger une facture payée rapidement",
+    description:
+      "Rédigez des factures claires et défendables pour accélérer les paiements sans multiplier les relances improductives.",
+    category: "Contrats",
+  },
+  "/blog/invoice-workflow-for-small-business-cash-flow": {
+    title: "Workflow de facturation : protéger la trésorerie d’une petite entreprise",
+    description:
+      "Mettez en place un workflow de facturation fiable pour raccourcir les délais d’encaissement et stabiliser votre cash-flow.",
+    category: "Contrats",
+  },
+  "/blog/client-welcome-doc-that-prevents-scope-creep": {
+    title: "Document d’accueil client : prévenir le scope creep dès le départ",
+    description:
+      "Créez un welcome doc client qui fixe attentes, périmètre et règles de validation pour protéger la marge projet.",
+    category: "Contrats",
+  },
+  "/blog/onboarding-welcome-document-checklist": {
+    title: "Checklist de document d’accueil onboarding pour agences et freelances",
+    description:
+      "Suivez une checklist d’onboarding client complète pour démarrer plus vite, éviter les blocages et améliorer la rétention.",
+    category: "Contrats",
+  },
+  "/blog/automate-client-onboarding-with-welcome-docs": {
+    title: "Automatiser l’onboarding client avec des documents d’accueil efficaces",
+    description:
+      "Mettez en place un onboarding client automatisé avec welcome docs et processus légers pour réduire les frictions et accélérer le démarrage.",
+    category: "Contrats",
+  },
+  "/blog/client-access-request-template-security": {
+    title: "Template de demande d’accès client : aller vite sans compromettre la sécurité",
+    description:
+      "Utilisez un template de demande d’accès client pour accélérer l’onboarding tout en respectant les bonnes pratiques de sécurité.",
+    category: "Contrats",
+  },
+  "/blog/how-to-request-client-access-without-delays": {
+    title: "Comment demander des accès client sans retards ni relances inutiles",
+    description:
+      "Adoptez une méthode claire pour demander des accès client rapidement et éviter les blocages de démarrage projet.",
+    category: "Contrats",
+  },
+  "/blog/client-access-handoff-process-for-agencies": {
+    title: "Processus de handoff des accès client en agence : démarrer vite, sortir proprement",
+    description:
+      "Mettez en place un handoff d’accès client fiable pour sécuriser l’onboarding et l’offboarding sans friction.",
+    category: "Contrats",
+  },
+  "/blog/how-to-ask-for-testimonials-that-convert": {
+    title: "Comment demander des témoignages clients qui convertissent vraiment",
+    description:
+      "Collectez des témoignages spécifiques et crédibles avec une méthode qui augmente leur impact commercial.",
+    category: "Contrats",
+  },
+  "/blog/testimonial-request-system-after-project-delivery": {
+    title: "Système de demande de témoignage après livraison : timing, friction, suivi",
+    description:
+      "Construisez un système post-livraison pour obtenir plus de témoignages utiles et exploitables commercialement.",
+    category: "Contrats",
+  },
+  "/blog/automate-feedback-requests-for-service-business": {
+    title: "Automatiser les demandes de feedback dans une activité de service",
+    description:
+      "Automatisez vos demandes de feedback client sans perdre le ton humain et transformez les retours en actif commercial.",
+    category: "Contrats",
+  },
+  "/blog/revenue-share-contract-terms-that-protect-both-sides": {
+    title: "Clauses de contrat de partage de revenus qui protègent les deux parties",
+    description:
+      "Définissez les clauses essentielles d’un contrat de partage de revenus pour sécuriser paiements, reporting et sortie.",
+    category: "Contrats",
+  },
+  "/blog/how-to-negotiate-revenue-share-deals": {
+    title: "Comment négocier un deal de partage de revenus sans casser le partenariat",
+    description:
+      "Négociez vos accords de partage de revenus avec une méthode qui équilibre risque, transparence et exécution.",
+    category: "Contrats",
+  },
+  "/blog/revenue-share-contract-red-flags": {
+    title: "Red flags d’un contrat de partage de revenus : clauses à surveiller",
+    description:
+      "Repérez les clauses à risque dans un contrat de partage de revenus avant signature pour protéger votre marge.",
+    category: "Contrats",
+  },
+  "/blog/freelancer-contract-clauses-you-should-never-skip": {
+    title: "Clauses de contrat freelance à ne jamais omettre",
+    description:
+      "Sécurisez vos missions freelance avec les clauses essentielles qui protègent périmètre, paiement, IP et marge.",
+    category: "Contrats",
+  },
+  "/blog/freelance-contract-template-for-project-based-work": {
+    title: "Template de contrat freelance pour missions au forfait projet",
+    description:
+      "Utilisez un template de contrat freelance opérationnel pour cadrer livrables, révisions, paiement et responsabilité.",
+    category: "Contrats",
+  },
+  "/blog/freelancer-contract-negotiation-guide": {
+    title: "Guide de négociation de contrat freelance : protéger la marge sans bloquer le deal",
+    description:
+      "Négociez vos contrats freelance avec une approche structurée pour sécuriser les clauses clés et préserver la relation client.",
+    category: "Contrats",
+  },
 };
 
 export function getBlogPosts(locale: AppLocale) {

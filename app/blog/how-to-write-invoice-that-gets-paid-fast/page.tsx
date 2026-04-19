@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "How to Write an Invoice That Gets Paid Fast (Without Chasing Clients)",
   description:
     "A practical guide to writing invoices that are clear, defensible, and optimized for faster client payments.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment rédiger une facture payée rapidement",
+  description:
+    "Rédigez des factures claires et défendables pour accélérer les paiements sans multiplier les relances improductives.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="how-to-write-invoice-that-gets-paid-fast"
+        title="Comment rédiger une facture payée rapidement"
+        ctaHref="/calculators/invoice-generator"
+        ctaText="Créer une facture efficace"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">How to Write an Invoice That Gets Paid Fast (Without Chasing Clients)</h1>

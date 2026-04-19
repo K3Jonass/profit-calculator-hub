@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "How to Reduce Subscription Churn and Stop Recurring Revenue Leakage",
   description:
     "Learn how to reduce subscription churn with better onboarding, payment recovery, cancellation flows, and retention systems that protect recurring revenue.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment réduire le churn d’abonnement et protéger votre MRR durablement",
+  description:
+    "Mettez en place un système anti-churn avec onboarding, recouvrement des paiements, signaux de risque et boucles de rétention.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="how-to-reduce-subscription-churn"
+        title="Comment réduire le churn d’abonnement et protéger votre MRR durablement"
+        ctaHref="/calculators/subscription-leak"
+        ctaText="Mesurer vos pertes de MRR"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

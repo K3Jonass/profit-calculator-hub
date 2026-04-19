@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Client Access Handoff Process for Agencies: Start Fast and Exit Clean",
   description:
     "Build a client access handoff process that accelerates onboarding and protects both sides when the engagement ends.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Processus de handoff des accès client en agence : démarrer vite, sortir proprement",
+  description:
+    "Mettez en place un handoff d’accès client fiable pour sécuriser l’onboarding et l’offboarding sans friction.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="client-access-handoff-process-for-agencies"
+        title="Processus de handoff des accès client en agence : démarrer vite, sortir proprement"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Formaliser mon handoff d’accès"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Client Access Handoff Process for Agencies: Start Fast and Exit Clean</h1>

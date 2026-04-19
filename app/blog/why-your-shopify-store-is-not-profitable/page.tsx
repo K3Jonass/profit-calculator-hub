@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
-export const metadata = {
+const enMeta = {
   title: "Why Your Shopify Store Is Not Profitable (Even If You're Making Sales)",
   description:
     "Discover why many Shopify stores generate revenue but fail to be profitable, and how to fix it.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Pourquoi votre boutique Shopify n’est pas rentable (même avec des ventes)",
+  description:
+    "Identifiez les causes structurelles d’une boutique Shopify non rentable et les leviers concrets pour restaurer la marge.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase3
+        slug="why-your-shopify-store-is-not-profitable"
+        title="Pourquoi votre boutique Shopify n’est pas rentable (même avec des ventes)"
+        ctaHref="/calculators/shopify-profit"
+        ctaText="Diagnostiquer ma rentabilité Shopify"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="text-4xl font-bold mb-6">

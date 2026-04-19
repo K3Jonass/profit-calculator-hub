@@ -3,6 +3,8 @@
 import { type ChangeEvent, useMemo, useState } from "react";
 import { calculateShopifyProfit } from "@/lib/calculators";
 import RelatedCalculators from "@/components/RelatedCalculators";
+import type { AppLocale } from "@/lib/i18n/config";
+import { getShopifyProfitCopy } from "@/lib/i18n/calculator-shopify-profit";
 import {
   CalculatorField,
   CalculatorHero,
@@ -12,8 +14,6 @@ import {
   MetricCard,
 } from "@/components/calculators/CalculatorUI";
 
-type AppLocale = "en" | "ar" | "fr" | "es" | "ru";
-
 const LOCALE_REGION_MAP: Record<AppLocale, string> = {
   en: "en-US",
   ar: "ar",
@@ -22,16 +22,6 @@ const LOCALE_REGION_MAP: Record<AppLocale, string> = {
   ru: "ru-RU",
 };
 
-function getShopifyProfitCopy() {
-  return {
-    badge: "Ecommerce",
-    title: "Shopify Profit Calculator",
-    description:
-      "Calculate your Shopify revenue, costs, net profit, and margin instantly.",
-    inputsTitle: "Store Inputs",
-    resultsTitle: "Results",
-  };
-}
 
 export default function ShopifyProfitClient({
   locale,
@@ -79,45 +69,46 @@ export default function ShopifyProfitClient({
   }
 
   return (
+  return (
     <CalculatorShell>
       <CalculatorHero
         badge={copy.badge}
         title={copy.title}
-        description={copy.description}
+        description={copy.subtitle ?? copy.description}
       />
 
-      <CalculatorPanel title={copy.inputsTitle}>
+      <CalculatorPanel title={copy.inputsTitle ?? "Store Inputs"}>
         <div className="grid gap-4 md:grid-cols-2">
           <CalculatorField
-            label="Revenue ($)"
+            label={copy.fields?.revenue?.label ?? "Revenue ($)"}
             type="number"
             name="revenue"
             value={form.revenue}
             onChange={handleChange}
           />
           <CalculatorField
-            label="Product Cost ($)"
+            label={copy.fields?.productCost?.label ?? "Product Cost ($)"}
             type="number"
             name="productCost"
             value={form.productCost}
             onChange={handleChange}
           />
           <CalculatorField
-            label="Ad Spend ($)"
+            label={copy.fields?.adsCost?.label ?? "Ad Spend ($)"}
             type="number"
             name="adsCost"
             value={form.adsCost}
             onChange={handleChange}
           />
           <CalculatorField
-            label="Fees ($)"
+            label={copy.fields?.fees?.label ?? "Fees ($)"}
             type="number"
             name="fees"
             value={form.fees}
             onChange={handleChange}
           />
           <CalculatorField
-            label="Shipping ($)"
+            label={copy.fields?.shipping?.label ?? "Shipping ($)"}
             type="number"
             name="shipping"
             value={form.shipping}
@@ -128,33 +119,32 @@ export default function ShopifyProfitClient({
 
       <section className="mt-6 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
         <h2 className="mb-5 text-2xl font-semibold text-slate-900 dark:text-slate-100">
-          {copy.resultsTitle}
+          {copy.resultsTitle ?? copy.results?.title ?? "Results"}
         </h2>
 
         <CalculatorResultsGrid columns="md:grid-cols-2 xl:grid-cols-4">
           <MetricCard
-            label="Revenue"
+            label={copy.results?.revenue ?? "Revenue"}
             value={currencyFormatter.format(form.revenue)}
           />
           <MetricCard
-            label="Costs"
+            label={copy.results?.totalCosts ?? "Costs"}
             value={currencyFormatter.format(result.totalCosts)}
           />
           <MetricCard
-            label="Profit"
+            label={copy.results?.netProfit ?? "Profit"}
             value={currencyFormatter.format(result.netProfit)}
             emphasize
           />
           <MetricCard
-            label="Margin"
+            label={copy.results?.margin ?? "Margin"}
             value={`${percentFormatter.format(result.margin)}%`}
           />
         </CalculatorResultsGrid>
       </section>
 
       <section className="mt-8">
-        <RelatedCalculators currentHref="/calculators/shopify-profit" />
+        <RelatedCalculators currentHref="/calculators/shopify-profit" locale={locale} />
       </section>
     </CalculatorShell>
   );
-}

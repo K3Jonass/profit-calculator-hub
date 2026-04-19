@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Revenue Share Contract Terms That Protect Both Sides in Real Deals",
   description:
     "The essential revenue share contract terms to define economics, reporting, payment timing, and exit conditions.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Clauses de contrat de partage de revenus qui protègent les deux parties",
+  description:
+    "Définissez les clauses essentielles d’un contrat de partage de revenus pour sécuriser paiements, reporting et sortie.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="revenue-share-contract-terms-that-protect-both-sides"
+        title="Clauses de contrat de partage de revenus qui protègent les deux parties"
+        ctaHref="/calculators/revenue-share"
+        ctaText="Vérifier mes clauses de partage"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Revenue Share Contract Terms That Protect Both Sides in Real Deals</h1>

@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
-export const metadata = {
+const enMeta = {
   title: "What Is MRR? The Core Metric of Every SaaS Business",
   description:
     "Learn what MRR means, how it works, and why it’s the most important metric for SaaS growth.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Qu’est-ce que le MRR ? Le KPI central de tout SaaS",
+  description:
+    "Comprenez le MRR, ses composants et son rôle stratégique pour piloter une croissance SaaS durable et prévisible.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase3
+        slug="what-is-mrr"
+        title="Qu’est-ce que le MRR ? Le KPI central de tout SaaS"
+        ctaHref="/calculators/saas-mrr"
+        ctaText="Ouvrir le calculateur MRR"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="text-4xl font-bold mb-6">

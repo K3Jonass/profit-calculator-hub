@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
-export const metadata = {
+const enMeta = {
   title: "Shopify Profit Margin Explained: How to Know If Your Store Is Actually Making Money",
   description:
     "Learn how Shopify profit margins really work, how to calculate them, and how to know if your store is truly profitable.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Marge Shopify expliquée : comment savoir si votre boutique gagne vraiment de l’argent",
+  description:
+    "Comprenez comment calculer et piloter la marge Shopify réelle pour éviter de scaler un chiffre d’affaires non rentable.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase3
+        slug="shopify-profit-margin-explained"
+        title="Marge Shopify expliquée : comment savoir si votre boutique gagne vraiment de l’argent"
+        ctaHref="/calculators/shopify-profit"
+        ctaText="Calculer ma marge Shopify"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

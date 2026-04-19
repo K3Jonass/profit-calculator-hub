@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
 
-export const metadata = {
+const enMeta = {
   title: "Automate Feedback Requests for a Service Business Without Sounding Robotic",
   description:
     "Set up automated feedback and testimonial requests that keep a human tone while scaling client proof collection.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Automatiser les demandes de feedback dans une activité de service",
+  description:
+    "Automatisez vos demandes de feedback client sans perdre le ton humain et transformez les retours en actif commercial.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase5
+        slug="automate-feedback-requests-for-service-business"
+        title="Automatiser les demandes de feedback dans une activité de service"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Automatiser mes demandes de feedback"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Automate Feedback Requests for a Service Business Without Sounding Robotic</h1>

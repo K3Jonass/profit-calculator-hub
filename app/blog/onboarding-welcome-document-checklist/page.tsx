@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
-export const metadata = {
+const enMeta = {
   title: "Onboarding Welcome Document Checklist for Agencies and Freelancers",
   description:
     "A complete onboarding welcome document checklist to reduce confusion, speed execution, and improve client retention.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Checklist de document d’accueil onboarding pour agences et freelances",
+  description:
+    "Suivez une checklist d’onboarding client complète pour démarrer plus vite, éviter les blocages et améliorer la rétention.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase4
+        slug="onboarding-welcome-document-checklist"
+        title="Checklist de document d’accueil onboarding pour agences et freelances"
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="Appliquer la checklist onboarding"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Onboarding Welcome Document Checklist for Agencies and Freelancers</h1>

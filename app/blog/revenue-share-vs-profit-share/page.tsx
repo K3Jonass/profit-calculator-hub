@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "Revenue Share vs Profit Share: Which Partnership Model Makes More Sense?",
   description:
     "Compare revenue share vs profit share, understand the key differences, and learn which partnership model works best for creators, operators, agencies, and digital businesses.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Partage de revenus vs partage de profits : quel modèle choisir selon votre réalité opérationnelle ?",
+  description:
+    "Comparez partage de revenus et partage de profits pour choisir une structure compatible avec la transparence, le risque et la vitesse d’exécution.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="revenue-share-vs-profit-share"
+        title="Partage de revenus vs partage de profits : quel modèle choisir selon votre réalité opérationnelle ?"
+        ctaHref="/calculators/revenue-share"
+        ctaText="Explorer le calculateur de partage"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

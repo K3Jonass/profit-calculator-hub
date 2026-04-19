@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "Cost of Delay Examples: How Ecommerce, SaaS, and Freelancers Lose Money by Waiting",
   description:
     "See real Cost of Delay examples across ecommerce, SaaS, and freelance work. Learn how delayed launches, pricing, and retention fixes quietly reduce revenue.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Exemples de coût du retard : e-commerce, SaaS et freelance en situation réelle",
+  description:
+    "Analysez des exemples concrets de coût du retard pour comprendre combien coûte une semaine de décision différée.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="cost-of-delay-examples"
+        title="Exemples de coût du retard : e-commerce, SaaS et freelance en situation réelle"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="Voir le calculateur de coût du retard"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

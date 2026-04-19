@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "How to Calculate Revenue Share: Formula, Examples, and Fair Split Logic",
   description:
     "Learn how to calculate revenue share with a simple formula, practical examples, and fair split logic for partnerships, agencies, creators, and operators.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment calculer un partage de revenus : formule, scénarios et logique d’équité",
+  description:
+    "Apprenez à calculer un partage de revenus avec une méthode claire, des hypothèses vérifiables et des scénarios de négociation réalistes.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="how-to-calculate-revenue-share"
+        title="Comment calculer un partage de revenus : formule, scénarios et logique d’équité"
+        ctaHref="/calculators/revenue-share"
+        ctaText="Calculer un partage de revenus"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

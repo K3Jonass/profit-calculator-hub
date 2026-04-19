@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 
-export const metadata = {
+const enMeta = {
   title: "What Is a Revenue Share Agreement? How to Structure Fair Profit Splits",
   description:
     "Learn what a revenue share agreement is, how revenue sharing works, and how to structure fair percentage splits for creators, operators, agencies, and partners.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Qu’est-ce qu’un accord de partage de revenus ? Guide pratique pour structurer un modèle équitable",
+  description:
+    "Comprenez le fonctionnement d’un accord de partage de revenus, les clauses clés et la logique d’un split soutenable pour les deux parties.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticle
+        slug="what-is-a-revenue-share-agreement"
+        title="Qu’est-ce qu’un accord de partage de revenus ? Guide pratique pour structurer un modèle équitable"
+        ctaHref="/calculators/revenue-share"
+        ctaText="Ouvrir le calculateur de partage de revenus"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">

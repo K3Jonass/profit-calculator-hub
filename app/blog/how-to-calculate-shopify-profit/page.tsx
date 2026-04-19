@@ -1,12 +1,39 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
-export const metadata = {
+const enMeta = {
   title: "How to Calculate Shopify Profit: A Simple Formula That Actually Works",
   description:
     "Learn how to calculate Shopify profit using a simple formula and understand your real business performance.",
 };
 
-export default function Page() {
+const frMeta = {
+  title: "Comment calculer le profit Shopify : méthode complète pour piloter la rentabilité",
+  description:
+    "Apprenez à calculer le profit Shopify avec une méthode opérationnelle qui intègre coûts réels, canaux et retours.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return locale === "fr" ? frMeta : enMeta;
+}
+
+export default async function Page() {
+  const locale = await getRequestLocale();
+
+  if (locale === "fr") {
+    return (
+      <FrenchLocalizedArticlePhase3
+        slug="how-to-calculate-shopify-profit"
+        title="Comment calculer le profit Shopify : méthode complète pour piloter la rentabilité"
+        ctaHref="/calculators/shopify-profit"
+        ctaText="Calculer mon profit Shopify"
+      />
+    );
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold">
