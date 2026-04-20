@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Revenue Share Contract Terms That Protect Both Sides in Real Deals",
@@ -15,9 +16,17 @@ const frMeta = {
     "Définissez les clauses essentielles d’un contrat de partage de revenus pour sécuriser paiements, reporting et sortie.",
 };
 
+const arMeta = {
+  title: "بنود عقد Revenue Share التي تحمي الطرفين فعليًا",
+  description:
+    "أهم بنود Revenue Share لتحديد الحقوق والتقارير والدفع وخروج آمن للطرفين.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="revenue-share-contract-terms-that-protect-both-sides"
+        title={arMeta.title}
+        ctaHref="/calculators/revenue-share"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

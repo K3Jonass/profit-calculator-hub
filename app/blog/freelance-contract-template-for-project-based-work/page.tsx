@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Freelance Contract Template for Project-Based Work: A Practical Operating Version",
@@ -15,9 +16,17 @@ const frMeta = {
     "Utilisez un template de contrat freelance opérationnel pour cadrer livrables, révisions, paiement et responsabilité.",
 };
 
+const arMeta = {
+  title: "قالب عقد freelance لمشاريع الفورفيه: نسخة تشغيلية عملية",
+  description:
+    "قالب عقد عملي للمشاريع الثابتة يضبط التسليم والمراجعات والدفع بوضوح.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="freelance-contract-template-for-project-based-work"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

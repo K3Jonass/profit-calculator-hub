@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase3B } from "@/components/blog/ArabicLocalizedArticlePhase3B";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Analysez dans quelles conditions le dropshipping reste rentable et comment éviter les erreurs qui détruisent la marge.",
 };
+const arMeta = {
+  title: "هل Dropshipping ما زال مربحًا في 2026؟",
+  description:
+    "إطار عملي لتقييم ربحية Dropshipping بالأرقام: CAC وAOV والمرتجعات والهامش الصافي قبل قرار التوسع.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Le dropshipping est-il encore rentable en 2026 ?"
         ctaHref="/calculators/dropshipping-profit"
         ctaText="Tester la rentabilité dropshipping"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3B
+        slug="is-dropshipping-profitable"
+        title="هل Dropshipping ما زال مربحًا في 2026؟"
+        ctaHref="/ar/calculators/dropshipping-profit"
+        ctaText="اختبر ربحية متجرك"
       />
     );
   }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4B } from "@/components/blog/ArabicLocalizedArticlePhase4B";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Rédigez des factures claires et défendables pour accélérer les paiements sans multiplier les relances improductives.",
 };
+const arMeta = {
+  title: "كيف تكتب فاتورة تُدفع بسرعة دون مطاردة العملاء",
+  description:
+    "دليل عملي لكتابة فاتورة واضحة ودقيقة تُسرّع الموافقة والدفع وتقلل تأخير التحصيل.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Comment rédiger une facture payée rapidement"
         ctaHref="/calculators/invoice-generator"
         ctaText="Créer une facture efficace"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4B
+        slug="how-to-write-invoice-that-gets-paid-fast"
+        title="كيف تكتب فاتورة تُدفع بسرعة دون مطاردة العملاء"
+        ctaHref="/ar/contracts/invoice"
+        ctaText="أنشئ فاتورة احترافية الآن"
       />
     );
   }

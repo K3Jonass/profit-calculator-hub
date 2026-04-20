@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "How to Calculate Cost of Delay: A Simple Formula for Better Prioritization",
@@ -15,13 +16,32 @@ const frMeta = {
     "Apprenez à estimer rapidement le coût du retard avec une formule claire, des hypothèses réalistes et des cas concrets.",
 };
 
+
+const arMeta = {
+  title: "كيفية حساب تكلفة التأخير: معادلة عملية لترتيب الأولويات حسب الأثر المالي",
+  description:
+    "دليل خطوة بخطوة لحساب Cost of Delay باستخدام بيانات حقيقية حتى تتخذ قرارات أسرع مبنية على الربحية بدل التخمين.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="how-to-calculate-cost-of-delay"
+        title="كيفية حساب تكلفة التأخير: معادلة عملية لترتيب الأولويات حسب الأثر المالي"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="احسب تكلفة التأخير الآن"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

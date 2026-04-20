@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Automate Feedback Requests for a Service Business Without Sounding Robotic",
@@ -15,9 +16,17 @@ const frMeta = {
     "Automatisez vos demandes de feedback client sans perdre le ton humain et transformez les retours en actif commercial.",
 };
 
+const arMeta = {
+  title: "أتمتة طلب Feedback لخدماتك دون أن تبدو رسائلك روبوتية",
+  description:
+    "تعلّم أتمتة طلب feedback بأسلوب إنساني يدعم المصداقية والنمو.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="automate-feedback-requests-for-service-business"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

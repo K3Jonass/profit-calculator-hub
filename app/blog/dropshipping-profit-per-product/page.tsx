@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase3B } from "@/components/blog/ArabicLocalizedArticlePhase3B";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Calculez le profit net par produit en dropshipping pour filtrer les offres fragiles et scaler les références rentables.",
 };
+const arMeta = {
+  title: "ربح Dropshipping لكل منتج: كيف تسعّر لهامش حقيقي",
+  description:
+    "احسب الربح الصافي لكل منتج في Dropshipping لتعرف ما يجب توسيعه وما يجب إيقافه قبل خسارة الهامش.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Profit dropshipping par produit : comment fixer un prix vraiment rentable"
         ctaHref="/calculators/dropshipping-profit"
         ctaText="Calculer mon profit par produit"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3B
+        slug="dropshipping-profit-per-product"
+        title="ربح Dropshipping لكل منتج: كيف تسعّر لهامش حقيقي"
+        ctaHref="/ar/calculators/dropshipping-profit"
+        ctaText="احسب ربح المنتج الآن"
       />
     );
   }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase3C } from "@/components/blog/ArabicLocalizedArticlePhase3C";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Découvrez pourquoi le MRR est l’indicateur le plus utile pour arbitrer acquisition, produit, rétention et croissance SaaS.",
 };
+const arMeta = {
+  title: "لماذا MRR أهم من الإيراد الإجمالي في SaaS",
+  description:
+    "افهم لماذا يعتبر MRR المؤشر الأكثر فائدة للتخطيط والنمو والاحتفاظ في شركات SaaS.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Pourquoi le MRR compte plus que le revenu total en SaaS"
         ctaHref="/calculators/saas-mrr"
         ctaText="Analyser mon MRR"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3C
+        slug="why-mrr-matters"
+        title="لماذا MRR أهم من الإيراد الإجمالي في SaaS"
+        ctaHref="/ar/calculators/saas-mrr"
+        ctaText="حلّل MRR لمشروعك"
       />
     );
   }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4B } from "@/components/blog/ArabicLocalizedArticlePhase4B";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Créez un welcome doc client qui fixe attentes, périmètre et règles de validation pour protéger la marge projet.",
 };
+const arMeta = {
+  title: "وثيقة ترحيب العميل التي تمنع Scope Creep قبل أن يبدأ",
+  description:
+    "تعرف على كيفية إعداد Client Welcome Doc واضح يثبت النطاق ويمنع التوسع غير المدفوع في المشاريع.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Document d’accueil client : prévenir le scope creep dès le départ"
         ctaHref="/calculators/freelance-project-profit"
         ctaText="Renforcer mon cadrage client"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4B
+        slug="client-welcome-doc-that-prevents-scope-creep"
+        title="وثيقة ترحيب العميل التي تمنع Scope Creep قبل أن يبدأ"
+        ctaHref="/ar/contracts/welcome-doc"
+        ctaText="أنشئ وثيقة الترحيب الآن"
       />
     );
   }

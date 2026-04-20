@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4B } from "@/components/blog/ArabicLocalizedArticlePhase4B";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Utilisez un générateur de facture pour standardiser vos envois, réduire les retards et protéger votre cash-flow freelance.",
 };
+const arMeta = {
+  title: "مولد فواتير للمستقلين: نظام دفع يحسّن التحصيل والتدفق النقدي",
+  description:
+    "تعلّم كيف تستخدم مولد الفواتير لبناء عملية فوترة واضحة تقلل التأخير وتحمي Cash Flow في العمل الحر.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Générateur de facture freelance : sécuriser les paiements et la trésorerie"
         ctaHref="/calculators/invoice-generator"
         ctaText="Ouvrir le générateur de facture"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4B
+        slug="invoice-generator-for-freelancers"
+        title="مولد فواتير للمستقلين: نظام دفع يحسّن التحصيل والتدفق النقدي"
+        ctaHref="/ar/contracts/invoice"
+        ctaText="افتح مولد الفواتير الآن"
       />
     );
   }

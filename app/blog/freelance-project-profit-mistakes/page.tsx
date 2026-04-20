@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4A } from "@/components/blog/ArabicLocalizedArticlePhase4A";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Identifiez les erreurs fréquentes qui détruisent la marge des projets freelance et mettez en place des correctifs concrets.",
 };
+const arMeta = {
+  title: "أخطاء ربحية مشاريع العمل الحر التي تستنزف دخلك بصمت",
+  description:
+    "اكتشف أبرز الأخطاء التي تقلل هامش ربح المشاريع الحرة وتعلم كيف تعالجها بخطوات تشغيلية واضحة.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Erreurs de rentabilité freelance : les pièges qui réduisent votre revenu"
         ctaHref="/calculators/freelance-project-profit"
         ctaText="Évaluer mes risques de marge"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4A
+        slug="freelance-project-profit-mistakes"
+        title="أخطاء ربحية مشاريع العمل الحر التي تستنزف دخلك بصمت"
+        ctaHref="/ar/calculators/freelance-project-profit"
+        ctaText="افحص مخاطر هامشك الآن"
       />
     );
   }

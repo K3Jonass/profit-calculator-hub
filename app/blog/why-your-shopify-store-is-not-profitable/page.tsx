@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
+import { ArabicLocalizedArticlePhase3A } from "@/components/blog/ArabicLocalizedArticlePhase3A";
 
 const enMeta = {
   title: "Why Your Shopify Store Is Not Profitable (Even If You're Making Sales)",
@@ -15,13 +16,32 @@ const frMeta = {
     "Identifiez les causes structurelles d’une boutique Shopify non rentable et les leviers concrets pour restaurer la marge.",
 };
 
+const arMeta = {
+  title: "لماذا متجر Shopify لديك غير مربح رغم وجود مبيعات؟",
+  description:
+    "تعرف على الأسباب الأكثر شيوعًا لانخفاض ربحية متاجر Shopify وكيف تعالجها بالأرقام قبل خسارة المزيد من الهامش.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3A
+        slug="why-your-shopify-store-is-not-profitable"
+        title="لماذا متجر Shopify لديك غير مربح رغم وجود مبيعات؟"
+        ctaHref="/calculators/shopify-profit"
+        ctaText="شخّص ربحية متجرك الآن"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

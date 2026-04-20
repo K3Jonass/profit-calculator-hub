@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Client Access Handoff Process for Agencies: Start Fast and Exit Clean",
@@ -15,9 +16,17 @@ const frMeta = {
     "Mettez en place un handoff d’accès client fiable pour sécuriser l’onboarding et l’offboarding sans friction.",
 };
 
+const arMeta = {
+  title: "آلية تسليم صلاحيات العميل للوكالات: بدء سريع وخروج نظيف",
+  description:
+    "صمّم عملية handoff صلاحيات تقلل المخاطر وتدعم onboarding/offboarding المهني.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="client-access-handoff-process-for-agencies"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

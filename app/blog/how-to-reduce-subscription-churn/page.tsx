@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "How to Reduce Subscription Churn and Stop Recurring Revenue Leakage",
@@ -15,13 +16,32 @@ const frMeta = {
     "Mettez en place un système anti-churn avec onboarding, recouvrement des paiements, signaux de risque et boucles de rétention.",
 };
 
+
+const arMeta = {
+  title: "كيف تقلل churn في الاشتراكات وتحمي MRR من التسرب المتكرر",
+  description:
+    "استراتيجيات عملية لتقليل Subscription Churn عبر تحسين onboarding واستعادة المدفوعات وتفعيل تدخلات احتفاظ استباقية.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="how-to-reduce-subscription-churn"
+        title="كيف تقلل churn في الاشتراكات وتحمي MRR من التسرب المتكرر"
+        ctaHref="/calculators/subscription-leak"
+        ctaText="قِس خسائر التسرب الآن"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

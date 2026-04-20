@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4A } from "@/components/blog/ArabicLocalizedArticlePhase4A";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Transformez votre objectif de revenu freelance en plan d’action chiffré avec pricing, volume client et pilotage mensuel.",
 };
+const arMeta = {
+  title: "أهداف دخل المستقل: طريقة عملية لتحويل الهدف المالي إلى خطة",
+  description:
+    "حوّل هدف دخلك في العمل الحر إلى خطة تنفيذية بالأرقام عبر التسعير الصحيح وإدارة الوقت ومزيج الخدمات.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Objectifs de revenu freelance : méthode concrète pour les atteindre"
         ctaHref="/calculators/freelance-rate"
         ctaText="Calculer mon objectif de revenu"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4A
+        slug="freelance-income-goals"
+        title="أهداف دخل المستقل: طريقة عملية لتحويل الهدف المالي إلى خطة"
+        ctaHref="/ar/calculators/freelance-rate"
+        ctaText="احسب خطة دخلك الآن"
       />
     );
   }

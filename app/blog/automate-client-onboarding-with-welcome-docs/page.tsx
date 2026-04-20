@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "How to Automate Client Onboarding with Welcome Docs and Light SOPs",
@@ -15,9 +16,17 @@ const frMeta = {
     "Mettez en place un onboarding client automatisé avec welcome docs et processus légers pour réduire les frictions et accélérer le démarrage.",
 };
 
+const arMeta = {
+  title: "أتمتة Onboarding العملاء باستخدام Welcome Docs وSOPs خفيفة",
+  description:
+    "دليل عملي لبناء onboarding آلي للعملاء يقلل الاحتكاك ويُسرّع الانطلاق.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="automate-client-onboarding-with-welcome-docs"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

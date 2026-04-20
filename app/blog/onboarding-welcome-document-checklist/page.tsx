@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4B } from "@/components/blog/ArabicLocalizedArticlePhase4B";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Suivez une checklist d’onboarding client complète pour démarrer plus vite, éviter les blocages et améliorer la rétention.",
 };
+const arMeta = {
+  title: "قائمة فحص وثيقة الترحيب في Onboarding للوكالات والمستقلين",
+  description:
+    "Checklist عملية لتهيئة العملاء في البداية لتقليل الالتباس وتسريع التنفيذ وتحسين ربحية المشروع.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Checklist de document d’accueil onboarding pour agences et freelances"
         ctaHref="/calculators/freelance-project-profit"
         ctaText="Appliquer la checklist onboarding"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4B
+        slug="onboarding-welcome-document-checklist"
+        title="قائمة فحص وثيقة الترحيب في Onboarding للوكالات والمستقلين"
+        ctaHref="/ar/contracts/welcome-doc"
+        ctaText="طبّق Checklist onboarding"
       />
     );
   }

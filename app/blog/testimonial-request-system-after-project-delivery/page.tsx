@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Testimonial Request System After Project Delivery: Timing, Friction, and Follow-Through",
@@ -15,9 +16,17 @@ const frMeta = {
     "Construisez un système post-livraison pour obtenir plus de témoignages utiles et exploitables commercialement.",
 };
 
+const arMeta = {
+  title: "نظام طلب الشهادات بعد التسليم: التوقيت والمتابعة والجودة",
+  description:
+    "ابنِ نظامًا متكررًا لطلب testimonials بعد التسليم يرفع الاستجابة وجودة المحتوى.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="testimonial-request-system-after-project-delivery"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

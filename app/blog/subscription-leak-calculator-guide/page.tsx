@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "Subscription Leak Calculator: How to Estimate Lost MRR from Churn and Retention Gaps",
@@ -15,13 +16,32 @@ const frMeta = {
     "Utilisez un calculateur de fuite d’abonnement pour estimer le MRR perdu, comparer les leviers et planifier un plan d’action.",
 };
 
+
+const arMeta = {
+  title: "دليل حاسبة تسرب الاشتراكات: تقدير MRR المفقود واتخاذ قرارات احتفاظ أدق",
+  description:
+    "تعلّم استخدام Subscription Leak Calculator لتحويل churn إلى أرقام مالية واضحة وتحديد أولويات الإصلاح الأعلى أثرًا.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="subscription-leak-calculator-guide"
+        title="دليل حاسبة تسرب الاشتراكات: تقدير MRR المفقود واتخاذ قرارات احتفاظ أدق"
+        ctaHref="/calculators/subscription-leak"
+        ctaText="ابدأ بحاسبة تسرب الاشتراكات"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (
