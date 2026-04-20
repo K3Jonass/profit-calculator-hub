@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
+import { ArabicLocalizedArticlePhase3A } from "@/components/blog/ArabicLocalizedArticlePhase3A";
 
 const enMeta = {
   title: "How to Calculate Shopify Profit: A Simple Formula That Actually Works",
@@ -15,13 +16,32 @@ const frMeta = {
     "Apprenez à calculer le profit Shopify avec une méthode opérationnelle qui intègre coûts réels, canaux et retours.",
 };
 
+const arMeta = {
+  title: "كيفية حساب ربح Shopify: معادلة عملية لقياس الأداء الحقيقي للمتجر",
+  description:
+    "دليل عملي لحساب Shopify Profit خطوة بخطوة مع تضمين الإعلانات والرسوم والمرتجعات للوصول إلى صافي ربح واقعي.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3A
+        slug="how-to-calculate-shopify-profit"
+        title="كيفية حساب ربح Shopify: معادلة عملية لقياس الأداء الحقيقي للمتجر"
+        ctaHref="/calculators/shopify-profit"
+        ctaText="افتح حاسبة ربح Shopify"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

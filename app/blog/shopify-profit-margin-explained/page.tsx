@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
+import { ArabicLocalizedArticlePhase3A } from "@/components/blog/ArabicLocalizedArticlePhase3A";
 
 const enMeta = {
   title: "Shopify Profit Margin Explained: How to Know If Your Store Is Actually Making Money",
@@ -15,13 +16,32 @@ const frMeta = {
     "Comprenez comment calculer et piloter la marge Shopify réelle pour éviter de scaler un chiffre d’affaires non rentable.",
 };
 
+const arMeta = {
+  title: "شرح هامش الربح في Shopify: كيف تتأكد أن متجرك يربح فعليًا",
+  description:
+    "تعلّم كيفية قياس Shopify Profit Margin بدقة وفهم التكاليف الحقيقية التي تحدد ربحية متجرك قبل التوسع.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3A
+        slug="shopify-profit-margin-explained"
+        title="شرح هامش الربح في Shopify: كيف تتأكد أن متجرك يربح فعليًا"
+        ctaHref="/calculators/shopify-profit"
+        ctaText="احسب ربح Shopify الآن"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

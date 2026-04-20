@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "What Is Subscription Leak? The Quiet Revenue Loss Most Businesses Ignore",
@@ -15,13 +16,32 @@ const frMeta = {
     "Identifiez les causes de fuite d’abonnement : churn, paiements échoués, annulations évitables et frictions d’onboarding.",
 };
 
+
+const arMeta = {
+  title: "ما هو تسرب الاشتراكات؟ الخسارة المتكررة التي لا تراها معظم شركات SaaS",
+  description:
+    "شرح واضح لمعنى Subscription Leak وأبرز مصادر نزيف MRR مثل churn والمدفوعات الفاشلة وضعف الاحتفاظ.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="what-is-subscription-leak"
+        title="ما هو تسرب الاشتراكات؟ الخسارة المتكررة التي لا تراها معظم شركات SaaS"
+        ctaHref="/calculators/subscription-leak"
+        ctaText="افتح حاسبة تسرب الاشتراكات"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

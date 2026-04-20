@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "How to Request Client Access Without Delays, Rework, or Awkward Follow-Ups",
@@ -15,9 +16,17 @@ const frMeta = {
     "Adoptez une méthode claire pour demander des accès client rapidement et éviter les blocages de démarrage projet.",
 };
 
+const arMeta = {
+  title: "كيف تطلب صلاحيات العميل دون تأخير أو إعادة عمل",
+  description:
+    "منهج عملي لطلبات الوصول يقلل التعطيل ويمنع ضياع الوقت في المتابعة.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="how-to-request-client-access-without-delays"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

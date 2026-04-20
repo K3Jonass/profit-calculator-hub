@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase3C } from "@/components/blog/ArabicLocalizedArticlePhase3C";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Comprenez le MRR, ses composants et son rôle stratégique pour piloter une croissance SaaS durable et prévisible.",
 };
+const arMeta = {
+  title: "ما هو MRR؟ المؤشر الأساسي لنمو شركات SaaS",
+  description:
+    "تعرّف على معنى MRR ومكوناته وكيف تستخدمه لقياس النمو المتكرر واتخاذ قرارات تشغيلية أدق في SaaS.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Qu’est-ce que le MRR ? Le KPI central de tout SaaS"
         ctaHref="/calculators/saas-mrr"
         ctaText="Ouvrir le calculateur MRR"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3C
+        slug="what-is-mrr"
+        title="ما هو MRR؟ المؤشر الأساسي لنمو شركات SaaS"
+        ctaHref="/ar/calculators/saas-mrr"
+        ctaText="افتح حاسبة MRR"
       />
     );
   }

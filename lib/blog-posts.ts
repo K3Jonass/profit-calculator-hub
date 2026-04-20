@@ -606,10 +606,297 @@ const frenchBlogPostTranslations: Record<string, PostTranslation> = {
   },
 };
 
+const arabicBlogPostTranslations: Record<string, PostTranslation> = {
+  "/blog/what-is-breakeven-point": {
+    title: "ما هي نقطة التعادل؟ الرقم الذي يجب أن يعرفه كل صاحب مشروع",
+    description:
+      "تعرّف على معنى نقطة التعادل وكيفية حسابها ولماذا تُعد أساسًا لتسعير الخدمات والمنتجات وتحسين الربحية في الأعمال والشركات الناشئة.",
+    category: "التمويل التجاري",
+  },
+  "/blog/how-to-calculate-breakeven-point": {
+    title: "كيفية حساب نقطة التعادل: المعادلة، مثال عملي، ولماذا تهمك فعليًا",
+    description:
+      "دليل عملي لحساب نقطة التعادل خطوة بخطوة باستخدام معادلة واضحة وأمثلة واقعية لمشاريع SaaS والمتاجر والخدمات الحرة.",
+    category: "التمويل التجاري",
+  },
+  "/blog/why-breakeven-analysis-matters": {
+    title: "لماذا تحليل نقطة التعادل مهم؟ أسرع طريقة لاختبار نموذج الربح قبل التوسع",
+    description:
+      "اكتشف كيف يساعدك تحليل نقطة التعادل على اختبار التسعير والتكاليف وخطة النمو قبل استنزاف الميزانية أو التوسع غير المربح.",
+    category: "التمويل التجاري",
+  },
+  "/blog/what-is-cost-of-delay": {
+    title: "ما هي تكلفة التأخير؟ الخسارة الصامتة التي تبتلع الإيرادات عند بطء القرار",
+    description:
+      "تعرّف على معنى تكلفة التأخير وكيفية قياسها عمليًا ولماذا تؤدي القرارات البطيئة إلى نزيف ربح غير مرئي في الشركات وفرق SaaS.",
+    category: "قرارات الأعمال",
+  },
+  "/blog/cost-of-delay-explained": {
+    title: "شرح تكلفة التأخير: لماذا يدمّر الانتظار نمو مشروعك بصمت",
+    description:
+      "فهم عملي لمفهوم Cost of Delay مع أمثلة تطبيقية تساعدك على ترتيب الأولويات بسرعة وحماية الإيراد من خسائر التأجيل المتراكمة.",
+    category: "قرارات الأعمال",
+  },
+  "/blog/how-to-calculate-cost-of-delay": {
+    title: "كيفية حساب تكلفة التأخير: معادلة عملية لترتيب الأولويات حسب الأثر المالي",
+    description:
+      "دليل خطوة بخطوة لحساب Cost of Delay باستخدام بيانات حقيقية حتى تتخذ قرارات أسرع مبنية على الربحية بدل التخمين.",
+    category: "قرارات الأعمال",
+  },
+  "/blog/cost-of-delay-examples": {
+    title: "أمثلة تكلفة التأخير: كيف تخسر التجارة الإلكترونية وSaaS والمستقلون المال عند الانتظار",
+    description:
+      "أمثلة واقعية توضح أثر Cost of Delay على المبيعات والربحية في eCommerce وSaaS والعمل الحر مع طريقة تحويل التأجيل إلى أرقام.",
+    category: "قرارات الأعمال",
+  },
+  "/blog/what-is-a-revenue-share-agreement": {
+    title: "ما هي اتفاقية تقاسم الإيرادات؟ وكيف تبني نموذجًا عادلًا للشراكة",
+    description:
+      "دليل عملي لفهم Revenue Share Agreement وصياغة نسبة عادلة مع تعريفات واضحة للدفع والتقارير وحماية حقوق الشركاء.",
+    category: "الشراكات",
+  },
+  "/blog/how-to-calculate-revenue-share": {
+    title: "كيفية حساب تقاسم الإيرادات: المعادلة، السيناريوهات، ومنطق النسبة العادلة",
+    description:
+      "تعلّم حساب Revenue Share بدقة مع أمثلة Gross وNet وكيفية بناء كشف شهري واضح يمنع النزاعات بين الشركاء.",
+    category: "الشراكات",
+  },
+  "/blog/revenue-share-vs-profit-share": {
+    title: "Revenue Share vs Profit Share: أي نموذج شراكة أنسب لربح مستدام؟",
+    description:
+      "مقارنة عملية بين Revenue Share وProfit Share لفهم الفروق في الشفافية والمخاطر والتدفق النقدي قبل توقيع الشراكة.",
+    category: "الشراكات",
+  },
+  "/blog/what-is-subscription-leak": {
+    title: "ما هو تسرب الاشتراكات؟ الخسارة المتكررة التي لا تراها معظم شركات SaaS",
+    description:
+      "شرح واضح لمعنى Subscription Leak وأبرز مصادر نزيف MRR مثل churn والمدفوعات الفاشلة وضعف الاحتفاظ.",
+    category: "الاشتراكات",
+  },
+  "/blog/how-to-reduce-subscription-churn": {
+    title: "كيف تقلل churn في الاشتراكات وتحمي MRR من التسرب المتكرر",
+    description:
+      "استراتيجيات عملية لتقليل Subscription Churn عبر تحسين onboarding واستعادة المدفوعات وتفعيل تدخلات احتفاظ استباقية.",
+    category: "الاشتراكات",
+  },
+  "/blog/subscription-leak-calculator-guide": {
+    title: "دليل حاسبة تسرب الاشتراكات: تقدير MRR المفقود واتخاذ قرارات احتفاظ أدق",
+    description:
+      "تعلّم استخدام Subscription Leak Calculator لتحويل churn إلى أرقام مالية واضحة وتحديد أولويات الإصلاح الأعلى أثرًا.",
+    category: "الاشتراكات",
+  },
+  "/blog/shopify-profit-margin-explained": {
+    title: "شرح هامش الربح في Shopify: كيف تتأكد أن متجرك يربح فعليًا",
+    description:
+      "تعلّم كيفية قياس Shopify Profit Margin بدقة وفهم التكاليف الحقيقية التي تحدد ربحية متجرك قبل التوسع.",
+    category: "التجارة الإلكترونية",
+  },
+  "/blog/how-to-calculate-shopify-profit": {
+    title: "كيفية حساب ربح Shopify: معادلة عملية لقياس الأداء الحقيقي للمتجر",
+    description:
+      "دليل عملي لحساب Shopify Profit خطوة بخطوة مع تضمين الإعلانات والرسوم والمرتجعات للوصول إلى صافي ربح واقعي.",
+    category: "التجارة الإلكترونية",
+  },
+  "/blog/why-your-shopify-store-is-not-profitable": {
+    title: "لماذا متجر Shopify لديك غير مربح رغم وجود مبيعات؟",
+    description:
+      "تعرف على الأسباب الأكثر شيوعًا لانخفاض ربحية متاجر Shopify وكيف تعالجها بالأرقام قبل خسارة المزيد من الهامش.",
+    category: "التجارة الإلكترونية",
+  },
+  "/blog/dropshipping-profit-margin": {
+    title: "هامش الربح في Dropshipping: ما الذي يبقى لك فعليًا من كل طلب",
+    description:
+      "تعلّم حساب هامش الربح الحقيقي في Dropshipping بعد الإعلانات والمرتجعات والرسوم لاتخاذ قرارات توسع أكثر أمانًا.",
+    category: "التجارة الإلكترونية",
+  },
+  "/blog/is-dropshipping-profitable": {
+    title: "هل Dropshipping ما زال مربحًا في 2026؟",
+    description:
+      "إطار عملي لتقييم ربحية Dropshipping بالأرقام: CAC وAOV والمرتجعات والهامش الصافي قبل قرار التوسع.",
+    category: "التجارة الإلكترونية",
+  },
+  "/blog/dropshipping-profit-per-product": {
+    title: "ربح Dropshipping لكل منتج: كيف تسعّر لهامش حقيقي",
+    description:
+      "احسب الربح الصافي لكل منتج في Dropshipping لتعرف ما يجب توسيعه وما يجب إيقافه قبل خسارة الهامش.",
+    category: "التجارة الإلكترونية",
+  },
+  "/blog/what-is-mrr": {
+    title: "ما هو MRR؟ المؤشر الأساسي لنمو شركات SaaS",
+    description:
+      "تعرّف على معنى MRR ومكوناته وكيف تستخدمه لقياس النمو المتكرر واتخاذ قرارات تشغيلية أدق في SaaS.",
+    category: "برمجيات SaaS",
+  },
+  "/blog/how-to-calculate-mrr": {
+    title: "كيفية حساب MRR: معادلة SaaS بسيطة ودقيقة",
+    description:
+      "دليل عملي لحساب MRR خطوة بخطوة مع معالجة الخطط السنوية والخصومات والتوسع والانكماش وchurn.",
+    category: "برمجيات SaaS",
+  },
+  "/blog/why-mrr-matters": {
+    title: "لماذا MRR أهم من الإيراد الإجمالي في SaaS",
+    description:
+      "افهم لماذا يعتبر MRR المؤشر الأكثر فائدة للتخطيط والنمو والاحتفاظ في شركات SaaS.",
+    category: "برمجيات SaaS",
+  },
+  "/blog/how-to-price-freelance-work": {
+    title: "كيفية تسعير العمل الحر دون أن تبيع نفسك بأقل من قيمتك",
+    description:
+      "منهج عملي لتسعير خدماتك كمستقل بناءً على الدخل المستهدف والقيمة المقدمة وحماية هامش الربح.",
+    category: "العمل الحر",
+  },
+  "/blog/freelance-hourly-vs-project": {
+    title: "التسعير بالساعة أم بالمشروع: أي نموذج أكثر ربحية للمستقل؟",
+    description:
+      "مقارنة عملية بين التسعير بالساعة والتسعير بالمشروع لاختيار النموذج الأنسب لهامش ربحك ونمو دخلك.",
+    category: "العمل الحر",
+  },
+  "/blog/freelance-income-goals": {
+    title: "أهداف دخل المستقل: طريقة عملية لتحويل الهدف المالي إلى خطة",
+    description:
+      "تعلم تحويل هدف دخلك كمستقل إلى خطة تنفيذية بالأرقام عبر التسعير وإدارة الوقت ومزيج الخدمات.",
+    category: "العمل الحر",
+  },
+  "/blog/freelance-project-profit-explained": {
+    title: "ربحية المشروع الحر: لماذا لا يكفي النظر إلى الإيراد فقط",
+    description:
+      "دليل واضح لقياس ربحية مشاريع العمل الحر عبر التكاليف الخفية والعائد الفعلي لكل ساعة.",
+    category: "العمل الحر",
+  },
+  "/blog/how-to-price-freelance-projects-profitably": {
+    title: "كيف تسعّر مشاريع العمل الحر بطريقة مربحة",
+    description:
+      "منهج تسعير عملي للمشاريع الحرة يوازن بين الربح والنطاق والوقت ويمنع تآكل الهامش.",
+    category: "العمل الحر",
+  },
+  "/blog/freelance-project-profit-mistakes": {
+    title: "أخطاء ربحية مشاريع العمل الحر التي تستنزف دخلك بصمت",
+    description:
+      "أبرز الأخطاء التشغيلية والتسعيرية التي تقلل ربح المشاريع الحرة وكيف تعالجها مبكرًا.",
+    category: "العمل الحر",
+  },
+  "/blog/invoice-generator-for-freelancers": {
+    title: "مولد فواتير للمستقلين: نظام دفع يحسّن التحصيل والتدفق النقدي",
+    description:
+      "استخدم مولد الفواتير لبناء عملية فوترة واضحة تقلل التأخير وتحمي Cash Flow في العمل الحر.",
+    category: "الفوترة والعقود",
+  },
+  "/blog/how-to-write-invoice-that-gets-paid-fast": {
+    title: "كيف تكتب فاتورة تُدفع بسرعة دون مطاردة العملاء",
+    description:
+      "خطوات عملية لكتابة فاتورة واضحة ودقيقة تُسرّع الدفع وتقلل الجدل والمتابعة اليدوية.",
+    category: "الفوترة والعقود",
+  },
+  "/blog/invoice-workflow-for-small-business-cash-flow": {
+    title: "سير عمل الفوترة للتدفق النقدي في الأعمال الصغيرة",
+    description:
+      "ابنِ Invoice Workflow منظمًا من الإصدار إلى التحصيل لحماية السيولة وتقليل تأخر المدفوعات.",
+    category: "الفوترة والعقود",
+  },
+  "/blog/client-welcome-doc-that-prevents-scope-creep": {
+    title: "وثيقة ترحيب العميل التي تمنع Scope Creep قبل أن يبدأ",
+    description:
+      "تعرف على بناء Client Welcome Doc يحدد الحدود ويمنع التوسع غير المدفوع ويحمي هامش المشروع.",
+    category: "الفوترة والعقود",
+  },
+  "/blog/onboarding-welcome-document-checklist": {
+    title: "قائمة فحص وثيقة الترحيب في Onboarding للوكالات والمستقلين",
+    description:
+      "Checklist onboarding عملية تقلل الالتباس في بداية المشروع وتسرع التنفيذ وتحسن تجربة العميل.",
+    category: "الفوترة والعقود",
+  },
+
+  "/blog/automate-client-onboarding-with-welcome-docs": {
+    title: "أتمتة Onboarding العملاء باستخدام Welcome Docs وSOPs خفيفة",
+    description:
+      "حوّل onboarding العملاء إلى نظام متكرر يقلل الاحتكاك ويُسرّع بدء التنفيذ.",
+    category: "العقود والعمليات",
+  },
+  "/blog/client-access-request-template-security": {
+    title: "نموذج طلب صلاحيات العميل: سرعة التنفيذ بدون مخاطر أمنية",
+    description:
+      "إطار عملي لطلبات صلاحيات العميل يوازن بين السرعة وضبط الأمان.",
+    category: "العقود والعمليات",
+  },
+  "/blog/how-to-request-client-access-without-delays": {
+    title: "كيف تطلب صلاحيات العميل دون تأخير أو إعادة عمل",
+    description:
+      "طريقة واضحة لإدارة طلبات الوصول وتقليل التعطيل في بداية المشاريع.",
+    category: "العقود والعمليات",
+  },
+  "/blog/client-access-handoff-process-for-agencies": {
+    title: "آلية تسليم صلاحيات العميل للوكالات: بدء سريع وخروج نظيف",
+    description:
+      "صمّم عملية handoff صلاحيات تدعم onboarding وoffboarding بدون فوضى.",
+    category: "العقود والعمليات",
+  },
+  "/blog/how-to-ask-for-testimonials-that-convert": {
+    title: "كيف تطلب شهادات عملاء تتحول إلى Leads مؤهلة",
+    description:
+      "Workflow منظم لطلب testimonials عالية التأثير تدعم المبيعات.",
+    category: "العقود والعمليات",
+  },
+  "/blog/testimonial-request-system-after-project-delivery": {
+    title: "نظام طلب الشهادات بعد التسليم: التوقيت والمتابعة والجودة",
+    description:
+      "ابنِ نظامًا متكررًا لطلب الشهادات بعد التسليم يرفع الاستجابة والجودة.",
+    category: "العقود والعمليات",
+  },
+  "/blog/automate-feedback-requests-for-service-business": {
+    title: "أتمتة طلب Feedback لخدماتك دون أن تبدو رسائلك روبوتية",
+    description:
+      "نفّذ أتمتة feedback بنبرة إنسانية تدعم المصداقية والنمو.",
+    category: "العقود والعمليات",
+  },
+  "/blog/revenue-share-contract-terms-that-protect-both-sides": {
+    title: "بنود عقد Revenue Share التي تحمي الطرفين فعليًا",
+    description:
+      "بنود أساسية لعقود revenue share تضبط الحقوق والتقارير والدفع.",
+    category: "العقود والعمليات",
+  },
+  "/blog/how-to-negotiate-revenue-share-deals": {
+    title: "كيف تتفاوض على صفقات Revenue Share دون قتل الشراكة",
+    description:
+      "منهج تفاوض عملي يحافظ على العلاقة ويحمي مصالح الصفقة.",
+    category: "العقود والعمليات",
+  },
+  "/blog/revenue-share-contract-red-flags": {
+    title: "إشارات الخطر في عقود Revenue Share قبل التوقيع",
+    description:
+      "تعرّف على البنود عالية المخاطر في عقود revenue share قبل الالتزام.",
+    category: "العقود والعمليات",
+  },
+  "/blog/freelancer-contract-clauses-you-should-never-skip": {
+    title: "بنود عقد freelancer التي لا يجب تجاهلها لحماية الربح",
+    description:
+      "بنود تعاقدية تحمي النطاق والمدفوعات والملكية والهامش في العمل الحر.",
+    category: "العقود والعمليات",
+  },
+  "/blog/freelance-contract-template-for-project-based-work": {
+    title: "قالب عقد freelance لمشاريع الفورفيه: نسخة تشغيلية عملية",
+    description:
+      "استخدم قالب عقد عملي يضبط التسليم والمراجعات والدفع بوضوح.",
+    category: "العقود والعمليات",
+  },
+  "/blog/freelancer-contract-negotiation-guide": {
+    title: "دليل تفاوض عقود freelancer: حماية الهامش دون خسارة العملاء",
+    description:
+      "إطار تفاوض تعاقدي يوازن بين حماية الربح وسرعة إغلاق الاتفاق.",
+    category: "العقود والعمليات",
+  },
+};
+
 export function getBlogPosts(locale: AppLocale) {
   if (locale === "fr") {
     return englishBlogPosts.map((post) => {
       const translation = frenchBlogPostTranslations[post.href];
+      return translation ? { ...post, ...translation } : post;
+    });
+  }
+
+  if (locale === "ar") {
+    return englishBlogPosts.map((post) => {
+      const translation = arabicBlogPostTranslations[post.href];
       return translation ? { ...post, ...translation } : post;
     });
   }

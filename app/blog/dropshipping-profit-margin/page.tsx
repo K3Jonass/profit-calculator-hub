@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase3B } from "@/components/blog/ArabicLocalizedArticlePhase3B";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Maîtrisez la marge dropshipping réelle en intégrant coûts acquisition, retours, logistique et support pour décider quoi scaler.",
 };
+const arMeta = {
+  title: "هامش الربح في Dropshipping: ما الذي يبقى لك فعليًا من كل طلب",
+  description:
+    "تعلّم حساب هامش الربح الحقيقي في Dropshipping بعد الإعلانات والمرتجعات والرسوم لاتخاذ قرارات توسع أكثر أمانًا.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Marge dropshipping : ce que vous gardez réellement par vente"
         ctaHref="/calculators/dropshipping-profit"
         ctaText="Calculer ma marge dropshipping"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3B
+        slug="dropshipping-profit-margin"
+        title="هامش الربح في Dropshipping: ما الذي يبقى لك فعليًا من كل طلب"
+        ctaHref="/ar/calculators/dropshipping-profit"
+        ctaText="احسب هامش ربحك الآن"
       />
     );
   }

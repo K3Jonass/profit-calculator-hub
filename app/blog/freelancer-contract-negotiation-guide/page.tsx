@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Freelancer Contract Negotiation Guide: Protect Margin Without Losing Great Clients",
@@ -15,9 +16,17 @@ const frMeta = {
     "Négociez vos contrats freelance avec une approche structurée pour sécuriser les clauses clés et préserver la relation client.",
 };
 
+const arMeta = {
+  title: "دليل تفاوض عقود freelancer: حماية الهامش دون خسارة العملاء",
+  description:
+    "إطار تفاوض تعاقدي يحافظ على العلاقة ويثبت البنود التي تحمي الربحية.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="freelancer-contract-negotiation-guide"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

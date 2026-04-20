@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "How to Calculate Revenue Share: Formula, Examples, and Fair Split Logic",
@@ -15,13 +16,32 @@ const frMeta = {
     "Apprenez à calculer un partage de revenus avec une méthode claire, des hypothèses vérifiables et des scénarios de négociation réalistes.",
 };
 
+
+const arMeta = {
+  title: "كيفية حساب تقاسم الإيرادات: المعادلة، السيناريوهات، ومنطق النسبة العادلة",
+  description:
+    "تعلّم حساب Revenue Share بدقة مع أمثلة Gross وNet وكيفية بناء كشف شهري واضح يمنع النزاعات بين الشركاء.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="how-to-calculate-revenue-share"
+        title="كيفية حساب تقاسم الإيرادات: المعادلة، السيناريوهات، ومنطق النسبة العادلة"
+        ctaHref="/calculators/revenue-share"
+        ctaText="احسب تقاسم الإيرادات"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4A } from "@/components/blog/ArabicLocalizedArticlePhase4A";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Apprenez à mesurer la rentabilité réelle d’un projet freelance en intégrant coûts cachés, temps réel et marge nette.",
 };
+const arMeta = {
+  title: "ربحية المشروع الحر: لماذا لا يكفي النظر إلى الإيراد فقط",
+  description:
+    "دليل عملي لقياس ربحية مشروع العمل الحر عبر حساب التكاليف الخفية والعائد الفعلي لكل ساعة.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Rentabilité d’un projet freelance : ce que le chiffre d’affaires ne montre pas"
         ctaHref="/calculators/freelance-project-profit"
         ctaText="Mesurer ma rentabilité projet"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4A
+        slug="freelance-project-profit-explained"
+        title="ربحية المشروع الحر: لماذا لا يكفي النظر إلى الإيراد فقط"
+        ctaHref="/ar/calculators/freelance-project-profit"
+        ctaText="احسب ربحية مشروعك الآن"
       />
     );
   }

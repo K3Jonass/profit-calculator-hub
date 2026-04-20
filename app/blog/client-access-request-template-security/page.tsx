@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Client Access Request Template: Get Logins Fast Without Creating Security Risk",
@@ -15,9 +16,17 @@ const frMeta = {
     "Utilisez un template de demande d’accès client pour accélérer l’onboarding tout en respectant les bonnes pratiques de sécurité.",
 };
 
+const arMeta = {
+  title: "نموذج طلب صلاحيات العميل: سرعة التنفيذ بدون مخاطر أمنية",
+  description:
+    "إطار واضح لطلب وصولات العميل بسرعة مع الحفاظ على أساسيات الأمان.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="client-access-request-template-security"
+        title={arMeta.title}
+        ctaHref="/calculators/freelance-project-profit"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

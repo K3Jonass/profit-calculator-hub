@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase3C } from "@/components/blog/ArabicLocalizedArticlePhase3C";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Apprenez à calculer un MRR comparable dans le temps avec une méthode claire incluant expansion, contraction et churn.",
 };
+const arMeta = {
+  title: "كيفية حساب MRR: معادلة SaaS بسيطة ودقيقة",
+  description:
+    "دليل عملي لحساب MRR خطوة بخطوة مع معالجة الخطط السنوية والخصومات والتوسع والانكماش وchurn.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Comment calculer le MRR : formule SaaS simple et fiable"
         ctaHref="/calculators/saas-mrr"
         ctaText="Calculer mon MRR"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase3C
+        slug="how-to-calculate-mrr"
+        title="كيفية حساب MRR: معادلة SaaS بسيطة ودقيقة"
+        ctaHref="/ar/calculators/saas-mrr"
+        ctaText="احسب MRR الآن"
       />
     );
   }

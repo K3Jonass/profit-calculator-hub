@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4A } from "@/components/blog/ArabicLocalizedArticlePhase4A";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Comparez facturation horaire et forfait projet pour choisir le modèle qui protège le mieux votre marge freelance.",
 };
+const arMeta = {
+  title: "التسعير بالساعة أم بالمشروع: أي نموذج أكثر ربحية للمستقل؟",
+  description:
+    "مقارنة عملية بين التسعير بالساعة والتسعير بالمشروع لتختار النموذج الأنسب لهامشك ودخلك في العمل الحر.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Tarif horaire vs forfait projet : quel modèle freelance est le plus rentable ?"
         ctaHref="/calculators/freelance-rate"
         ctaText="Comparer mes options de tarification"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4A
+        slug="freelance-hourly-vs-project"
+        title="التسعير بالساعة أم بالمشروع: أي نموذج أكثر ربحية للمستقل؟"
+        ctaHref="/ar/calculators/freelance-rate"
+        ctaText="قارن نموذج تسعيرك الآن"
       />
     );
   }

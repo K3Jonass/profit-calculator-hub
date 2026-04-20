@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "What Is a Revenue Share Agreement? How to Structure Fair Profit Splits",
@@ -15,13 +16,32 @@ const frMeta = {
     "Comprenez le fonctionnement d’un accord de partage de revenus, les clauses clés et la logique d’un split soutenable pour les deux parties.",
 };
 
+
+const arMeta = {
+  title: "ما هي اتفاقية تقاسم الإيرادات؟ وكيف تبني نموذجًا عادلًا للشراكة",
+  description:
+    "دليل عملي لفهم Revenue Share Agreement وصياغة نسبة عادلة مع تعريفات واضحة للدفع والتقارير وحماية حقوق الشركاء.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="what-is-a-revenue-share-agreement"
+        title="ما هي اتفاقية تقاسم الإيرادات؟ وكيف تبني نموذجًا عادلًا للشراكة"
+        ctaHref="/calculators/revenue-share"
+        ctaText="افتح حاسبة تقاسم الإيرادات"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

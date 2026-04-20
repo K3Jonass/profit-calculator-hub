@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "Cost of Delay Examples: How Ecommerce, SaaS, and Freelancers Lose Money by Waiting",
@@ -15,13 +16,32 @@ const frMeta = {
     "Analysez des exemples concrets de coût du retard pour comprendre combien coûte une semaine de décision différée.",
 };
 
+
+const arMeta = {
+  title: "أمثلة تكلفة التأخير: كيف تخسر التجارة الإلكترونية وSaaS والمستقلون المال عند الانتظار",
+  description:
+    "أمثلة واقعية توضح أثر Cost of Delay على المبيعات والربحية في eCommerce وSaaS والعمل الحر مع طريقة تحويل التأجيل إلى أرقام.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="cost-of-delay-examples"
+        title="أمثلة تكلفة التأخير: كيف تخسر التجارة الإلكترونية وSaaS والمستقلون المال عند الانتظار"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="جرّب حاسبة تكلفة التأخير"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

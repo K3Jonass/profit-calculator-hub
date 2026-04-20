@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "How to Negotiate Revenue Share Deals Without Killing the Partnership",
@@ -15,9 +16,17 @@ const frMeta = {
     "Négociez vos accords de partage de revenus avec une méthode qui équilibre risque, transparence et exécution.",
 };
 
+const arMeta = {
+  title: "كيف تتفاوض على صفقات Revenue Share دون قتل الشراكة",
+  description:
+    "دليل تفاوض revenue share يوازن بين الحماية القانونية وسرعة إغلاق الصفقة.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="how-to-negotiate-revenue-share-deals"
+        title={arMeta.title}
+        ctaHref="/calculators/revenue-share"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

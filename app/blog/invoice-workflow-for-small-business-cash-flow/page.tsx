@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4B } from "@/components/blog/ArabicLocalizedArticlePhase4B";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Mettez en place un workflow de facturation fiable pour raccourcir les délais d’encaissement et stabiliser votre cash-flow.",
 };
+const arMeta = {
+  title: "سير عمل الفوترة للتدفق النقدي في الأعمال الصغيرة",
+  description:
+    "ابنِ Invoice Workflow واضحًا من الإصدار إلى التحصيل لتحسين Cash Flow وتقليل تأخر المدفوعات في مشروعك الصغير.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Workflow de facturation : protéger la trésorerie d’une petite entreprise"
         ctaHref="/calculators/invoice-generator"
         ctaText="Structurer mon workflow de facturation"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4B
+        slug="invoice-workflow-for-small-business-cash-flow"
+        title="سير عمل الفوترة للتدفق النقدي في الأعمال الصغيرة"
+        ctaHref="/ar/contracts/invoice"
+        ctaText="ابدأ نظام الفوترة الآن"
       />
     );
   }

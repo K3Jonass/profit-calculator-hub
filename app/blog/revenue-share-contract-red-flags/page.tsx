@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase5 } from "@/components/blog/FrenchLocalizedArticlePhase5";
+import { ArabicLocalizedArticleFinal } from "@/components/blog/ArabicLocalizedArticleFinal";
 
 const enMeta = {
   title: "Revenue Share Contract Red Flags: Clauses That Quietly Destroy Good Partnerships",
@@ -15,9 +16,17 @@ const frMeta = {
     "Repérez les clauses à risque dans un contrat de partage de revenus avant signature pour protéger votre marge.",
 };
 
+const arMeta = {
+  title: "إشارات الخطر في عقود Revenue Share قبل التوقيع",
+  description:
+    "اكتشف أخطر البنود التي تضعف الشراكات في عقود revenue share وكيف تتجنبها.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -33,6 +42,17 @@ export default async function Page() {
       />
     );
   }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticleFinal
+        slug="revenue-share-contract-red-flags"
+        title={arMeta.title}
+        ctaHref="/calculators/revenue-share"
+        ctaText="ابدأ بالأداة المرتبطة"
+      />
+    );
+  }
+
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">

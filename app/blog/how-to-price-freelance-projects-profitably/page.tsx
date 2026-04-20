@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
+import { ArabicLocalizedArticlePhase4A } from "@/components/blog/ArabicLocalizedArticlePhase4A";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
 
 const enMeta = {
@@ -14,10 +15,17 @@ const frMeta = {
   description:
     "Construisez une tarification projet rentable avec cadrage, logique de marge, options d’offre et garde-fous contractuels.",
 };
+const arMeta = {
+  title: "كيف تسعّر مشاريع العمل الحر بطريقة مربحة",
+  description:
+    "تعلم تسعير مشاريعك كمستقل بناءً على الربح والوقت والنطاق والقيمة بدل التخمين أو الضغط السعري.",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
@@ -30,6 +38,16 @@ export default async function Page() {
         title="Comment tarifer ses projets freelance de façon rentable"
         ctaHref="/calculators/freelance-project-profit"
         ctaText="Tarifer mon projet avec marge"
+      />
+    );
+  }
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase4A
+        slug="how-to-price-freelance-projects-profitably"
+        title="كيف تسعّر مشاريع العمل الحر بطريقة مربحة"
+        ctaHref="/ar/calculators/freelance-project-profit"
+        ctaText="سعّر مشروعك بهامش واضح"
       />
     );
   }

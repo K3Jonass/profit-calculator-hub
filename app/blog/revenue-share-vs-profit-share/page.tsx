@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "Revenue Share vs Profit Share: Which Partnership Model Makes More Sense?",
@@ -15,13 +16,32 @@ const frMeta = {
     "Comparez partage de revenus et partage de profits pour choisir une structure compatible avec la transparence, le risque et la vitesse d’exécution.",
 };
 
+
+const arMeta = {
+  title: "Revenue Share vs Profit Share: أي نموذج شراكة أنسب لربح مستدام؟",
+  description:
+    "مقارنة عملية بين Revenue Share وProfit Share لفهم الفروق في الشفافية والمخاطر والتدفق النقدي قبل توقيع الشراكة.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="revenue-share-vs-profit-share"
+        title="Revenue Share vs Profit Share: أي نموذج شراكة أنسب لربح مستدام؟"
+        ctaHref="/calculators/revenue-share"
+        ctaText="جرّب حاسبة تقاسم الإيرادات"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (

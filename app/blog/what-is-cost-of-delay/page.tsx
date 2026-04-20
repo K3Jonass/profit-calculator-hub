@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
+import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
 
 const enMeta = {
   title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
@@ -15,13 +16,32 @@ const frMeta = {
     "Comprenez le coût du retard, son calcul pratique et son impact direct sur la croissance, la marge et la capacité d’exécution.",
 };
 
+
+const arMeta = {
+  title: "ما هي تكلفة التأخير؟ الخسارة الصامتة التي تبتلع الإيرادات عند بطء القرار",
+  description:
+    "تعرّف على معنى تكلفة التأخير وكيفية قياسها عمليًا ولماذا تؤدي القرارات البطيئة إلى نزيف ربح غير مرئي في الشركات وفرق SaaS.",
+};
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return locale === "fr" ? frMeta : enMeta;
+  if (locale === "fr") return frMeta;
+  if (locale === "ar") return arMeta;
+  return enMeta;
 }
 
 export default async function Page() {
   const locale = await getRequestLocale();
+
+  if (locale === "ar") {
+    return (
+      <ArabicLocalizedArticlePhase2
+        slug="what-is-cost-of-delay"
+        title="ما هي تكلفة التأخير؟ الخسارة الصامتة التي تبتلع الإيرادات عند بطء القرار"
+        ctaHref="/calculators/cost-of-delay"
+        ctaText="افتح حاسبة تكلفة التأخير"
+      />
+    );
+  }
 
   if (locale === "fr") {
     return (
