@@ -39,20 +39,20 @@ export default function Footer({ locale }: { locale: AppLocale }) {
   ];
 
   return (
-    <footer className="mt-24 border-t border-slate-200/80 bg-transparent">
+    <footer className="mt-24 border-t border-slate-200/80 bg-transparent dark:border-slate-800/80">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <section className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-slate-950 px-6 py-10 text-white shadow-[0_24px_70px_rgba(2,6,23,0.4)] md:px-10">
           <div className="relative">
             <h2 className="max-w-3xl text-3xl font-semibold tracking-tight md:text-4xl">{t.footerCtaTitle}</h2>
             <p className="mt-4 max-w-3xl leading-8 text-slate-300">{t.footerCtaDescription}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={withLocale("/calculators", locale)} className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-200">{t.footerOpenCalculators}</Link>
+              <Link href={withLocale("/calculators", locale)} className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200 dark:bg-slate-100 dark:hover:bg-white">{t.footerOpenCalculators}</Link>
               <Link href={withLocale("/contracts", locale)} className="rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15">{t.footerBrowseContracts}</Link>
             </div>
           </div>
         </section>
 
-        <div className="mt-10 grid gap-8 rounded-3xl border border-slate-200/80 bg-white/75 p-8 shadow-soft backdrop-blur-sm sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-700 dark:bg-slate-900/70">
+        <div className="surface-card mt-10 grid gap-8 rounded-3xl p-8 backdrop-blur-sm sm:grid-cols-2 lg:grid-cols-4">
           <FooterColumn locale={locale} title={t.topCalculators} links={topCalculatorLinks} />
           <FooterColumn locale={locale} title={t.topBlogGuides} links={topBlogLinks} />
           <FooterColumn locale={locale} title={t.contractTools} links={contractLinks} />

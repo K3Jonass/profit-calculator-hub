@@ -25,15 +25,15 @@ export default function RelatedCalculators({ currentHref, calculatorHrefs, local
   return (
     <section className="mt-16">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">{copy[locale].title}</h2>
-        <p className="mt-2 text-slate-600">{copy[locale].description}</p>
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">{copy[locale].title}</h2>
+        <p className="mt-2 ui-text">{copy[locale].description}</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         {related.map((item) => (
-          <Link key={item.href} href={withLocale(item.href, locale)} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-            <h3 className="mb-2 text-lg font-semibold text-slate-900">{item.title}</h3>
-            <p className="text-sm text-slate-600">{item.description}</p>
+          <Link key={item.href} href={withLocale(item.href, locale)} className="surface-card rounded-2xl p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+            <h3 className="mb-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{item.title}</h3>
+            <p className="ui-text text-sm">{item.description}</p>
           </Link>
         ))}
       </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import LanguageSwitcher from "@/components/i18n/LanguageSwitcher";
+import ThemeSelector from "@/components/theme/ThemeSelector";
 import type { AppLocale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/messages";
@@ -30,7 +31,10 @@ export default function Navbar({ locale }: { locale: AppLocale }) {
           </div>
         </Link>
 
-        <div className="hidden md:block"><LanguageSwitcher currentLocale={locale} label={t.switchLanguage} /></div>
+        <div className="hidden items-center gap-3 md:flex">
+          <ThemeSelector />
+          <LanguageSwitcher currentLocale={locale} label={t.switchLanguage} />
+        </div>
 
         <nav className="hidden items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/80 p-1.5 shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/70 md:flex">
           {navLinks.map((link) => {
@@ -47,14 +51,17 @@ export default function Navbar({ locale }: { locale: AppLocale }) {
           })}
         </nav>
 
-        <button type="button" onClick={() => setIsMobileMenuOpen((prev) => !prev)} className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 md:hidden" aria-label={t.nav.toggle} aria-expanded={isMobileMenuOpen ? "true" : "false"}>
+        <button type="button" onClick={() => setIsMobileMenuOpen((prev) => !prev)} className="ui-button-secondary inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-semibold shadow-sm md:hidden" aria-label={t.nav.toggle} aria-expanded={isMobileMenuOpen ? "true" : "false"}>
           {isMobileMenuOpen ? t.nav.close : t.nav.menu}
         </button>
       </div>
 
       {isMobileMenuOpen && (
         <div className="border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95 md:hidden">
-          <div className="mb-3"><LanguageSwitcher currentLocale={locale} label={t.switchLanguage} /></div>
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <ThemeSelector />
+            <LanguageSwitcher currentLocale={locale} label={t.switchLanguage} />
+          </div>
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <Link key={link.href} href={withLocale(link.href, locale)} onClick={() => setIsMobileMenuOpen(false)} className="rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">

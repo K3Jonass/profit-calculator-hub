@@ -43,7 +43,7 @@ export function CalculatorField({ label, ...props }: { label: string } & InputHT
       <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
       <input
         {...props}
-        className={`w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-3 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-blue-400 dark:focus:ring-blue-500/20 ${props.className ?? ""}`.trim()}
+        className={`ui-input w-full rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:ring-3 dark:text-slate-100 dark:placeholder:text-slate-500 ${props.className ?? ""}`.trim()}
       />
     </label>
   );
@@ -55,7 +55,7 @@ export function CalculatorSelectField({ label, children, ...props }: { label: st
       <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
       <select
         {...props}
-        className={`w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-blue-500 focus:ring-3 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-blue-400 dark:focus:ring-blue-500/20 ${props.className ?? ""}`.trim()}
+        className={`ui-input w-full rounded-xl px-4 py-3 text-slate-900 focus:ring-3 dark:text-slate-100 ${props.className ?? ""}`.trim()}
       >
         {children}
       </select>
@@ -87,7 +87,7 @@ export function VerdictBanner({ label, toneClassName, value }: { label?: string;
 
 export function EmptyState({ title, description }: { title: string; description: string }) {
   return (
-    <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/80 p-5 text-sm dark:border-slate-700 dark:bg-slate-900/60">
+    <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/80 p-5 text-sm dark:border-slate-700 dark:bg-slate-900/70">
       <p className="font-semibold text-slate-900 dark:text-slate-100">{title}</p>
       <p className="mt-1.5 text-slate-600 dark:text-slate-300">{description}</p>
     </div>

@@ -38,8 +38,8 @@ export default async function WorkspaceProjectsPage({ searchParams }: { searchPa
 
   return (
     <div className="grid gap-6 lg:grid-cols-[360px,1fr]">
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-900">Create project</h2>
+      <section className="surface-card rounded-2xl p-5">
+        <h2 className="ui-heading text-lg font-semibold">Create project</h2>
         {sourceContractType === "freelancer" ? (
           <p className="mt-2 rounded-xl bg-blue-50 px-3 py-2 text-sm text-blue-700">
             Prefilled from freelancer contract.
@@ -50,7 +50,7 @@ export default async function WorkspaceProjectsPage({ searchParams }: { searchPa
           <input type="hidden" name="source_contract_type" value={sourceContractType} />
           <input type="hidden" name="source_contract_payload" value={JSON.stringify(sourcePayload)} />
 
-          <select name="client_id" defaultValue="" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm">
+          <select name="client_id" defaultValue="" className="ui-input w-full rounded-xl px-3 py-2 text-sm">
             <option value="">{prefillClientName ? `Use or auto-create: ${prefillClientName}` : "Select client"}</option>
             {clients.map((client) => (
               <option key={client.id} value={client.id}>
@@ -63,16 +63,16 @@ export default async function WorkspaceProjectsPage({ searchParams }: { searchPa
             required
             defaultValue={prefillProjectName}
             placeholder="Project name"
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+            className="ui-input w-full rounded-xl px-3 py-2 text-sm"
           />
-          <select name="status" defaultValue="planning" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm">
+          <select name="status" defaultValue="planning" className="ui-input w-full rounded-xl px-3 py-2 text-sm">
             {statuses.map((status) => (
               <option key={status} value={status}>{status}</option>
             ))}
           </select>
           <div className="grid grid-cols-2 gap-2">
-            <input name="start_date" type="date" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
-            <input name="due_date" type="date" className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm" />
+            <input name="start_date" type="date" className="ui-input w-full rounded-xl px-3 py-2 text-sm" />
+            <input name="due_date" type="date" className="ui-input w-full rounded-xl px-3 py-2 text-sm" />
           </div>
           <input
             name="budget"
@@ -81,36 +81,36 @@ export default async function WorkspaceProjectsPage({ searchParams }: { searchPa
             step="0.01"
             defaultValue={prefillBudget}
             placeholder="Budget"
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+            className="ui-input w-full rounded-xl px-3 py-2 text-sm"
           />
           <textarea
             name="notes"
             defaultValue={prefillNotes}
             placeholder="Notes"
-            className="min-h-24 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+            className="min-h-24 ui-input w-full rounded-xl px-3 py-2 text-sm"
           />
-          <button type="submit" disabled={!projectConfigured} className="w-full rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300">Add project</button>
+          <button type="submit" disabled={!projectConfigured} className="ui-button-primary w-full rounded-xl px-4 py-2.5 text-sm font-semibold disabled:cursor-not-allowed">Add project</button>
         </form>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <section className="surface-card rounded-2xl p-5">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900">Projects</h2>
-          <span className="text-sm text-slate-500">{projects.length} total</span>
+          <h2 className="ui-heading text-lg font-semibold">Projects</h2>
+          <span className="ui-muted text-sm">{projects.length} total</span>
         </div>
         {!projectConfigured && <p className="mb-3 text-sm text-amber-700">Connect Supabase env vars to save and view projects.</p>}
         <div className="space-y-3">
           {projects.length === 0 ? (
-            <p className="text-sm text-slate-500">No projects yet.</p>
+            <p className="ui-muted text-sm">No projects yet.</p>
           ) : (
             projects.map((project) => (
-              <Link key={project.id} href={`/workspace/projects/${project.id}`} className="block rounded-xl border border-slate-200 p-4 transition hover:bg-slate-50">
+              <Link key={project.id} href={`/workspace/projects/${project.id}`} className="surface-card block rounded-xl p-4 transition hover:bg-slate-50/70 dark:hover:bg-slate-800/60">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-semibold text-slate-900">{project.project_name}</h3>
+                  <h3 className="ui-heading font-semibold">{project.project_name}</h3>
                   <StatusBadge status={project.status} />
                 </div>
-                <p className="mt-1 text-sm text-slate-600">Client: {project.clients?.full_name || "Unknown"}</p>
-                <p className="mt-1 text-xs text-slate-500">Portal: /portal/{project.portal_slug}</p>
+                <p className="ui-text mt-1 text-sm">Client: {project.clients?.full_name || "Unknown"}</p>
+                <p className="ui-muted mt-1 text-xs">Portal: /portal/{project.portal_slug}</p>
               </Link>
             ))
           )}

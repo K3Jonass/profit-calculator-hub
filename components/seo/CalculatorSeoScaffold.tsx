@@ -83,18 +83,18 @@ export default function CalculatorSeoScaffold({
       <CalculatorIntroBlock title={content.title} answer={content.shortAnswer} />
 
       <section className="mt-10">
-        <h2 className="mb-4 text-2xl font-bold tracking-tight text-slate-900">Use the calculator</h2>
+        <h2 className="mb-4 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Use the calculator</h2>
         {children}
       </section>
 
-      <section className="mt-14 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Understanding your results</h2>
-        <p className="mt-3 text-sm leading-7 text-slate-600">{content.resultsExplanation}</p>
+      <section className="mt-14 surface-card rounded-2xl p-6">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Understanding your results</h2>
+        <p className="mt-3 ui-text text-sm leading-7">{content.resultsExplanation}</p>
       </section>
 
-      <section className="mt-14 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">How to use this calculator</h2>
-        <ol className="mt-4 list-decimal space-y-2 pl-6 text-sm leading-7 text-slate-600">
+      <section className="mt-14 surface-card rounded-2xl p-6">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">How to use this calculator</h2>
+        <ol className="mt-4 list-decimal space-y-2 pl-6 ui-text text-sm leading-7">
           {content.howToUse.map((step) => (
             <li key={step}>{step}</li>
           ))}

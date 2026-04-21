@@ -41,7 +41,7 @@ function SignatureRows({ paragraphs }: { paragraphs: string[] }) {
       {cleaned.map((line) => {
         if (!line.includes(":")) {
           return (
-            <p key={line} className="text-sm leading-7 text-slate-600">
+            <p key={line} className="ui-text text-sm leading-7">
               {line}
             </p>
           );
@@ -54,12 +54,12 @@ function SignatureRows({ paragraphs }: { paragraphs: string[] }) {
         return (
           <div
             key={line}
-            className="grid grid-cols-[minmax(140px,220px)_1fr] items-center gap-4 border-b border-slate-200 pb-2"
+            className="grid grid-cols-[minmax(140px,220px)_1fr] items-center gap-4 border-b border-slate-200 pb-2 dark:border-slate-700/80"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+            <p className="ui-muted text-xs font-semibold uppercase tracking-[0.14em]">
               {label}
             </p>
-            <p className="font-medium text-slate-800">{displayValue}</p>
+            <p className="font-medium text-slate-800 dark:text-slate-200">{displayValue}</p>
           </div>
         );
       })}
@@ -74,12 +74,12 @@ export default function ContractPreview({
   const parsed = contractText ? parseContractText(contractText) : null;
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white shadow-sm">
-      <div className="border-b border-slate-200 px-6 py-5">
-        <h2 className="text-xl font-semibold text-slate-900">
+    <section className="surface-card rounded-3xl">
+      <div className="border-b border-slate-200 px-6 py-5 dark:border-slate-700/80">
+        <h2 className="ui-heading text-xl font-semibold">
           Contract Preview
         </h2>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="ui-text mt-2 text-sm leading-6">
           Review the generated contract before downloading.
         </p>
       </div>
@@ -87,43 +87,43 @@ export default function ContractPreview({
       <div className="p-6">
         {isLoading ? (
           <div className="space-y-4">
-            <div className="h-6 w-48 animate-pulse rounded-xl bg-slate-200" />
-            <div className="h-4 w-full animate-pulse rounded-xl bg-slate-200" />
-            <div className="h-4 w-11/12 animate-pulse rounded-xl bg-slate-200" />
-            <div className="h-4 w-10/12 animate-pulse rounded-xl bg-slate-200" />
-            <div className="h-4 w-full animate-pulse rounded-xl bg-slate-200" />
-            <div className="h-4 w-9/12 animate-pulse rounded-xl bg-slate-200" />
-            <div className="h-4 w-8/12 animate-pulse rounded-xl bg-slate-200" />
+            <div className="h-6 w-48 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-full animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-11/12 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-10/12 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-full animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-9/12 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+            <div className="h-4 w-8/12 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
           </div>
         ) : contractText && parsed ? (
-          <article className="rounded-2xl border border-slate-200 bg-white px-10 py-10 shadow-[0_1px_0_0_rgba(15,23,42,0.05)]">
-            <div className="mb-10 flex items-center justify-between gap-3 border-b border-slate-200 pb-6">
+          <article className="rounded-2xl border border-slate-200 bg-white px-10 py-10 shadow-[0_1px_0_0_rgba(15,23,42,0.05)] dark:border-slate-700/80 dark:bg-slate-950/80 dark:shadow-[0_1px_0_0_rgba(148,163,184,0.1)]">
+            <div className="mb-10 flex items-center justify-between gap-3 border-b border-slate-200 pb-6 dark:border-slate-700/80">
               <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
                 Generated
               </span>
 
-              <span className="text-xs text-slate-500">Premium document layout</span>
+              <span className="ui-muted text-xs">Premium document layout</span>
             </div>
 
-            <div className="space-y-10 text-[15px] leading-8 text-slate-700">
+            <div className="space-y-10 text-[15px] leading-8 text-slate-700 dark:text-slate-300">
               {parsed.subtitle ? (
-                <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <p className="ui-muted text-center text-xs font-semibold uppercase tracking-[0.18em]">
                   {parsed.subtitle}
                 </p>
               ) : null}
 
-              <h3 className="text-center text-3xl font-bold tracking-tight text-slate-900">
+              <h3 className="text-center text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
                 {parsed.title}
               </h3>
 
               {parsed.dateLine ? (
-                <p className="text-center text-sm text-slate-500">{parsed.dateLine}</p>
+                <p className="ui-muted text-center text-sm">{parsed.dateLine}</p>
               ) : null}
 
               {parsed.intro ? (
                 <div className="space-y-4">
                   {splitParagraphIntoReadableBlocks(parsed.intro).map((block) => (
-                    <p key={block} className="max-w-[75ch] text-slate-700">
+                    <p key={block} className="max-w-[75ch] text-slate-700 dark:text-slate-300">
                       {block}
                     </p>
                   ))}
@@ -135,9 +135,9 @@ export default function ContractPreview({
                 return (
                   <section
                     key={section.heading}
-                    className="space-y-4 border-t border-slate-200 pt-8"
+                    className="space-y-4 border-t border-slate-200 pt-8 dark:border-slate-700/80"
                   >
-                    <h4 className="text-lg font-semibold tracking-tight text-slate-900">
+                    <h4 className="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">
                       {section.heading}
                     </h4>
 
@@ -153,7 +153,7 @@ export default function ContractPreview({
                         return chunks.map((chunk) => (
                           <p
                             key={`${section.heading}-${paragraph}-${chunk}`}
-                            className={`max-w-[75ch] text-slate-700 ${
+                            className={`max-w-[75ch] text-slate-700 dark:text-slate-300 ${
                               isBullet ? "pl-4" : ""
                             }`}
                           >
@@ -169,14 +169,14 @@ export default function ContractPreview({
             </div>
           </article>
         ) : (
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center">
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center dark:border-slate-700 dark:bg-slate-900/70">
             <div className="mx-auto max-w-md">
-              <h3 className="text-lg font-semibold text-slate-900">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                 No contract generated yet
               </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
+              <p className="ui-text mt-2 text-sm leading-6">
                 Fill in the form on the left and click{" "}
-                <span className="font-medium text-slate-900">
+                <span className="font-medium text-slate-900 dark:text-slate-100">
                   Generate Contract
                 </span>{" "}
                 to see your agreement preview here.

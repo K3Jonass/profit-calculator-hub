@@ -18,9 +18,9 @@ const supportedCurrencies: SupportedCurrency[] = [
 ];
 
 const inputClassName =
-  "mt-2 w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:ring-2 focus:ring-slate-200";
+  "ui-input mt-2 px-4 py-3 text-sm";
 
-const labelClassName = "block text-sm font-medium text-slate-700";
+const labelClassName = "ui-label";
 
 export default function InvoiceGeneratorForm({
   onSubmit,
@@ -204,7 +204,7 @@ export default function InvoiceGeneratorForm({
       <button
         type="submit"
         disabled={isLoading}
-        className="inline-flex w-full items-center justify-center rounded-2xl bg-slate-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center rounded-2xl ui-button-primary px-5 py-3.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? "Generating Invoice..." : "Generate Invoice"}
       </button>

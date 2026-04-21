@@ -81,10 +81,10 @@ export default function CostOfDelayClient() {
       <section className="mt-8 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Related calculators</h2>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/calculators/breakeven" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+          <Link href="/calculators/breakeven" className="ui-button-secondary rounded-xl px-4 py-2 text-sm font-semibold">
             Check your breakeven point →
           </Link>
-          <Link href="/calculators/revenue-share" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+          <Link href="/calculators/revenue-share" className="ui-button-secondary rounded-xl px-4 py-2 text-sm font-semibold">
             Analyze a revenue share deal →
           </Link>
         </div>

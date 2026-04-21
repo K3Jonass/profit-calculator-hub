@@ -164,34 +164,34 @@ export default function ContractPaywall({
   contractText,
 }: ContractPaywallProps) {
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white shadow-sm">
-      <div className="border-b border-slate-200 px-6 py-5">
-        <h2 className="text-xl font-semibold text-slate-900">
+    <section className="surface-card rounded-3xl">
+      <div className="border-b border-slate-200 px-6 py-5 dark:border-slate-700/80">
+        <h2 className="ui-heading text-xl font-semibold">
           Download Contract
         </h2>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="ui-text mt-2 text-sm leading-6">
           Export your generated document as a TXT file or PDF.
         </p>
       </div>
 
       <div className="p-6">
         {!hasContract ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center">
-            <p className="text-sm text-slate-600">
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center dark:border-slate-700 dark:bg-slate-900/70">
+            <p className="ui-text text-sm">
               Generate a contract first to continue.
             </p>
           </div>
         ) : (
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 dark:border-emerald-900/60 dark:bg-emerald-950/25">
             <div className="flex flex-col gap-6">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
                   Ready to Export
                 </p>
-                <h3 className="mt-2 text-lg font-semibold text-slate-900">
+                <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-100">
                   Your contract is ready
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-slate-700">
+                <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
                   Download your contract as a TXT file or PDF document.
                 </p>
               </div>
@@ -200,7 +200,7 @@ export default function ContractPaywall({
                 <button
                   type="button"
                   onClick={() => downloadTextFile(contractText)}
-                  className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  className="ui-button-primary inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold transition"
                 >
                   Download TXT
                 </button>
@@ -208,7 +208,7 @@ export default function ContractPaywall({
                 <button
                   type="button"
                   onClick={() => downloadPdfFile(contractText)}
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                  className="ui-button-secondary inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold transition"
                 >
                   Download PDF
                 </button>

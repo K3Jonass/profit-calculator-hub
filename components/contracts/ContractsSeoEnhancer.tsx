@@ -79,12 +79,12 @@ export default function ContractsSeoEnhancer() {
 
       {showToolFaq ? (
         <section className="mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6">
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900">Contract tool FAQ</h2>
+          <div className="surface-card rounded-2xl p-6">
+            <h2 className="ui-heading text-2xl font-bold tracking-tight">Contract tool FAQ</h2>
             {toolFaq.map((item) => (
-              <details key={item.question} className="mt-3 rounded-xl border border-slate-200 p-4 first:mt-4">
-                <summary className="cursor-pointer font-semibold text-slate-900">{item.question}</summary>
-                <p className="mt-2 text-sm leading-7 text-slate-600">{item.answer}</p>
+              <details key={item.question} className="mt-3 rounded-xl border border-slate-200 p-4 first:mt-4 dark:border-slate-700/80">
+                <summary className="cursor-pointer font-semibold text-slate-900 dark:text-slate-100">{item.question}</summary>
+                <p className="ui-text mt-2 text-sm leading-7">{item.answer}</p>
               </details>
             ))}
           </div>

@@ -6,11 +6,11 @@ export default function CalculatorIntroBlock({
   answer: string;
 }) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+    <section className="surface-subtle rounded-2xl p-6">
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
         Quick answer: {title}
       </p>
-      <p className="mt-3 max-w-3xl text-base leading-7 text-slate-700">{answer}</p>
+      <p className="mt-3 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300">{answer}</p>
     </section>
   );
 }
