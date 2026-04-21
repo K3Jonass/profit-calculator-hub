@@ -86,7 +86,7 @@ export default function SubscriptionLeakClient() {
                     <button
                       type="button"
                       onClick={() => removeSubscription(index)}
-                      className="mt-7 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                      className="ui-button-secondary mt-7 rounded-xl px-4 py-2.5 text-sm font-semibold"
                     >
                       Remove
                     </button>
@@ -98,7 +98,7 @@ export default function SubscriptionLeakClient() {
             <button
               type="button"
               onClick={addSubscription}
-              className="mt-4 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500"
+              className="ui-button-primary mt-4 rounded-xl px-5 py-2.5 text-sm font-semibold transition"
             >
               Add subscription
             </button>
@@ -124,7 +124,7 @@ export default function SubscriptionLeakClient() {
               ) : (
                 <div className="space-y-2">
                   {cancelSuggestions.map((item, index) => (
-                    <div key={`${item.name}-${index}`} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-900/80">
+                    <div key={`${item.name}-${index}`} className="surface-card flex items-center justify-between rounded-xl px-4 py-3">
                       <span className="font-medium text-slate-800 dark:text-slate-100">{item.name || "Unnamed subscription"}</span>
                       <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">${Number(item.cost || 0).toFixed(2)}/mo</span>
                     </div>
@@ -139,8 +139,8 @@ export default function SubscriptionLeakClient() {
       <section className="mt-8 rounded-[1.75rem] border-soft surface-card p-5 md:p-6">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Related calculators</h2>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/calculators/breakeven" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Check your breakeven point →</Link>
-          <Link href="/calculators/freelance-project-profit" className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Analyze a freelance deal →</Link>
+          <Link href="/calculators/breakeven" className="ui-button-secondary rounded-xl px-4 py-2 text-sm font-semibold">Check your breakeven point →</Link>
+          <Link href="/calculators/freelance-project-profit" className="ui-button-secondary rounded-xl px-4 py-2 text-sm font-semibold">Analyze a freelance deal →</Link>
         </div>
       </section>
     </CalculatorShell>

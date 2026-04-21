@@ -16,8 +16,8 @@ export default function RelatedArticles({
 
   return (
     <section className="mt-14">
-      <h2 className="text-2xl font-bold tracking-tight text-slate-900">Related Articles</h2>
-      <p className="mt-2 text-slate-600">
+      <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Related Articles</h2>
+      <p className="mt-2 ui-text">
         Learn the strategy behind your numbers with these in-depth guides.
       </p>
 
@@ -26,13 +26,13 @@ export default function RelatedArticles({
           <Link
             key={post.href}
             href={post.href}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            className="surface-card rounded-2xl p-5 transition hover:-translate-y-0.5 hover:shadow-md"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
               {post.category}
             </p>
-            <h3 className="mt-2 text-lg font-semibold text-slate-900">{post.title}</h3>
-            <p className="mt-2 text-sm text-slate-600">{post.description}</p>
+            <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-100">{post.title}</h3>
+            <p className="mt-2 ui-text text-sm">{post.description}</p>
           </Link>
         ))}
       </div>

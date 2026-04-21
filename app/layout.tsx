@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DEFAULT_LOCALE, isRtlLocale, isSupportedLocale, SUPPORTED_LOCALES, withLocale, type AppLocale } from "@/lib/i18n/config";
+import ThemeRoot from "@/components/theme/ThemeRoot";
+import { themeInitScript } from "@/lib/theme";
 
 const NOINDEX_PREFIXES = ["/workspace", "/portal"];
 const CANONICAL_PATH_OVERRIDES: Record<string, string> = {
@@ -63,16 +65,21 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang={locale} dir={isRtlLocale(locale) ? "rtl" : "ltr"} suppressHydrationWarning>
+      <head>
+        <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-BXLJ84T4B5" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-BXLJ84T4B5');`}</Script>
         <Script id="microsoft-clarity" strategy="afterInteractive">{`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "w50lpevu96");`}</Script>
 
         <div className="relative min-h-screen">
-          <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.06),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.05),transparent_28%)]" />
-          <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-24 border-b border-transparent bg-white/55 backdrop-blur-xl dark:bg-slate-950/35" />
+          <div className="pointer-events-none fixed inset-0 -z-10 bg-app-canvas" />
+          <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-24 border-b border-transparent bg-app-topbar-glow backdrop-blur-xl" />
 
-          <Navbar locale={locale} />
+          <ThemeRoot>
+            <Navbar locale={locale} />
+          </ThemeRoot>
           <main className="relative z-10">{children}</main>
           <Footer locale={locale} />
         </div>

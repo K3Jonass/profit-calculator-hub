@@ -137,10 +137,7 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
 
       <section className="mt-10 grid gap-4 md:grid-cols-3 motion-stagger">
         {categories.map((category) => (
-          <article
-            key={category.title}
-            className="hover-lift rounded-3xl border border-slate-200/80 bg-white/85 p-6 shadow-soft backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70"
-          >
+          <article key={category.title} className="surface-card hover-lift rounded-3xl p-6 backdrop-blur-sm">
             <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{category.title}</h2>
             <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{category.description}</p>
             <ul className="mt-5 space-y-2.5 text-sm">
@@ -180,7 +177,7 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
             <Link
               key={item.href}
               href={withLocale(item.href, locale)}
-              className="hover-lift group rounded-3xl border border-slate-200/80 bg-white/85 p-5 shadow-soft backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70"
+              className="surface-card hover-lift group rounded-3xl p-5 backdrop-blur-sm"
             >
               <p className="mb-4 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
                 Calculator
@@ -194,14 +191,14 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
         </div>
       </section>
 
-      <section className="mt-14 overflow-hidden rounded-3xl border border-blue-200/70 bg-[linear-gradient(145deg,rgba(239,246,255,0.95)_0%,rgba(255,255,255,0.95)_45%,rgba(224,242,254,0.7)_100%)] p-6 shadow-soft dark:border-blue-900/50 dark:bg-[linear-gradient(145deg,rgba(15,23,42,0.96)_0%,rgba(2,6,23,0.95)_100%)]">
+      <section className="mt-14 overflow-hidden rounded-3xl border border-blue-200/70 bg-[linear-gradient(145deg,rgba(239,246,255,0.95)_0%,rgba(255,255,255,0.95)_45%,rgba(224,242,254,0.7)_100%)] p-6 shadow-soft dark:border-blue-900/60 dark:bg-[linear-gradient(145deg,rgba(15,23,42,0.96)_0%,rgba(2,6,23,0.95)_100%)]">
         <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">{t.home.useCases}</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {useCases.map((useCase) => (
             <Link
               key={useCase.href}
               href={withLocale(useCase.href, locale)}
-              className="hover-lift rounded-2xl border border-blue-100/90 bg-white/90 p-5 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80"
+              className="hover-lift rounded-2xl border border-blue-100/90 bg-white/90 p-5 backdrop-blur-sm dark:border-blue-900/50 dark:bg-slate-900/80"
             >
               <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{useCase.title}</h3>
               <p className="mt-2 text-sm text-blue-700 dark:text-blue-300">{useCase.label}</p>
@@ -231,7 +228,7 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
             <Link
               key={post.href}
               href={withLocale(post.href, locale)}
-              className="hover-lift group rounded-3xl border border-slate-200/80 bg-white/85 p-5 shadow-soft backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70"
+              className="surface-card hover-lift group rounded-3xl p-5 backdrop-blur-sm"
             >
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
                 {post.category}
@@ -252,7 +249,7 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
             <Link
               key={tool.href}
               href={withLocale(tool.href, locale)}
-              className="hover-lift group rounded-3xl border border-slate-200/80 bg-white/85 p-5 shadow-soft backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70"
+              className="surface-card hover-lift group rounded-3xl p-5 backdrop-blur-sm"
             >
               <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{tool.title}</h3>
               <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{tool.description}</p>
@@ -264,7 +261,7 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
         </div>
       </section>
 
-      <section className="relative mt-14 overflow-hidden rounded-[2rem] border border-slate-200/80 bg-slate-100/85 p-8 shadow-soft backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/70">
+      <section className="surface-subtle relative mt-14 overflow-hidden rounded-[2rem] p-8 shadow-soft backdrop-blur-sm">
         <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-blue-300/20 blur-2xl dark:bg-blue-700/20" />
         <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           Turn insights into faster decisions
@@ -282,7 +279,7 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
           </Link>
           <Link
             href={withLocale("/contracts", locale)}
-            className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+            className="ui-button-secondary rounded-xl px-6 py-3 text-sm font-semibold"
           >
             Explore contracts and deal tools
           </Link>

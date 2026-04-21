@@ -11,7 +11,7 @@ type FeedbackRequestFormProps = {
 const tones: FeedbackRequestTone[] = ["formal", "friendly"];
 
 const inputClassName =
-  "w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100";
+  "ui-input px-4 py-3 text-sm";
 
 export default function FeedbackRequestForm({
   onSubmit,
@@ -45,7 +45,7 @@ export default function FeedbackRequestForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Your Name / Business Name
         </label>
         <input
@@ -59,7 +59,7 @@ export default function FeedbackRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Client Name
         </label>
         <input
@@ -73,7 +73,7 @@ export default function FeedbackRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Project Description
         </label>
         <textarea
@@ -87,7 +87,7 @@ export default function FeedbackRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Results Achieved
         </label>
         <textarea
@@ -102,7 +102,7 @@ export default function FeedbackRequestForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium text-slate-700">
+          <label className="ui-label">
             Platform
           </label>
           <input
@@ -116,7 +116,7 @@ export default function FeedbackRequestForm({
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-slate-700">
+          <label className="ui-label">
             Tone
           </label>
           <select
@@ -137,7 +137,7 @@ export default function FeedbackRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Country
         </label>
         <input
@@ -153,7 +153,7 @@ export default function FeedbackRequestForm({
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-2xl ui-button-primary px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? "Generating Request..." : "Generate Feedback Request"}
       </button>

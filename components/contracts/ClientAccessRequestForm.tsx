@@ -9,7 +9,7 @@ type ClientAccessRequestFormProps = {
 };
 
 const inputClassName =
-  "w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100";
+  "ui-input px-4 py-3 text-sm";
 
 export default function ClientAccessRequestForm({
   onSubmit,
@@ -43,7 +43,7 @@ export default function ClientAccessRequestForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Company Name
         </label>
         <input
@@ -57,7 +57,7 @@ export default function ClientAccessRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Client Name
         </label>
         <input
@@ -71,7 +71,7 @@ export default function ClientAccessRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Requested Access (accounts/tools)
         </label>
         <textarea
@@ -85,7 +85,7 @@ export default function ClientAccessRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Purpose of Access
         </label>
         <textarea
@@ -99,7 +99,7 @@ export default function ClientAccessRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Deadline / urgency
         </label>
         <input
@@ -113,7 +113,7 @@ export default function ClientAccessRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Notes / instructions
         </label>
         <textarea
@@ -126,7 +126,7 @@ export default function ClientAccessRequestForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Country
         </label>
         <input
@@ -142,7 +142,7 @@ export default function ClientAccessRequestForm({
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-2xl ui-button-primary px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? "Generating Request..." : "Generate Access Request"}
       </button>

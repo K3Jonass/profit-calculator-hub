@@ -45,7 +45,7 @@ export default function FreelancerContractForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Client Name
         </label>
         <input
@@ -53,13 +53,13 @@ export default function FreelancerContractForm({
           value={values.clientName}
           onChange={(e) => updateField("clientName", e.target.value)}
           placeholder="Enter client name"
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
           required
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Freelancer Name
         </label>
         <input
@@ -67,13 +67,13 @@ export default function FreelancerContractForm({
           value={values.freelancerName}
           onChange={(e) => updateField("freelancerName", e.target.value)}
           placeholder="Enter freelancer name"
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
           required
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Project Description
         </label>
         <textarea
@@ -81,13 +81,13 @@ export default function FreelancerContractForm({
           onChange={(e) => updateField("projectDescription", e.target.value)}
           placeholder="Describe the project or services"
           rows={5}
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
           required
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Payment Amount
         </label>
         <input
@@ -95,13 +95,13 @@ export default function FreelancerContractForm({
           value={values.paymentAmount}
           onChange={(e) => updateField("paymentAmount", e.target.value)}
           placeholder="e.g. 1000"
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
           required
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Payment Type
         </label>
         <select
@@ -112,7 +112,7 @@ export default function FreelancerContractForm({
               e.target.value as FreelancerPaymentType
             )
           }
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
         >
           <option value="fixed">Fixed Price</option>
           <option value="hourly">Hourly</option>
@@ -120,7 +120,7 @@ export default function FreelancerContractForm({
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Deadline
         </label>
         <input
@@ -128,12 +128,12 @@ export default function FreelancerContractForm({
           value={values.deadline}
           onChange={(e) => updateField("deadline", e.target.value)}
           placeholder="e.g. June 30, 2026"
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Country
         </label>
         <input
@@ -141,13 +141,13 @@ export default function FreelancerContractForm({
           value={values.country}
           onChange={(e) => updateField("country", e.target.value)}
           placeholder="e.g. United States"
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
           required
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="ui-label">
           Currency
         </label>
         <select
@@ -155,7 +155,7 @@ export default function FreelancerContractForm({
           onChange={(e) =>
             updateField("currency", e.target.value as SupportedCurrency)
           }
-          className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+          className="ui-input px-4 py-3 text-sm"
         >
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
@@ -169,7 +169,7 @@ export default function FreelancerContractForm({
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-2xl ui-button-primary px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? "Generating Contract..." : "Generate Freelancer Contract"}
       </button>
