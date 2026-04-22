@@ -7,6 +7,7 @@ const englishBlogPosts = [
       "Learn what a breakeven point is, how to calculate it, and why it matters for pricing, profitability, and business survival.",
     href: "/blog/what-is-breakeven-point",
     category: "Business Finance",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "How to Calculate Breakeven Point: Formula, Example, and Why It Matters",
@@ -14,6 +15,7 @@ const englishBlogPosts = [
       "Learn how to calculate your breakeven point using a simple formula and practical examples for products, services, and small businesses.",
     href: "/blog/how-to-calculate-breakeven-point",
     category: "Business Finance",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "Why Breakeven Analysis Matters: The Fastest Way to Test a Business Model",
@@ -21,6 +23,7 @@ const englishBlogPosts = [
       "Learn why breakeven analysis matters for pricing, planning, and profitability, and how it helps small businesses make smarter decisions.",
     href: "/blog/why-breakeven-analysis-matters",
     category: "Business Finance",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "What Is Cost of Delay? The Hidden Revenue Loss Behind Slow Decisions",
@@ -28,6 +31,7 @@ const englishBlogPosts = [
       "Learn what Cost of Delay means, how to calculate it, and why slow product or business decisions quietly destroy revenue.",
     href: "/blog/what-is-cost-of-delay",
     category: "Business Decision",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "Cost of Delay: What It Is and How It Silently Destroys Your Business Growth",
@@ -35,6 +39,7 @@ const englishBlogPosts = [
       "Learn what cost of delay is, how to estimate it, and why waiting quietly compounds lost revenue and momentum.",
     href: "/blog/cost-of-delay-explained",
     category: "Business Decision",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "How to Calculate Cost of Delay: A Simple Formula for Better Prioritization",
@@ -42,6 +47,7 @@ const englishBlogPosts = [
       "Learn how to calculate Cost of Delay using a simple formula, practical examples, and real business scenarios.",
     href: "/blog/how-to-calculate-cost-of-delay",
     category: "Business Decision",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "Cost of Delay Examples: How Ecommerce, SaaS, and Freelancers Lose Money by Waiting",
@@ -49,6 +55,7 @@ const englishBlogPosts = [
       "See real Cost of Delay examples across ecommerce, SaaS, and freelance work and learn how delayed action reduces revenue.",
     href: "/blog/cost-of-delay-examples",
     category: "Business Decision",
+    primaryCategory: "startup-ideas",
   },
   {
     title: "What Is a Revenue Share Agreement? How to Structure Fair Profit Splits",
@@ -56,6 +63,7 @@ const englishBlogPosts = [
       "Learn what a revenue share agreement is, how revenue sharing works, and how to structure fair percentage splits.",
     href: "/blog/what-is-a-revenue-share-agreement",
     category: "Partnerships",
+    primaryCategory: "affiliate-marketing",
   },
   {
     title: "How to Calculate Revenue Share: Formula, Examples, and Fair Split Logic",
@@ -63,6 +71,7 @@ const englishBlogPosts = [
       "Learn how to calculate revenue share with a simple formula, practical examples, and fair split logic for partnerships.",
     href: "/blog/how-to-calculate-revenue-share",
     category: "Partnerships",
+    primaryCategory: "affiliate-marketing",
   },
   {
     title: "Revenue Share vs Profit Share: Which Partnership Model Makes More Sense?",
@@ -70,6 +79,7 @@ const englishBlogPosts = [
       "Compare revenue share vs profit share and learn which partnership model works best for creators, operators, and businesses.",
     href: "/blog/revenue-share-vs-profit-share",
     category: "Partnerships",
+    primaryCategory: "affiliate-marketing",
   },
   {
     title: "What Is Subscription Leak? The Quiet Revenue Loss Most Businesses Ignore",
@@ -77,6 +87,7 @@ const englishBlogPosts = [
       "Learn what subscription leak is, how recurring revenue silently slips away, and why failed payments and weak retention hurt growth.",
     href: "/blog/what-is-subscription-leak",
     category: "Subscriptions",
+    primaryCategory: "platforms",
   },
   {
     title: "How to Reduce Subscription Churn and Stop Recurring Revenue Leakage",
@@ -84,6 +95,7 @@ const englishBlogPosts = [
       "Learn how to reduce subscription churn with better onboarding, payment recovery, cancellation flows, and retention systems.",
     href: "/blog/how-to-reduce-subscription-churn",
     category: "Subscriptions",
+    primaryCategory: "platforms",
   },
   {
     title: "Subscription Leak Calculator: How to Estimate Lost MRR from Churn and Retention Gaps",
@@ -91,6 +103,7 @@ const englishBlogPosts = [
       "Learn how a Subscription Leak Calculator helps estimate lost MRR from churn, failed payments, and retention gaps.",
     href: "/blog/subscription-leak-calculator-guide",
     category: "Subscriptions",
+    primaryCategory: "platforms",
   },
   {
     title: "Shopify Profit Margin Explained: How to Know If Your Store Is Actually Making Money",
@@ -98,6 +111,7 @@ const englishBlogPosts = [
       "Learn how Shopify profit margins really work, how to calculate them, and how to know if your store is truly profitable.",
     href: "/blog/shopify-profit-margin-explained",
     category: "Ecommerce",
+    primaryCategory: "ecommerce",
   },
   {
     title: "How to Calculate Shopify Profit: A Simple Formula That Actually Works",
@@ -105,6 +119,7 @@ const englishBlogPosts = [
       "Learn how to calculate Shopify profit using a simple formula and understand your real business performance.",
     href: "/blog/how-to-calculate-shopify-profit",
     category: "Ecommerce",
+    primaryCategory: "ecommerce",
   },
   {
     title: "Why Your Shopify Store Is Not Profitable (Even If You're Making Sales)",
@@ -112,6 +127,7 @@ const englishBlogPosts = [
       "Discover why many Shopify stores generate revenue but fail to be profitable, and how to fix it.",
     href: "/blog/why-your-shopify-store-is-not-profitable",
     category: "Ecommerce",
+    primaryCategory: "ecommerce",
   },
   {
     title: "Dropshipping Profit Margin: What You Actually Keep Per Sale",
@@ -119,6 +135,7 @@ const englishBlogPosts = [
       "Learn how dropshipping profit margins work, what costs to include, and how to know if your store is actually profitable.",
     href: "/blog/dropshipping-profit-margin",
     category: "Ecommerce",
+    primaryCategory: "dropshipping",
   },
   {
     title: "Is Dropshipping Still Profitable in 2026?",
@@ -126,6 +143,7 @@ const englishBlogPosts = [
       "Discover if dropshipping is still profitable and what determines success in modern ecommerce.",
     href: "/blog/is-dropshipping-profitable",
     category: "Ecommerce",
+    primaryCategory: "dropshipping",
   },
   {
     title: "Dropshipping Profit Per Product: How to Price for Real Margins",
@@ -133,6 +151,7 @@ const englishBlogPosts = [
       "Learn how to calculate profit per product in dropshipping and avoid underpricing your offers.",
     href: "/blog/dropshipping-profit-per-product",
     category: "Ecommerce",
+    primaryCategory: "dropshipping",
   },
   {
     title: "What Is MRR? The Core Metric of Every SaaS Business",
@@ -140,6 +159,7 @@ const englishBlogPosts = [
       "Learn what MRR means, how it works, and why it’s the most important metric for SaaS growth.",
     href: "/blog/what-is-mrr",
     category: "SaaS",
+    primaryCategory: "platforms",
   },
   {
     title: "How to Calculate MRR: Simple SaaS Formula Explained",
@@ -147,6 +167,7 @@ const englishBlogPosts = [
       "Learn how to calculate Monthly Recurring Revenue (MRR) with simple formulas and examples.",
     href: "/blog/how-to-calculate-mrr",
     category: "SaaS",
+    primaryCategory: "platforms",
   },
   {
     title: "Why MRR Matters More Than Revenue in SaaS",
@@ -154,6 +175,7 @@ const englishBlogPosts = [
       "Understand why Monthly Recurring Revenue (MRR) is more important than total revenue for SaaS businesses.",
     href: "/blog/why-mrr-matters",
     category: "SaaS",
+    primaryCategory: "platforms",
   },
   {
     title: "How to Price Freelance Work: Stop Underselling Yourself",
@@ -161,6 +183,7 @@ const englishBlogPosts = [
       "Learn how to price freelance work based on value, time, and income targets instead of guesswork.",
     href: "/blog/how-to-price-freelance-work",
     category: "Freelance",
+    primaryCategory: "freelancing",
   },
   {
     title: "Hourly vs Project Pricing: Which One Makes More Money?",
@@ -168,6 +191,7 @@ const englishBlogPosts = [
       "Compare hourly and project pricing to understand which model helps freelancers earn more.",
     href: "/blog/freelance-hourly-vs-project",
     category: "Freelance",
+    primaryCategory: "freelancing",
   },
   {
     title: "How Much Should You Charge to Hit Your Income Goals?",
@@ -175,6 +199,7 @@ const englishBlogPosts = [
       "Learn how to reverse-engineer your freelance rate based on your target monthly or yearly income.",
     href: "/blog/freelance-income-goals",
     category: "Freelance",
+    primaryCategory: "freelancing",
   },
   {
     title: "Freelance Project Profit Explained: Why Revenue Is Not Enough",
@@ -182,6 +207,7 @@ const englishBlogPosts = [
       "Learn how to calculate freelance project profit, track real margins, and avoid working on projects that look good but lose money.",
     href: "/blog/freelance-project-profit-explained",
     category: "Freelance",
+    primaryCategory: "freelancing",
   },
   {
     title: "How to Price Freelance Projects Profitably (Without Guessing)",
@@ -189,6 +215,7 @@ const englishBlogPosts = [
       "Learn how to price freelance projects based on profit, time, and value so you avoid underpricing and maximize income.",
     href: "/blog/how-to-price-freelance-projects-profitably",
     category: "Freelance",
+    primaryCategory: "freelancing",
   },
   {
     title: "Freelance Project Profit Mistakes That Quietly Kill Your Income",
@@ -196,6 +223,7 @@ const englishBlogPosts = [
       "Avoid the most common freelance pricing and profitability mistakes that reduce your income over time.",
     href: "/blog/freelance-project-profit-mistakes",
     category: "Freelance",
+    primaryCategory: "freelancing",
   },
   {
     title: "Invoice Generator for Freelancers: Build a Payment System That Gets You Paid on Time",
@@ -203,6 +231,7 @@ const englishBlogPosts = [
       "Learn how freelancers can use an invoice generator to standardize billing, protect cash flow, and reduce late payments with practical operating systems.",
     href: "/blog/invoice-generator-for-freelancers",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "How to Write an Invoice That Gets Paid Fast (Without Chasing Clients)",
@@ -210,6 +239,7 @@ const englishBlogPosts = [
       "A practical guide to writing invoices that are clear, defensible, and optimized for faster client payments.",
     href: "/blog/how-to-write-invoice-that-gets-paid-fast",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Invoice Workflow for Small Business Cash Flow: From Delivery to Collection",
@@ -217,6 +247,7 @@ const englishBlogPosts = [
       "Design an invoice workflow that protects small business cash flow with clear approvals, due dates, and escalation rules.",
     href: "/blog/invoice-workflow-for-small-business-cash-flow",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Client Welcome Doc That Prevents Scope Creep Before It Starts",
@@ -224,6 +255,7 @@ const englishBlogPosts = [
       "Use a client welcome document to lock expectations, communication rules, and delivery boundaries before project execution begins.",
     href: "/blog/client-welcome-doc-that-prevents-scope-creep",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Onboarding Welcome Document Checklist for Agencies and Freelancers",
@@ -231,6 +263,7 @@ const englishBlogPosts = [
       "A complete onboarding welcome document checklist to reduce confusion, speed execution, and improve client retention.",
     href: "/blog/onboarding-welcome-document-checklist",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "How to Automate Client Onboarding with Welcome Docs and Light SOPs",
@@ -238,6 +271,7 @@ const englishBlogPosts = [
       "Turn client onboarding into a repeatable system using welcome docs, approvals, and lightweight operating procedures.",
     href: "/blog/automate-client-onboarding-with-welcome-docs",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Client Access Request Template: Get Logins Fast Without Creating Security Risk",
@@ -245,6 +279,7 @@ const englishBlogPosts = [
       "A practical client access request process for agencies and operators who need speed without compromising security.",
     href: "/blog/client-access-request-template-security",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "How to Request Client Access Without Delays, Rework, or Awkward Follow-Ups",
@@ -252,6 +287,7 @@ const englishBlogPosts = [
       "Learn a repeatable framework for requesting client access to ad accounts, analytics, and CMS tools without bottlenecks.",
     href: "/blog/how-to-request-client-access-without-delays",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Client Access Handoff Process for Agencies: Start Fast and Exit Clean",
@@ -259,6 +295,7 @@ const englishBlogPosts = [
       "Build a client access handoff process that accelerates onboarding and protects both sides when the engagement ends.",
     href: "/blog/client-access-handoff-process-for-agencies",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "How to Ask for Testimonials That Convert into Qualified Leads",
@@ -266,6 +303,7 @@ const englishBlogPosts = [
       "A proven testimonial request workflow for freelancers and agencies that want social proof that actually sells.",
     href: "/blog/how-to-ask-for-testimonials-that-convert",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Testimonial Request System After Project Delivery: Timing, Friction, and Follow-Through",
@@ -273,6 +311,7 @@ const englishBlogPosts = [
       "Design a post-delivery testimonial request system that increases response rates and captures credible proof.",
     href: "/blog/testimonial-request-system-after-project-delivery",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Automate Feedback Requests for a Service Business Without Sounding Robotic",
@@ -280,6 +319,7 @@ const englishBlogPosts = [
       "Set up automated feedback and testimonial requests that keep a human tone while scaling client proof collection.",
     href: "/blog/automate-feedback-requests-for-service-business",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Revenue Share Contract Terms That Protect Both Sides in Real Deals",
@@ -287,6 +327,7 @@ const englishBlogPosts = [
       "The essential revenue share contract terms to define economics, reporting, payment timing, and exit conditions.",
     href: "/blog/revenue-share-contract-terms-that-protect-both-sides",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "How to Negotiate Revenue Share Deals Without Killing the Partnership",
@@ -294,6 +335,7 @@ const englishBlogPosts = [
       "A negotiation playbook for revenue share deals that balances upside, risk, and operational ownership.",
     href: "/blog/how-to-negotiate-revenue-share-deals",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Revenue Share Contract Red Flags: Clauses That Quietly Destroy Good Partnerships",
@@ -301,6 +343,7 @@ const englishBlogPosts = [
       "Spot the most dangerous red flags in revenue share contracts before signing and protect long-term upside.",
     href: "/blog/revenue-share-contract-red-flags",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Freelancer Contract Clauses You Should Never Skip If You Want Predictable Profit",
@@ -308,6 +351,7 @@ const englishBlogPosts = [
       "The core freelancer contract clauses that protect scope, payment timing, intellectual property, and margins.",
     href: "/blog/freelancer-contract-clauses-you-should-never-skip",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Freelance Contract Template for Project-Based Work: A Practical Operating Version",
@@ -315,6 +359,7 @@ const englishBlogPosts = [
       "Use a project-based freelance contract template that keeps delivery clear, revisions controlled, and payments enforceable.",
     href: "/blog/freelance-contract-template-for-project-based-work",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
   {
     title: "Freelancer Contract Negotiation Guide: Protect Margin Without Losing Great Clients",
@@ -322,6 +367,7 @@ const englishBlogPosts = [
       "A negotiation framework freelancers can use to improve contract terms while preserving trust and deal velocity.",
     href: "/blog/freelancer-contract-negotiation-guide",
     category: "Contracts",
+    primaryCategory: "freelancing",
   },
 ];
 
