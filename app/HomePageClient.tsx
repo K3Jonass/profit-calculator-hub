@@ -6,6 +6,7 @@ import { getCalculators } from "@/lib/calculators-data";
 import { getBlogPosts } from "@/lib/blog-posts";
 import ContextualSeoLinks from "@/components/seo/ContextualSeoLinks";
 import FAQSection from "@/components/seo/FAQSection";
+import ProfithubWorkflowSection from "@/components/seo/ProfithubWorkflowSection";
 import { HOME_FAQ } from "@/lib/structured-data";
 import { SEO_RESOURCE_FOOTER_LINKS, getHomepageSeoLinks } from "@/lib/seo-internal-links";
 
@@ -148,6 +149,10 @@ export default function HomePageClient({ locale }: { locale: AppLocale }) {
           </aside>
         </div>
       </section>
+
+      {locale === DEFAULT_LOCALE ? (
+        <ProfithubWorkflowSection context="home" className="mt-14" />
+      ) : null}
 
       <section aria-labelledby="home-calculator-categories-heading" className="mt-10">
         <h2

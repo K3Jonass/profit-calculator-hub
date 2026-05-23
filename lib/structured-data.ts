@@ -144,6 +144,11 @@ export function buildBreadcrumbSchema(items: BreadcrumbInput[]) {
   };
 }
 
+export type HowToSchemaStep = {
+  name: string;
+  text: string;
+};
+
 export function buildHowToSchema({
   name,
   description,
@@ -153,7 +158,7 @@ export function buildHowToSchema({
   name: string;
   description: string;
   url: string;
-  steps: string[];
+  steps: string[] | HowToSchemaStep[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -161,12 +166,18 @@ export function buildHowToSchema({
     name,
     description,
     url,
-    step: steps.map((text, index) => ({
-      "@type": "HowToStep",
-      position: index + 1,
-      name: `Step ${index + 1}`,
-      text,
-    })),
+    step: steps.map((step, index) => {
+      const isNamedStep = typeof step === "object";
+      const text = isNamedStep ? step.text : step;
+      const stepName = isNamedStep ? step.name : `Step ${index + 1}`;
+
+      return {
+        "@type": "HowToStep",
+        position: index + 1,
+        name: stepName,
+        text,
+      };
+    }),
   };
 }
 

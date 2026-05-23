@@ -3,8 +3,15 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import ContextualSeoLinks from "@/components/seo/ContextualSeoLinks";
 import FAQSection from "@/components/seo/FAQSection";
 import JsonLdScript from "@/components/seo/JsonLdScript";
+import ProfithubWorkflowSection from "@/components/seo/ProfithubWorkflowSection";
 import type { FaqItem } from "@/lib/structured-data";
 import type { ComparisonSection, DefinitionBlock } from "@/lib/seo-pages/seo-aeo-types";
+import type { ProfithubWorkflowContext } from "@/lib/seo-pages/profithub-workflow";
+import {
+  PROFITHUB_WORKFLOW_TITLE,
+  getProfithubWorkflowIntro,
+  getProfithubWorkflowSchemaSteps,
+} from "@/lib/seo-pages/profithub-workflow";
 import { SITE_URL, buildBreadcrumbSchema, buildFaqPageSchema, buildHowToSchema } from "@/lib/structured-data";
 import { getContextualSeoLinks, getRelatedSeoPageLinks } from "@/lib/seo-internal-links";
 
@@ -38,6 +45,8 @@ type SeoLandingPageProps = {
   howToTitle?: string;
   howToIntro?: string;
   howToSteps?: string[];
+  profithubWorkflowContext?: ProfithubWorkflowContext;
+  profithubWorkflowIntro?: string;
   trailingSections?: ContentSection[];
   relatedTitle?: string;
   relatedLinks?: RelatedLink[];
@@ -63,6 +72,8 @@ export default function SeoLandingPage({
   howToTitle,
   howToIntro,
   howToSteps = [],
+  profithubWorkflowContext,
+  profithubWorkflowIntro,
   trailingSections = [],
   relatedTitle = "Related guides and tools",
   relatedLinks,
@@ -88,6 +99,16 @@ export default function SeoLandingPage({
     { name: "Home", item: `${SITE_URL}/` },
     { name: h1, item: pageUrl },
   ]);
+  const workflowIntro = profithubWorkflowIntro ?? (profithubWorkflowContext ? getProfithubWorkflowIntro(profithubWorkflowContext) : undefined);
+  const workflowSchema =
+    profithubWorkflowContext
+      ? buildHowToSchema({
+          name: PROFITHUB_WORKFLOW_TITLE,
+          description: workflowIntro ?? quickAnswer ?? intro[0] ?? h1,
+          url: pageUrl,
+          steps: getProfithubWorkflowSchemaSteps(profithubWorkflowContext),
+        })
+      : null;
   const howToSchema =
     howToSteps.length > 0 && howToTitle
       ? buildHowToSchema({
@@ -102,6 +123,7 @@ export default function SeoLandingPage({
     <div className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-14">
       <JsonLdScript data={breadcrumbSchema} />
       <JsonLdScript data={buildFaqPageSchema(faqItems)} />
+      {workflowSchema ? <JsonLdScript data={workflowSchema} /> : null}
       {howToSchema ? <JsonLdScript data={howToSchema} /> : null}
 
       <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: h1 }]} />
@@ -131,6 +153,10 @@ export default function SeoLandingPage({
           <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 md:text-2xl">{definition.title}</h2>
           <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">{definition.body}</p>
         </section>
+      ) : null}
+
+      {profithubWorkflowContext ? (
+        <ProfithubWorkflowSection context={profithubWorkflowContext} intro={profithubWorkflowIntro} />
       ) : null}
 
       {sections.map((section) => (

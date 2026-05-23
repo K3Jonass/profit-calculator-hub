@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import SeoLandingPage from "@/components/seo/SeoLandingPage";
 import {
   invoiceGeneratorFaq,
-  invoiceGeneratorHowToSteps,
   invoiceGeneratorIncludeItems,
   invoiceGeneratorMeta,
 } from "@/lib/seo-pages/invoice-generator-content";
@@ -49,9 +48,7 @@ export default function InvoiceGeneratorLandingPage() {
       includeTitle="What Should an Invoice Include?"
       includeIntro="A strong invoice gives your client everything needed to approve and pay without back-and-forth emails. These are the core sections Profithub helps you include in every document."
       includeItems={invoiceGeneratorIncludeItems}
-      howToTitle="How to Create an Invoice with Profithub"
-      howToIntro="Follow these steps to turn completed work into a client-ready invoice using the Profithub invoice generator."
-      howToSteps={invoiceGeneratorHowToSteps}
+      profithubWorkflowContext="invoice"
       trailingSections={[
         {
           title: "Who Can Use This Invoice Generator?",

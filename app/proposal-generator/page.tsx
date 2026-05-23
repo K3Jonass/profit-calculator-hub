@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import SeoLandingPage from "@/components/seo/SeoLandingPage";
 import {
   proposalGeneratorFaq,
-  proposalGeneratorHowToSteps,
   proposalGeneratorIncludeItems,
   proposalGeneratorMeta,
 } from "@/lib/seo-pages/proposal-generator-content";
@@ -49,9 +48,7 @@ export default function ProposalGeneratorLandingPage() {
       includeTitle="What to Include in a Freelance Proposal"
       includeIntro="Strong proposals answer client questions before they ask them. These sections help your project proposal template feel complete, credible, and easy to approve."
       includeItems={proposalGeneratorIncludeItems}
-      howToTitle="How to Create a Proposal Online"
-      howToIntro="Follow these steps to build a professional proposal with Profithub and send it to your client with confidence."
-      howToSteps={proposalGeneratorHowToSteps}
+      profithubWorkflowContext="proposal"
       trailingSections={[
         {
           title: "Proposal Generator for Agencies and Consultants",

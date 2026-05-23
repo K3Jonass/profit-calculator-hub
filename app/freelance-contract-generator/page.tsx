@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import SeoLandingPage from "@/components/seo/SeoLandingPage";
 import {
   freelanceContractGeneratorFaq,
-  freelanceContractGeneratorHowToSteps,
   freelanceContractGeneratorIncludeItems,
   freelanceContractGeneratorMeta,
 } from "@/lib/seo-pages/freelance-contract-generator-content";
@@ -57,9 +56,7 @@ export default function FreelanceContractGeneratorPage() {
       includeTitle="What to include in a freelance contract"
       includeIntro="Every project is different, but strong freelance contracts usually cover the same core building blocks. Profithub helps you include the sections clients and bookkeepers expect to see."
       includeItems={freelanceContractGeneratorIncludeItems}
-      howToTitle="How to create a freelance contract"
-      howToIntro="You do not need to draft a contract from scratch. Follow these five steps to create a client-ready freelance contract with Profithub."
-      howToSteps={freelanceContractGeneratorHowToSteps}
+      profithubWorkflowContext="contract"
       faqTitle="Freelance contract generator FAQ"
       faqItems={freelanceContractGeneratorFaq}
       ctaTitle="Create your freelance contract now"
