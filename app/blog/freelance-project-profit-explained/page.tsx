@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { ArabicLocalizedArticlePhase4A } from "@/components/blog/ArabicLocalizedArticlePhase4A";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
@@ -23,9 +24,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/freelance-project-profit-explained", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -53,7 +52,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+    <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">
         Freelance Project Profit Explained: Why Revenue Is Not Enough
       </h1>
@@ -176,6 +175,6 @@ export default async function Page() {
           Open Calculator →
         </Link>
       </div>
-    </main>
+    </article>
   );
 }

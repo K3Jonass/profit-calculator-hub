@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 
 const enMeta = {
@@ -22,9 +23,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/what-is-breakeven-point", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -32,7 +31,7 @@ export default async function Page() {
 
   if (locale === "ar") {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+      <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           ما هي نقطة التعادل؟ الرقم الذي يجب أن يعرفه كل صاحب مشروع
         </h1>
@@ -172,13 +171,13 @@ export default async function Page() {
             افتح حاسبة نقطة التعادل →
           </Link>
         </div>
-      </main>
+      </article>
     );
   }
 
   if (locale !== "fr") {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+      <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           What Is a Breakeven Point? The Number Every Business Should Know
         </h1>
@@ -277,12 +276,12 @@ export default async function Page() {
             Open Breakeven Calculator →
           </Link>
         </div>
-      </main>
+      </article>
     );
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+    <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">
         Point mort : le chiffre que toute entreprise doit absolument maîtriser
       </h1>
@@ -384,6 +383,6 @@ export default async function Page() {
           Ouvrir le calculateur de point mort →
         </Link>
       </div>
-    </main>
+    </article>
   );
 }

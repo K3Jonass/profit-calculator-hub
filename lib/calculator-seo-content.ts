@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import type { FAQItem } from "@/components/seo/FAQSection";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { buildPublicPageMetadata } from "@/lib/site-metadata";
 
 export type CalculatorSeoContent = {
   title: string;
@@ -192,3 +195,78 @@ export const calculatorSeoContent: Record<string, CalculatorSeoContent> = {
     relatedArticleHrefs: ["/blog/cost-of-delay-examples", "/blog/how-to-negotiate-revenue-share-deals"],
   },
 };
+
+export const calculatorPageMeta: Record<string, { title: string; description: string }> = {
+  "shopify-profit": {
+    title: "Shopify Profit Calculator Free | Net Profit & Margin Tool",
+    description: "Calculate Shopify net profit, total costs, and profit margin in seconds with this free tool.",
+  },
+  "dropshipping-profit": {
+    title: "Dropshipping Profit Calculator Free | Profit & Margin Tool",
+    description: "Calculate dropshipping revenue, costs, net profit, and margin with this free online calculator.",
+  },
+  "saas-mrr": {
+    title: "SaaS MRR Calculator Free | MRR & ARR Tool",
+    description: "Calculate monthly recurring revenue and annual recurring revenue with this free SaaS MRR calculator.",
+  },
+  "freelance-rate": {
+    title: "Freelance Rate Calculator Free | Hourly Rate Tool",
+    description: "Calculate your ideal freelance hourly rate based on income goals, expenses, and billable hours.",
+  },
+  breakeven: {
+    title: "Breakeven Calculator Free | Breakeven Point Tool",
+    description: "Calculate your breakeven point to find how many sales you need to cover costs.",
+  },
+  "freelance-project-profit": {
+    title: "Freelance Project Profit Analyzer Free | Client Project Profit Tool",
+    description: "Analyze freelance project profit after hours, hidden costs, and delivery overhead before accepting work.",
+  },
+  "subscription-leak": {
+    title: "Subscription Leak Calculator Free | Lost MRR Estimator",
+    description: "Estimate recurring revenue loss from churn and failed payments with this subscription leak calculator.",
+  },
+  "revenue-share": {
+    title: "Revenue Share Calculator Free | Partnership Split Tool",
+    description: "Model fair revenue split scenarios and estimate partner payouts with this free calculator.",
+  },
+  "cost-of-delay": {
+    title: "Cost of Delay Calculator Free | Priority Impact Tool",
+    description: "Estimate how much revenue or value you lose when launches and decisions are delayed.",
+  },
+  "decision-score": {
+    title: "Business Decision Score Calculator Free | Weighted Scoring Tool",
+    description: "Compare opportunities with a weighted decision score calculator for profit, effort, and risk.",
+  },
+};
+
+export function buildCalculatorRouteMetadata(slug: string) {
+  const meta = calculatorPageMeta[slug];
+
+  if (!meta) {
+    throw new Error(`Missing calculator metadata for ${slug}`);
+  }
+
+  return buildPublicPageMetadata({
+    title: meta.title,
+    description: meta.description,
+    path: `/calculators/${slug}`,
+    locale: "en",
+  });
+}
+
+export async function generateCalculatorMetadata(slug: string): Promise<Metadata> {
+  const meta = calculatorPageMeta[slug];
+
+  if (!meta) {
+    throw new Error(`Missing calculator metadata for ${slug}`);
+  }
+
+  const locale = await getRequestLocale();
+
+  return buildPublicPageMetadata({
+    title: meta.title,
+    description: meta.description,
+    path: `/calculators/${slug}`,
+    locale,
+  });
+}

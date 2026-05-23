@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { DEFAULT_LOCALE, isSupportedLocale, stripLocaleFromPathname } from "@/lib/i18n/config";
+import { isPrivatePath } from "@/lib/site-metadata";
 
-const NOINDEX_PREFIXES = ["/workspace", "/portal"];
 const CANONICAL_HOST = "profithub.cloud";
 const WWW_HOST = `www.${CANONICAL_HOST}`;
-
-function isNoindexPath(pathname: string) {
-  return NOINDEX_PREFIXES.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
-}
+const IS_DEV = process.env.NODE_ENV === "development";
 
 function getCanonicalRedirect(request: NextRequest) {
+  // Production-only: www → apex and http → https.
+  // Skipped in development so localhost / 127.0.0.1 are never sent to profithub.cloud.
+  if (IS_DEV) {
+    return null;
+  }
+
   const host = request.headers.get("host")?.toLowerCase() ?? request.nextUrl.host;
   const proto = request.headers.get("x-forwarded-proto")?.toLowerCase();
   const shouldRedirectHost = host === WWW_HOST;
@@ -27,10 +28,6 @@ function getCanonicalRedirect(request: NextRequest) {
   destination.host = CANONICAL_HOST;
 
   return destination;
-}
-
-function isPrivatePath(pathname: string) {
-  return pathname === "/workspace" || pathname.startsWith("/workspace/") || pathname === "/portal" || pathname.startsWith("/portal/");
 }
 
 export function middleware(request: NextRequest) {
@@ -68,7 +65,7 @@ export function middleware(request: NextRequest) {
 
   response.cookies.set("NEXT_LOCALE", locale, { path: "/", sameSite: "lax" });
 
-  if (isNoindexPath(internalPathname)) {
+  if (isPrivatePath(internalPathname)) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
   }
 

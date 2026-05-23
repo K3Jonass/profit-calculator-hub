@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { ArabicLocalizedArticlePhase3B } from "@/components/blog/ArabicLocalizedArticlePhase3B";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
@@ -23,9 +24,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/is-dropshipping-profitable", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -53,7 +52,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <article className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="text-4xl font-bold mb-6">
         Is Dropshipping Still Profitable in 2026?
       </h1>
@@ -78,6 +77,6 @@ export default async function Page() {
           Check your profit →
         </Link>
       </div>
-    </main>
+    </article>
   );
 }

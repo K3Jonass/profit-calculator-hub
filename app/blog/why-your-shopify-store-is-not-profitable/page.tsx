@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticlePhase3 } from "@/components/blog/FrenchLocalizedArticlePhase3";
 import { ArabicLocalizedArticlePhase3A } from "@/components/blog/ArabicLocalizedArticlePhase3A";
@@ -24,9 +25,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/why-your-shopify-store-is-not-profitable", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -55,7 +54,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+    <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="text-4xl font-bold mb-6">
         Why Your Shopify Store Is Not Profitable (Even If You&apos;re Making Sales)
       </h1>
@@ -87,6 +86,6 @@ export default async function Page() {
           Open Shopify Profit Calculator →
         </Link>
       </div>
-    </main>
+    </article>
   );
 }

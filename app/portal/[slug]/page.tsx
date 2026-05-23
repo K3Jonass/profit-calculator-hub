@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import StatusBadge from "@/components/workspace/StatusBadge";
 import { getPortalProjectBySlug } from "@/lib/workspace-data";
+import { buildPublicPageMetadata } from "@/lib/site-metadata";
+
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    robots: {
-      index: false,
-      follow: false,
-      nocache: true,
-    },
-  };
+  return buildPublicPageMetadata({
+    title: "Client Portal | Profithub",
+    description: "Private client portal on Profithub.",
+    path: "/portal",
+    index: false,
+  });
 }
 
 
@@ -20,13 +21,13 @@ export default async function PortalPage({ params }: { params: Promise<{ slug: s
 
   if (!configured) {
     return (
-      <main className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
             Portal is not active yet. Supabase credentials are required.
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -35,7 +36,7 @@ export default async function PortalPage({ params }: { params: Promise<{ slug: s
   }
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50">
       <div className="mx-auto max-w-3xl px-4 py-12">
         <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Client Portal</p>
@@ -74,6 +75,6 @@ export default async function PortalPage({ params }: { params: Promise<{ slug: s
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

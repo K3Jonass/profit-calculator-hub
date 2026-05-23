@@ -4,10 +4,11 @@ import { getRequestLocale } from "@/lib/i18n/server";
 import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 import { withLocale } from "@/lib/i18n/config";
 import { getCalculatorsHubContent } from "@/lib/i18n/calculators-hub";
+import { buildSimplePublicPageMetadata } from "@/lib/site-metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return getPublicPageMessages(locale).simpleMeta.calculators;
+  return buildSimplePublicPageMetadata(locale, "/calculators", getPublicPageMessages(locale).simpleMeta.calculators);
 }
 
 export default async function CalculatorsPage() {
@@ -15,7 +16,7 @@ export default async function CalculatorsPage() {
   const content = getCalculatorsHubContent(locale);
 
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       <section className="motion-fade-up border-b border-slate-200/80 bg-white/70 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/40">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:border-blue-900 dark:bg-blue-950/70 dark:text-blue-200">
@@ -62,6 +63,6 @@ export default async function CalculatorsPage() {
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

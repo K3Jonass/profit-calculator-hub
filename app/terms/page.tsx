@@ -4,10 +4,11 @@ import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 import { getPublicPageBody } from "@/lib/i18n/public-page-bodies";
 import { withLocale } from "@/lib/i18n/config";
 import Link from "next/link";
+import { buildSimplePublicPageMetadata } from "@/lib/site-metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return getPublicPageMessages(locale).simpleMeta.terms;
+  return buildSimplePublicPageMetadata(locale, "/terms", getPublicPageMessages(locale).simpleMeta.terms);
 }
 
 export default async function TermsPage() {
@@ -15,7 +16,7 @@ export default async function TermsPage() {
   const t = getPublicPageBody(locale).terms;
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
+    <div className="mx-auto max-w-5xl px-6 py-16">
       <section className="motion-fade-up rounded-[2rem] border border-slate-200 bg-white p-10 shadow-sm">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">{t.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{t.intro}</p>
@@ -34,6 +35,6 @@ export default async function TermsPage() {
         <h2 className="text-2xl font-semibold text-slate-900">{t.contactTitle}</h2>
         <p className="mt-3 text-slate-600">{t.contactText} <Link href={withLocale("/contact", locale)} className="font-semibold text-blue-700 animated-link">{t.contactPage}</Link>.</p>
       </section>
-    </main>
+    </div>
   );
 }

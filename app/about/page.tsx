@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 import { getPublicPageBody } from "@/lib/i18n/public-page-bodies";
+import { buildSimplePublicPageMetadata } from "@/lib/site-metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return getPublicPageMessages(locale).simpleMeta.about;
+  return buildSimplePublicPageMetadata(locale, "/about", getPublicPageMessages(locale).simpleMeta.about);
 }
 
 export default async function AboutPage() {
@@ -13,7 +14,7 @@ export default async function AboutPage() {
   const t = getPublicPageBody(locale).about;
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-16">
+    <div className="mx-auto max-w-5xl px-6 py-16">
       <section className="rounded-4xl border border-slate-200 bg-white p-10 shadow-sm">
         <div className="max-w-3xl">
           <div className="mb-4 inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-sm font-medium text-slate-600">{t.badge}</div>
@@ -42,6 +43,6 @@ export default async function AboutPage() {
           ))}
         </ul>
       </section>
-    </main>
+    </div>
   );
 }

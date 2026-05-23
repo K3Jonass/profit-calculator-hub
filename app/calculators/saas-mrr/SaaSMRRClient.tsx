@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { calculateMRR } from "@/lib/calculators";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import { CalculatorField, CalculatorHero, CalculatorPanel, CalculatorResultsGrid, CalculatorShell, MetricCard } from "@/components/calculators/CalculatorUI";
 
 export default function SaaSMRRClient() {
@@ -42,10 +41,6 @@ export default function SaaSMRRClient() {
           <MetricCard label="MRR" value={`$${result.mrr.toFixed(2)}`} emphasize />
           <MetricCard label="ARR" value={`$${result.arr.toFixed(2)}`} />
         </CalculatorResultsGrid>
-      </section>
-
-      <section className="mt-8">
-        <RelatedCalculators currentHref="/calculators/saas-mrr" />
       </section>
     </CalculatorShell>
   );

@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { calculateDropshippingProfit } from "@/lib/calculators";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import { CalculatorField, CalculatorHero, CalculatorPanel, CalculatorResultsGrid, CalculatorShell, MetricCard } from "@/components/calculators/CalculatorUI";
 
 export default function DropshippingProfitClient() {
@@ -50,10 +49,6 @@ export default function DropshippingProfitClient() {
           <MetricCard label="Profit" value={`$${result.profit.toFixed(2)}`} emphasize />
           <MetricCard label="Margin" value={`${result.margin.toFixed(2)}%`} />
         </CalculatorResultsGrid>
-      </section>
-       
-      <section className="mt-8">
-        <RelatedCalculators currentHref="/calculators/dropshipping-profit" />
       </section>
     </CalculatorShell>
   );

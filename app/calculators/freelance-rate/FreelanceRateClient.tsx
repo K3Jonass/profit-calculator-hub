@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { calculateFreelanceRate } from "@/lib/calculators";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import { CalculatorField, CalculatorHero, CalculatorPanel, CalculatorResultsGrid, CalculatorShell, MetricCard } from "@/components/calculators/CalculatorUI";
 
 export default function FreelanceRateClient() {
@@ -44,10 +43,6 @@ export default function FreelanceRateClient() {
           <MetricCard label="Total Needed per Month" value={`$${result.totalNeeded.toFixed(2)}`} />
           <MetricCard label="Recommended Hourly Rate" value={`$${result.hourlyRate.toFixed(2)}`} emphasize />
         </CalculatorResultsGrid>
-      </section>
-
-      <section className="mt-8">
-        <RelatedCalculators currentHref="/calculators/freelance-rate" />
       </section>
     </CalculatorShell>
   );

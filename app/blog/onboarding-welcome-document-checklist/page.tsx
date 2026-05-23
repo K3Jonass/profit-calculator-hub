@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { ArabicLocalizedArticlePhase4B } from "@/components/blog/ArabicLocalizedArticlePhase4B";
 import { FrenchLocalizedArticlePhase4 } from "@/components/blog/FrenchLocalizedArticlePhase4";
@@ -23,9 +24,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/onboarding-welcome-document-checklist", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -53,7 +52,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+    <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">Onboarding Welcome Document Checklist for Agencies and Freelancers</h1>
 
             <p className="mb-6 leading-8 text-gray-700">Onboarding Welcome Document Checklist for Agencies and Freelancers is less about paperwork and more about operating discipline. Most teams that struggle with margin problems do not fail because demand is weak; they fail because execution is loose. A clean document system creates leverage: fewer clarifying calls, less rework, faster approvals, and stronger cash conversion.</p>
@@ -125,6 +124,6 @@ export default async function Page() {
           Open the related contract generator →
         </Link>
       </div>
-    </main>
+    </article>
   );
 }

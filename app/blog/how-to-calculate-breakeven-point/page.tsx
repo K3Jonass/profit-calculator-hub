@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 
 const enMeta = {
@@ -22,9 +23,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/how-to-calculate-breakeven-point", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -32,7 +31,7 @@ export default async function Page() {
 
   if (locale === "ar") {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+      <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           كيفية حساب نقطة التعادل: المعادلة، مثال عملي، ولماذا تهمك فعليًا
         </h1>
@@ -185,13 +184,13 @@ export default async function Page() {
             افتح حاسبة نقطة التعادل →
           </Link>
         </div>
-      </main>
+      </article>
     );
   }
 
   if (locale !== "fr") {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+      <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           How to Calculate Breakeven Point: Formula, Example, and Why It Matters
         </h1>
@@ -297,12 +296,12 @@ export default async function Page() {
             Open Breakeven Calculator →
           </Link>
         </div>
-      </main>
+      </article>
     );
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+    <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">
         Comment calculer le point mort : formule simple, exemple concret et décisions clés
       </h1>
@@ -406,6 +405,6 @@ export default async function Page() {
           Ouvrir le calculateur de point mort →
         </Link>
       </div>
-    </main>
+    </article>
   );
 }

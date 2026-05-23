@@ -1,7 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import JsonLdScript from "@/components/seo/JsonLdScript";
+import { stripLocaleFromPathname } from "@/lib/i18n/config";
 import { contractGenerators } from "@/lib/contracts-generators";
+import {
+  CONTRACT_TOOL_HOW_TO_STEPS,
+  SITE_URL,
+  buildBreadcrumbSchema,
+  buildFaqPageSchema,
+  buildHowToSchema,
+  buildSoftwareApplicationSchema,
+} from "@/lib/structured-data";
 
 const toolFaq = [
   {
@@ -17,65 +27,61 @@ const toolFaq = [
 ];
 
 export default function ContractsSeoEnhancer() {
-  const pathname = usePathname();
+  const pathname = stripLocaleFromPathname(usePathname() || "/");
   const currentTool = contractGenerators.find((item) => item.href === pathname);
 
   if (!pathname.startsWith("/contracts")) {
     return null;
   }
 
-  const pageUrl = `https://profithub.cloud${pathname}`;
+  const pageUrl = `${SITE_URL}${pathname}`;
   const pageName = currentTool?.title ?? "Contract Generators";
   const pageDescription =
     currentTool?.description ??
     "Generate practical contract and deal templates for freelancer work, revenue share, invoicing, onboarding, and client operations.";
 
   const breadcrumbItems = [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://profithub.cloud/" },
-    { "@type": "ListItem", position: 2, name: "Contracts", item: "https://profithub.cloud/contracts" },
+    { name: "Home", item: `${SITE_URL}/` },
+    { name: "Contracts", item: `${SITE_URL}/contracts` },
   ];
 
   if (pathname !== "/contracts") {
-    breadcrumbItems.push({ "@type": "ListItem", position: 3, name: pageName, item: pageUrl });
+    breadcrumbItems.push({ name: pageName, item: pageUrl });
   }
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: breadcrumbItems,
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
 
-  const pageSchema = {
-    "@context": "https://schema.org",
-    "@type": currentTool ? "SoftwareApplication" : "WebPage",
-    name: pageName,
-    description: pageDescription,
-    url: pageUrl,
-    applicationCategory: currentTool ? "BusinessApplication" : undefined,
-    isAccessibleForFree: currentTool ? true : undefined,
-  };
+  const pageSchema = currentTool
+    ? buildSoftwareApplicationSchema({
+        name: pageName,
+        description: pageDescription,
+        url: pageUrl,
+      })
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: pageName,
+        description: pageDescription,
+        url: pageUrl,
+      };
 
   const showToolFaq = Boolean(currentTool);
-  const faqSchema = showToolFaq
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: toolFaq.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
-      }
+  const faqSchema = showToolFaq ? buildFaqPageSchema(toolFaq) : null;
+  const howToSchema = currentTool
+    ? buildHowToSchema({
+        name: `How to create a ${pageName.replace(/ Generator$/i, "")}`,
+        description: pageDescription,
+        url: pageUrl,
+        steps: CONTRACT_TOOL_HOW_TO_STEPS,
+      })
     : null;
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
-      {faqSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /> : null}
+      <JsonLdScript data={breadcrumbSchema} />
+      <JsonLdScript data={pageSchema} />
+      {howToSchema ? <JsonLdScript data={howToSchema} /> : null}
+      {faqSchema ? <JsonLdScript data={faqSchema} /> : null}
 
       {showToolFaq ? (
         <section className="mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">

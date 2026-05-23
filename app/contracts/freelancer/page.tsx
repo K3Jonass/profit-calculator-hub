@@ -73,7 +73,7 @@ export default function FreelancerContractPage() {
   }, [lastValues]);
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50">
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -126,7 +126,7 @@ export default function FreelancerContractPage() {
         </div>
 
         <div className="lg:col-span-7">
-          <div className="space-y-6">
+          <div className="space-y-6 lg:min-h-[720px]">
             <ContractPreview
               contractText={contractText}
               isLoading={isLoading}
@@ -156,6 +156,6 @@ export default function FreelancerContractPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

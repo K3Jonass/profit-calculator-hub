@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react";
 
 export function CalculatorShell({ children }: { children: ReactNode }) {
-  return <main className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">{children}</main>;
+  return <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">{children}</div>;
 }
 
 export function CalculatorHero({
@@ -14,11 +14,11 @@ export function CalculatorHero({
   description: string;
 }) {
   return (
-    <section className="motion-fade-up mb-8 rounded-[2rem] border border-slate-200/80 bg-white/80 p-6 shadow-soft backdrop-blur-sm md:p-8 dark:border-slate-800 dark:bg-slate-900/70">
+    <section className="motion-fade-up mb-8 min-h-[14rem] rounded-[2rem] border border-slate-200/80 bg-white/80 p-6 shadow-soft backdrop-blur-sm md:min-h-[16rem] md:p-8 dark:border-slate-800 dark:bg-slate-900/70">
       <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:border-blue-900 dark:bg-blue-950/70 dark:text-blue-200">
         {badge}
       </span>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl dark:text-slate-100">{title}</h1>
+      <p className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl dark:text-slate-100">{title}</p>
       <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 md:text-lg md:leading-8 dark:text-slate-300">{description}</p>
     </section>
   );

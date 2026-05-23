@@ -25,7 +25,7 @@ export default function ThemeSelector() {
         aria-label="Choose theme"
         value={mode}
         onChange={(event) => setMode(event.target.value as ThemeMode)}
-        className="ui-input rounded-lg px-2 py-1 text-xs font-medium shadow-sm"
+        className="ui-input min-h-11 rounded-lg px-3 py-2 text-sm font-medium shadow-sm"
       >
         {OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>{option.label}</option>

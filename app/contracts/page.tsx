@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { getRequestLocale } from "@/lib/i18n/server";
-import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 import { getPublicPageBody } from "@/lib/i18n/public-page-bodies";
 import { withLocale } from "@/lib/i18n/config";
 import { contractGenerators } from "@/lib/contracts-generators";
 import Link from "next/link";
+import { buildSimplePublicPageMetadata } from "@/lib/site-metadata";
+import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return getPublicPageMessages(locale).simpleMeta.contracts;
+  return buildSimplePublicPageMetadata(locale, "/contracts", getPublicPageMessages(locale).simpleMeta.contracts);
 }
 
 export default async function ContractsPage() {
@@ -16,7 +17,7 @@ export default async function ContractsPage() {
   const t = getPublicPageBody(locale).contracts;
 
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       <section className="motion-fade-up border-b border-slate-200/80 bg-white/70 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/40">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -29,12 +30,15 @@ export default async function ContractsPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Available generators</h2>
+        </div>
         <div className="motion-stagger grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {contractGenerators.map((item) => {
             const content = (
               <div className="hover-lift rounded-3xl border-soft surface-card p-6">
                 <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{item.title}</h2>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{item.title}</h3>
                   <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">{item.badge}</span>
                 </div>
                 <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.description}</p>
@@ -51,6 +55,6 @@ export default async function ContractsPage() {
           })}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

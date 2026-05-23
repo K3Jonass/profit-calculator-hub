@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { calculateBreakeven } from "@/lib/calculators";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import { CalculatorField, CalculatorHero, CalculatorPanel, CalculatorResultsGrid, CalculatorShell, EmptyState, MetricCard } from "@/components/calculators/CalculatorUI";
 
 export default function BreakevenClient() {
@@ -50,9 +49,6 @@ export default function BreakevenClient() {
         )}
       </section>
 
-      <section className="mt-8">
-        <RelatedCalculators currentHref="/calculators/breakeven" />
-      </section>
     </CalculatorShell>
   );
 }

@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import FreelanceProjectProfitClient from "./FreelanceProjectProfitClient";
 import CalculatorSeoScaffold from "@/components/seo/CalculatorSeoScaffold";
-import { calculatorSeoContent } from "@/lib/calculator-seo-content";
+import { generateCalculatorMetadata, calculatorSeoContent } from "@/lib/calculator-seo-content";
 
-export const metadata: Metadata = {
-  title: "Freelance Project Profit Analyzer Free | Client Project Profit Tool",
-  description:
-    "Analyze freelance project profit after hours, hidden costs, and delivery overhead before accepting work.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return generateCalculatorMetadata("freelance-project-profit");
+}
 
 export default function FreelanceProjectProfitPage() {
   return (

@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import JsonLdScript from "@/components/seo/JsonLdScript";
+import { getLocaleFromPathname, stripLocaleFromPathname, withLocale } from "@/lib/i18n/config";
 import { blogPosts } from "@/lib/blog-posts";
-
-const blogFaqItems = [
-  {
-    question: "Which calculator should I use with this guide?",
-    answer:
-      "Use the calculator that matches the main metric in the article, then compare your result with one related tool for better decision context.",
-  },
-  {
-    question: "How many internal links should each guide include?",
-    answer:
-      "Include one primary calculator link and at least two related guides using descriptive anchor text that reflects the reader intent.",
-  },
-];
+import {
+  getBlogPrimaryCalculator,
+  getBlogRelatedArticles,
+  getBlogRelatedCalculators,
+} from "@/lib/blog-related-links";
+import {
+  SITE_URL,
+  buildBreadcrumbSchema,
+  buildHowToSchema,
+  isHowToGuidePath,
+} from "@/lib/structured-data";
 
 function toDirectAnswer(description: string) {
   return description
@@ -35,7 +35,9 @@ function toDirectAnswer(description: string) {
 }
 
 export default function BlogArticleEnhancer({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  const fullPathname = usePathname() || "/";
+  const locale = getLocaleFromPathname(fullPathname);
+  const pathname = stripLocaleFromPathname(fullPathname);
   const isBlogIndex = pathname === "/blog";
 
   if (isBlogIndex) {
@@ -43,16 +45,12 @@ export default function BlogArticleEnhancer({ children }: { children: React.Reac
   }
 
   const post = blogPosts.find((item) => item.href === pathname);
-  const articleUrl = `https://profithub.cloud${pathname}`;
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://profithub.cloud/" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://profithub.cloud/blog" },
-      { "@type": "ListItem", position: 3, name: post?.title ?? "Article", item: articleUrl },
-    ],
-  };
+  const articleUrl = `${SITE_URL}${pathname}`;
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", item: `${SITE_URL}/` },
+    { name: "Blog", item: `${SITE_URL}/blog` },
+    { name: post?.title ?? "Article", item: articleUrl },
+  ]);
 
   const articleSchema = post
     ? {
@@ -64,88 +62,105 @@ export default function BlogArticleEnhancer({ children }: { children: React.Reac
         mainEntityOfPage: articleUrl,
         author: {
           "@type": "Organization",
-          name: "ProfitHub",
+          name: "Profithub",
         },
         publisher: {
           "@type": "Organization",
-          name: "ProfitHub",
+          name: "Profithub",
           logo: {
             "@type": "ImageObject",
-            url: "https://profithub.cloud/icon.png",
+            url: `${SITE_URL}/icon.png`,
           },
         },
       }
     : null;
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: blogFaqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
+  const howToSchema =
+    post && isHowToGuidePath(pathname, post.title)
+      ? buildHowToSchema({
+          name: post.title,
+          description: post.description,
+          url: articleUrl,
+          steps: [
+            "Read the guide to understand the core formula, inputs, and decision framework.",
+            "Gather your business numbers and apply the method described in the article.",
+            "Validate your result with the related Profithub calculator linked in the guide.",
+          ],
+        })
+      : null;
 
   const directAnswerIntro = post
     ? `Short answer: ${toDirectAnswer(post.description)}`
-    : "Short answer: This guide explains the core concept, formula, and practical actions you can apply with ProfitHub tools.";
+    : "Short answer: This guide explains the core concept, formula, and practical actions you can apply with Profithub tools.";
+
+  const primaryCalculator = getBlogPrimaryCalculator(pathname);
+  const relatedCalculators = getBlogRelatedCalculators(pathname);
+  const relatedArticles = getBlogRelatedArticles(pathname);
 
   return (
     <>
-      {articleSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} /> : null}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {articleSchema ? <JsonLdScript data={articleSchema} /> : null}
+      <JsonLdScript data={breadcrumbSchema} />
+      {howToSchema ? <JsonLdScript data={howToSchema} /> : null}
 
-      <div className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Direct answer</p>
-        <p className="mt-2 text-sm leading-7 text-slate-700">{directAnswerIntro}</p>
+      <div className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900/80">
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Direct answer</p>
+        <p className="mt-2 text-sm leading-7 text-slate-700 dark:text-slate-300">{directAnswerIntro}</p>
       </div>
 
-      <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-blue-200 bg-blue-50 p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-800">Use this calculator</p>
-        <p className="mt-2 text-sm text-slate-700">
-          Apply this guide with a practical tool from our <Link href="/calculators" className="font-semibold text-blue-700 underline">calculators hub</Link> so you can turn concepts into decisions.
-        </p>
-      </div>
+      {primaryCalculator ? (
+        <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-900 dark:bg-blue-950/40">
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-800 dark:text-blue-200">Use this calculator</p>
+          <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">
+            Apply this guide with the{" "}
+            <Link href={withLocale(primaryCalculator.href, locale)} className="font-semibold text-blue-700 underline dark:text-blue-300">
+              {primaryCalculator.label}
+            </Link>{" "}
+            or browse our{" "}
+            <Link href={withLocale("/calculators", locale)} className="font-semibold text-blue-700 underline dark:text-blue-300">
+              calculators hub
+            </Link>
+            .
+          </p>
+        </div>
+      ) : null}
 
       <div className="mx-auto max-w-4xl">{children}</div>
 
-      <section className="mx-auto mt-12 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Related calculators</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700">
-          <li><Link href="/calculators/shopify-profit" className="text-blue-700 underline">Shopify Profit Calculator</Link></li>
-          <li><Link href="/calculators/saas-mrr" className="text-blue-700 underline">SaaS MRR Calculator</Link></li>
-          <li><Link href="/calculators/freelance-rate" className="text-blue-700 underline">Freelance Rate Calculator</Link></li>
+      <section className="mx-auto mt-12 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900/80">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Related calculators</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700 dark:text-slate-300">
+          {relatedCalculators.map((item) => (
+            <li key={item.href}>
+              <Link href={withLocale(item.href, locale)} className="text-blue-700 underline dark:text-blue-300">
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 
-      <section className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Related articles</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700">
-          <li><Link href="/blog/how-to-calculate-breakeven-point" className="text-blue-700 underline">How to Calculate Breakeven Point</Link></li>
-          <li><Link href="/blog/how-to-calculate-shopify-profit" className="text-blue-700 underline">How to Calculate Shopify Profit</Link></li>
-          <li><Link href="/blog/how-to-calculate-mrr" className="text-blue-700 underline">How to Calculate MRR</Link></li>
+      <section className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900/80">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Related articles</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700 dark:text-slate-300">
+          {relatedArticles.map((item) => (
+            <li key={item.href}>
+              <Link href={withLocale(item.href, locale)} className="text-blue-700 underline dark:text-blue-300">
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 
-      <section className="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">FAQ</h2>
-        {blogFaqItems.map((item) => (
-          <details key={item.question} className="mt-3 rounded-xl border border-slate-200 p-4 first:mt-4">
-            <summary className="cursor-pointer font-semibold text-slate-900">{item.question}</summary>
-            <p className="mt-2 text-sm text-slate-600">{item.answer}</p>
-          </details>
-        ))}
-      </section>
-
-      <div className="mx-auto mt-8 max-w-4xl rounded-2xl border border-blue-200 bg-blue-50 p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-800">Use this calculator now</p>
-        <p className="mt-2 text-sm text-slate-700">
-          Ready to apply this? Open the <Link href="/calculators" className="font-semibold text-blue-700 underline">ProfitHub calculators directory</Link> and run your numbers in under two minutes.
+      <div className="mx-auto mt-8 max-w-4xl rounded-2xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-900 dark:bg-blue-950/40">
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-800 dark:text-blue-200">Use this calculator now</p>
+        <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Ready to apply this? Open the{" "}
+          <Link href={withLocale("/calculators", locale)} className="font-semibold text-blue-700 underline dark:text-blue-300">
+            Profithub calculators directory
+          </Link>{" "}
+          and run your numbers in under two minutes.
         </p>
       </div>
     </>

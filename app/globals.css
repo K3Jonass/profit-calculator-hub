@@ -9,7 +9,7 @@
   --card-foreground: #0f172a;
 
   --muted: #f1f5f9;
-  --muted-foreground: #64748b;
+  --muted-foreground: #475569;
 
   --border: rgba(15, 23, 42, 0.08);
   --ring: rgba(59, 130, 246, 0.35);
@@ -84,8 +84,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-accent-soft-foreground: var(--accent-soft-foreground);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 *,
@@ -128,7 +128,7 @@ body {
   min-height: 100vh;
   background: var(--app-canvas);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -250,12 +250,25 @@ canvas {
 
   .ui-input {
     width: 100%;
+    min-height: 2.75rem;
     border-radius: 1rem;
     border: 1px solid var(--border);
     background: color-mix(in oklab, var(--card) 96%, transparent);
     color: var(--foreground);
     outline: none;
     transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  }
+
+  @media (max-width: 640px) {
+    .ui-input {
+      min-height: 2.75rem;
+      font-size: 1rem;
+    }
+
+    .ui-button-primary,
+    .ui-button-secondary {
+      min-height: 2.75rem;
+    }
   }
 
   .ui-input::placeholder {
@@ -354,7 +367,6 @@ canvas {
 
   .motion-fade-up {
     animation: ph-fade-up 520ms ease-out both;
-    will-change: transform, opacity;
   }
 
   .motion-stagger > * {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SeoResourcesFooter from "@/components/seo/SeoResourcesFooter";
 import type { AppLocale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/messages";
@@ -59,6 +60,8 @@ export default function Footer({ locale }: { locale: AppLocale }) {
           <FooterColumn locale={locale} title={t.importantPages} links={importantLinks} />
         </div>
 
+        <SeoResourcesFooter locale={locale} />
+
         <div className="mt-8 flex flex-col gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 dark:border-slate-800 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} ProfitHub.cloud — {t.rights}</p>
           <p className="text-xs">{t.builtFor}</p>
@@ -69,9 +72,13 @@ export default function Footer({ locale }: { locale: AppLocale }) {
 }
 
 function FooterColumn({ title, links, locale }: { title: string; links: { href: string; label: string }[]; locale: AppLocale }) {
+  const columnId = title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
   return (
-    <div>
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{title}</h3>
+    <nav aria-labelledby={columnId}>
+      <p id={columnId} className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+        {title}
+      </p>
       <div className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300">
         {links.map((link) => (
           <Link key={link.href} href={withLocale(link.href, locale)} className="animated-link w-fit transition hover:text-slate-900 dark:hover:text-white">
@@ -79,6 +86,6 @@ function FooterColumn({ title, links, locale }: { title: string; links: { href: 
           </Link>
         ))}
       </div>
-    </div>
+    </nav>
   );
 }

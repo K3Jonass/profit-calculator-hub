@@ -174,7 +174,7 @@ export default function ContractPaywall({
         </p>
       </div>
 
-      <div className="p-6">
+      <div className="min-h-[11rem] p-6">
         {!hasContract ? (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center dark:border-slate-700 dark:bg-slate-900/70">
             <p className="ui-text text-sm">

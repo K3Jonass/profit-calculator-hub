@@ -7,9 +7,7 @@ export default function CalculatorIntroBlock({
 }) {
   return (
     <section className="surface-subtle rounded-2xl p-6">
-      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-        Quick answer: {title}
-      </p>
+      <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 md:text-4xl">{title}</h1>
       <p className="mt-3 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300">{answer}</p>
     </section>
   );

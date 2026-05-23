@@ -5,6 +5,7 @@ import { getPublicPageMessages } from "@/lib/i18n/public-pages";
 import { withLocale } from "@/lib/i18n/config";
 import { getPublicPageBody } from "@/lib/i18n/public-page-bodies";
 import { getBlogPosts } from "@/lib/blog-posts";
+import { buildSimplePublicPageMetadata } from "@/lib/site-metadata";
 import {
   BLOG_BADGE_CLASSNAME,
   BLOG_HUB_CATEGORIES,
@@ -13,10 +14,11 @@ import {
   UNCATEGORIZED_BADGE_CLASSNAME,
   UNCATEGORIZED_SECTION_LABEL,
 } from "@/lib/blog-hub-categories";
+import BlogCollectionStructuredData from "@/components/seo/BlogCollectionStructuredData";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  return getPublicPageMessages(locale).simpleMeta.blog;
+  return buildSimplePublicPageMetadata(locale, "/blog", getPublicPageMessages(locale).simpleMeta.blog);
 }
 
 export default async function BlogPage() {
@@ -24,7 +26,9 @@ export default async function BlogPage() {
   const t = getPublicPageBody(locale).blog;
   const { sections } = categorizeBlogPosts(getBlogPosts(locale));
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+    <>
+      <BlogCollectionStructuredData locale={locale} />
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
       <section className="motion-fade-up relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white/80 px-6 py-14 shadow-soft backdrop-blur-sm md:px-10 dark:border-slate-800 dark:bg-slate-900/70">
         <div className="pointer-events-none absolute -right-14 top-0 h-48 w-48 rounded-full bg-blue-500/15 blur-3xl" />
         <div className="max-w-3xl">
@@ -99,6 +103,7 @@ export default async function BlogPage() {
           </section>
         ) : null}
       </section>
-    </main>
+    </div>
+    </>
   );
 }

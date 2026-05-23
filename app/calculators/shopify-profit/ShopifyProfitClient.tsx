@@ -2,7 +2,6 @@
 
 import { type ChangeEvent, useMemo, useState } from "react";
 import { calculateShopifyProfit } from "@/lib/calculators";
-import RelatedCalculators from "@/components/RelatedCalculators";
 import type { AppLocale } from "@/lib/i18n/config";
 import { getShopifyProfitCopy } from "@/lib/i18n/calculator-shopify-profit";
 import {
@@ -140,10 +139,6 @@ export default function ShopifyProfitClient({
           />
         </CalculatorResultsGrid>
       </section>
-
-        <section className="mt-8">
-          <RelatedCalculators currentHref="/calculators/shopify-profit" locale={locale} />
-        </section>
       </CalculatorShell>
     );
   }

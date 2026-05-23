@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 import { FrenchLocalizedArticle } from "@/components/blog/FrenchLocalizedArticle";
 import { ArabicLocalizedArticlePhase2 } from "@/components/blog/ArabicLocalizedArticlePhase2";
@@ -29,9 +30,7 @@ const arMeta = {
 };
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/cost-of-delay-explained", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -60,7 +59,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <article className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="mb-6 text-4xl font-bold">
         Cost of Delay: What It Is and How It Silently Destroys Your Business Growth
       </h1>
@@ -138,6 +137,6 @@ export default async function Page() {
         A simple version launched today will almost always outperform a perfect version launched too late.
         Understanding cost of delay helps you move faster, make better decisions, and protect your growth.
       </p>
-    </main>
+    </article>
   );
 }

@@ -18,7 +18,7 @@ export default function LanguageSwitcher({ currentLocale, label }: Props) {
       <select
         id="language-switcher"
         aria-label={label}
-        className="ui-input rounded-lg px-2 py-1 text-xs"
+        className="ui-input min-h-11 rounded-lg px-3 py-2 text-sm"
         value={currentLocale}
         onChange={(event) => {
           const next = withLocale(basePath, event.target.value as (typeof SUPPORTED_LOCALES)[number]);

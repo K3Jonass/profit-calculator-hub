@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildBlogArticleMetadata } from "@/lib/site-metadata";
 import { getRequestLocale } from "@/lib/i18n/server";
 
 const enMeta = {
@@ -21,9 +22,7 @@ const arMeta = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getRequestLocale();
-  if (locale === "fr") return frMeta;
-  if (locale === "ar") return arMeta;
-  return enMeta;
+  return buildBlogArticleMetadata("/blog/why-breakeven-analysis-matters", locale, { en: enMeta, fr: frMeta, ar: arMeta });
 }
 
 export default async function Page() {
@@ -31,7 +30,7 @@ export default async function Page() {
 
   if (locale === "ar") {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+      <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           لماذا تحليل نقطة التعادل مهم؟ أسرع طريقة لاختبار نموذج الربح قبل التوسع
         </h1>
@@ -159,13 +158,13 @@ export default async function Page() {
           التكاليف أو الاستراتيجية قبل أن تتضخم الخسائر. في عالم الأعمال الحديث—خصوصًا في SaaS والخدمات الحرة—من لا يحلل نقطة التعادل بانتظام
           يدير مشروعه بنصف رؤية فقط.
         </p>
-      </main>
+      </article>
     );
   }
 
   if (locale !== "fr") {
     return (
-      <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+      <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
         <h1 className="mb-6 text-4xl font-bold leading-tight">
           Why Breakeven Analysis Matters: The Fastest Way to Test a Business Model
         </h1>
@@ -235,12 +234,12 @@ export default async function Page() {
           The best time to run breakeven analysis is before pricing goes live,
           before ad spend, and before you commit resources to full execution.
         </p>
-      </main>
+      </article>
     );
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
+    <article className="mx-auto max-w-3xl px-6 py-16 text-gray-900">
       <h1 className="mb-6 text-4xl font-bold leading-tight">
         Pourquoi l’analyse du point mort est le test le plus rapide d’un modèle économique
       </h1>
@@ -319,6 +318,6 @@ export default async function Page() {
       <p className="mb-6 leading-8 text-gray-700">
         L’analyse du point mort est le test de réalité le plus rapide pour un modèle économique. Elle vous dit si votre business peut survivre, puis prospérer, avec vos prix et vos coûts actuels. C’est un outil essentiel pour les entrepreneurs, les équipes SaaS et les freelances qui veulent prendre de meilleures décisions, réduire le risque et construire une croissance durable. En clair : avant d’accélérer, vérifiez le seuil de rentabilité. C’est la base d’un pilotage sérieux du profit.
       </p>
-    </main>
+    </article>
   );
 }
